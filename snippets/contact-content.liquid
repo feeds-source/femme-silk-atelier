@@ -1,0 +1,122 @@
+{% assign kicker = section.settings.kicker | default: 'Atelier concierge' %}
+{% assign title = section.settings.title | default: 'Write to the house' %}
+{% assign lede = section.settings.lede | default: 'Questions about an order, bespoke bridal consultation, or finding your size from 30B to 42C? Our atelier replies within 12 hours.' %}
+
+<section class="page-hero cine-page" style="min-height:22rem">
+  <img class="ken" src="{{ 'sleep.jpg' | asset_url }}" alt="{{ title | escape }}" width="1600" height="1000" loading="eager">
+  <div class="hero-veil"></div>
+  <div class="wrap page-hero-copy">
+    <p class="kicker">{{ kicker }}</p>
+    <h1 class="display page-title">{{ title }}</h1>
+    <p class="muted lede">{{ lede }}</p>
+  </div>
+</section>
+
+<div class="wrap section">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:3.5rem;align-items:start">
+    <div>
+      <p class="kicker">Direct communication</p>
+      <h2 class="display" style="font-style:italic;margin-top:0.5rem">Atelier assistance</h2>
+      <p class="muted" style="margin-top:1rem;line-height:1.7">
+        Every order is packed by hand in our signature black-and-gold presentation box with a printable receipt. Cash on delivery is supported globally.
+      </p>
+
+      <div style="margin-top:2rem;display:grid;gap:1.25rem">
+        <div>
+          <p class="subtle" style="font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase">Email the salon</p>
+          <a class="gold" href="mailto:{{ section.settings.contact_email | default: settings.contact_email | default: 'info@silkmoments.com' }}" style="font-size:1.1rem">
+            {{ section.settings.contact_email | default: settings.contact_email | default: 'info@silkmoments.com' }}
+          </a>
+        </div>
+        <div>
+          <p class="subtle" style="font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase">Salon hours</p>
+          <p class="muted" style="margin-top:0.25rem">{{ section.settings.hours_note | default: 'Monday – Saturday: 09:00 – 21:00 GMT' }}</p>
+        </div>
+        <div>
+          <p class="subtle" style="font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase">Fitting advice</p>
+          <p class="muted" style="margin-top:0.25rem">
+            Need sister size recommendations? Explore our <a class="gold" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">interactive size matrix</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:2rem 2.5rem;background:var(--surface);border:1px solid var(--line);border-radius:1.5rem;box-shadow:0 15px 35px rgba(0,0,0,0.3)">
+      <p class="kicker">Inquiry form</p>
+      <h3 class="display" style="font-style:italic;margin-top:0.25rem">Send a note</h3>
+
+      {% form 'contact', id: 'ContactForm' %}
+        {% if form.posted_successfully? %}
+          <div style="padding:1rem;background:rgba(212,176,106,0.15);border:1px solid var(--accent);border-radius:0.75rem;color:var(--accent);margin:1.5rem 0">
+            ✓ Thank you for reaching out. Your note has been received by the atelier team.
+          </div>
+        {% elsif form.errors %}
+          <div style="padding:1rem;background:rgba(196,91,122,0.15);border:1px solid var(--blush);border-radius:0.75rem;color:var(--blush);margin:1.5rem 0">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div style="display:grid;gap:1.25rem;margin-top:1.5rem">
+          <div>
+            <label class="kicker" for="ContactForm-name">Your name *</label>
+            <input
+              type="text"
+              id="ContactForm-name"
+              name="contact[name]"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+              required
+              placeholder="Evelyn Dupont"
+              style="width:100%;height:3rem;padding:0 1.25rem;border:1px solid var(--line);border-radius:999px;background:var(--elevated);color:var(--fg);margin-top:0.35rem"
+            >
+          </div>
+
+          <div>
+            <label class="kicker" for="ContactForm-email">Email address *</label>
+            <input
+              type="email"
+              id="ContactForm-email"
+              name="contact[email]"
+              spellcheck="false"
+              autocapitalize="off"
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+              required
+              placeholder="evelyn@domain.com"
+              style="width:100%;height:3rem;padding:0 1.25rem;border:1px solid var(--line);border-radius:999px;background:var(--elevated);color:var(--fg);margin-top:0.35rem"
+            >
+          </div>
+
+          <div>
+            <label class="kicker" for="ContactForm-subject">Inquiry type</label>
+            <select
+              id="ContactForm-subject"
+              name="contact[inquiry_type]"
+              class="size-select"
+              style="width:100%;height:3rem;padding:0 1.25rem;border:1px solid var(--line);border-radius:999px;background:var(--elevated);color:var(--fg);margin-top:0.35rem"
+            >
+              <option value="Sizing and fit advice">Sizing and fit consultation</option>
+              <option value="Order and delivery status">Order and delivery status</option>
+              <option value="Bespoke bridal styling">Bespoke bridal styling</option>
+              <option value="Wholesale and press">Wholesale and press</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="kicker" for="ContactForm-body">Message *</label>
+            <textarea
+              rows="5"
+              id="ContactForm-body"
+              name="contact[body]"
+              required
+              placeholder="How may the atelier assist your fitting or order?"
+              style="width:100%;padding:1rem 1.25rem;border:1px solid var(--line);border-radius:1rem;background:var(--elevated);color:var(--fg);margin-top:0.35rem;font-family:inherit"
+            >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+
+          <button class="btn" type="submit" style="margin-top:0.5rem;width:100%">
+            Send note to the house
+          </button>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</div>

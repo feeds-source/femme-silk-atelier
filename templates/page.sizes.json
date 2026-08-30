@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "size-guide",
+      "settings": {
+        "kicker": "Atelier fittings",
+        "title": "Size charts and fit studio",
+        "lede": "Find your precise measurements from the tape, then explore the house maps — bra cups, body ranges, corset reduction, hosiery, and silk gowns.",
+        "show_print_button": true
+      }
+    }
+  },
+  "order": ["main"]
+}

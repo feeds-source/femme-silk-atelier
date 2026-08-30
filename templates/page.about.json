@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "atelier-house",
+      "settings": {
+        "hero_kicker": "House",
+        "hero_title": "The atelier",
+        "hero_lede": "Exotic silk, cut for the body. Emerald, champagne, ruby — still-life, then motion.",
+        "button_label": "Shop the house",
+        "story_kicker": "Femme",
+        "story_heading": "An adult house of jewel silk.",
+        "story_body_1": "Femme is Silk Moments after dusk: lingerie, night, and lounge. Banners that breathe, fabric that moves. Every still is shot as a painting, then the film starts.",
+        "story_body_2": "Pieces are cut for 30B–42C and Free Size to XXL. Cash on delivery worldwide. A printable receipt at every order."
+      }
+    }
+  },
+  "order": ["main"]
+}

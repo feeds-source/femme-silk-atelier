@@ -25,7 +25,7 @@
 
     {% assign menu_links = linklists[section.settings.menu].links %}
     <nav class="nav-desk" aria-label="Primary">
-      {% if menu_links.size > 0 %}
+      {% if menu_links.size > 3 %}
         {% for link in menu_links %}
           {% if link.links.size > 0 %}
             <div class="nav-dropdown" style="position:relative;display:inline-flex;align-items:center">
@@ -45,8 +45,8 @@
       {% else %}
         <a href="{{ routes.root_url }}" class="{% if request.page_type == 'index' %}is-on{% endif %}">Home</a>
         <a href="{{ routes.all_products_collection_url }}" class="{% if request.page_type == 'collection' or request.page_type == 'product' %}is-on{% endif %}">Shop</a>
-        <a href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}" class="{% if page.handle == 'size-guide' %}is-on{% endif %}">Sizes</a>
-        <a href="{{ pages.atelier.url | default: pages['the-atelier'].url | default: pages.about.url | default: '/pages/atelier' }}" class="{% if page.handle == 'atelier' or page.handle == 'the-atelier' or page.handle == 'about' %}is-on{% endif %}">Atelier</a>
+        <a href="{{ pages['size-guide'].url | default: pages.sizes.url | default: '/pages/size-guide' }}" class="{% if page.handle == 'size-guide' or page.handle == 'sizes' %}is-on{% endif %}">Sizes</a>
+        <a href="{{ pages['the-atelier'].url | default: pages.atelier.url | default: pages.about.url | default: '/pages/the-atelier' }}" class="{% if page.handle == 'the-atelier' or page.handle == 'atelier' or page.handle == 'about' %}is-on{% endif %}">Atelier</a>
         <a href="{{ pages.contact.url | default: '/pages/contact' }}" class="{% if page.handle == 'contact' %}is-on{% endif %}">Contact</a>
       {% endif %}
     </nav>
@@ -71,7 +71,7 @@
   </div>
 
   <nav class="nav-mob" data-nav-mob>
-    {% if menu_links.size > 0 %}
+    {% if menu_links.size > 3 %}
       {% for link in menu_links %}
         <a href="{{ link.url }}">{{ link.title }}</a>
         {% if link.links.size > 0 %}
@@ -83,14 +83,14 @@
     {% else %}
       <a href="{{ routes.root_url }}">Home</a>
       <a href="{{ routes.all_products_collection_url }}">Shop</a>
-      <a href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Sizes</a>
+      <a href="{{ pages['size-guide'].url | default: pages.sizes.url | default: '/pages/size-guide' }}">Sizes</a>
+      <a href="{{ pages['the-atelier'].url | default: pages.atelier.url | default: pages.about.url | default: '/pages/the-atelier' }}">Atelier</a>
+      <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact</a>
       {% for collection in collections %}
         {% unless collection.handle == 'frontpage' or collection.all_products_count == 0 %}
-          <a href="{{ collection.url }}">{{ collection.title }}</a>
+          <a href="{{ collection.url }}" style="padding-left:1rem;color:var(--muted)">↳ {{ collection.title }}</a>
         {% endunless %}
       {% endfor %}
-      <a href="{{ pages.atelier.url | default: pages.about.url | default: '/pages/atelier' }}">Atelier</a>
-      <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact</a>
     {% endif %}
   </nav>
 
