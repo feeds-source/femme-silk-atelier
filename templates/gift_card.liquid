@@ -1,17 +1,53 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Gift card · {{ shop.name }}</title>
     {{ 'femme.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
     {{ content_for_header }}
   </head>
   <body>
-    <main class="wrap section">
+    <main class="wrap section" style="text-align:center;max-width:32rem;margin:4rem auto;padding:2rem;border:1px solid var(--line);border-radius:1.5rem;background:var(--surface)">
       <p class="kicker">{{ shop.name }}</p>
-      <h1 class="display" style="font-style:italic">Gift card</h1>
-      <p class="price" style="font-size:2rem;color:var(--accent)">{{ gift_card.balance | money }}</p>
-      <p>{{ gift_card.code | format_code }}</p>
+      <h1 class="display" style="font-style:italic;margin-top:0.5rem">Gift card</h1>
+      
+      <div style="margin:2rem 0;padding:1.5rem;border:1px solid var(--line);border-radius:1rem;background:var(--elevated)">
+        <p class="price" style="font-size:2.5rem;font-weight:600;color:var(--accent);margin:0">
+          {{ gift_card.balance | money }}
+        </p>
+        {% if gift_card.enabled == false or gift_card.expired %}
+          <p class="subtle" style="margin-top:0.5rem;color:var(--blush)">This gift card is expired or inactive.</p>
+        {% endif %}
+        <p class="gold" style="font-family:monospace;font-size:1.2rem;letter-spacing:0.18em;margin-top:1rem;background:var(--bg);padding:0.75rem;border-radius:0.5rem;border:1px dashed var(--line)">
+          {{ gift_card.code | format_code }}
+        </p>
+      </div>
+
+      <div id="QrCode" style="display:flex;justify-content:center;margin:1.5rem auto" data-identifier="{{ gift_card.qr_identifier }}"></div>
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          new QRCode(document.getElementById('QrCode'), {
+            text: '{{ gift_card.qr_identifier }}',
+            width: 120,
+            height: 120
+          });
+        });
+      </script>
+
+      {% if gift_card.pass_url %}
+        <div style="margin-top:1.5rem">
+          <a href="{{ gift_card.pass_url }}">
+            <img src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="Add to Apple Wallet" loading="lazy">
+          </a>
+        </div>
+      {% endif %}
+
+      <div style="margin-top:2rem">
+        <a class="btn" href="{{ shop.url }}">Start shopping</a>
+      </div>
     </main>
   </body>
 </html>

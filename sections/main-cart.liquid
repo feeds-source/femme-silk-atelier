@@ -17,7 +17,7 @@
     <form action="{{ routes.cart_url }}" method="post" id="cart">
       <table class="cart-table">
         <thead>
-          <tr><th>Piece</th><th>Size</th><th>Qty</th><th>Price</th></tr>
+          <tr><th>Piece</th><th>Size / Details</th><th>Qty</th><th>Price</th></tr>
         </thead>
         <tbody>
           {% for item in cart.items %}
@@ -25,16 +25,46 @@
               <td>
                 <a href="{{ item.url }}" style="display:flex;gap:0.75rem;align-items:center">
                   {% if item.image %}
-                    {{ item.image | image_url: width: 160 | image_tag: loading: 'lazy' }}
+                    {{ item.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: item.title }}
                   {% endif %}
-                  <span>{{ item.product.title }}</span>
+                  <div>
+                    <span style="font-weight:600">{{ item.product.title }}</span>
+                    {% if item.selling_plan_allocation %}
+                      <p class="subtle" style="font-size:0.75rem;margin:0.2rem 0 0">
+                        {{ item.selling_plan_allocation.selling_plan.name }}
+                      </p>
+                    {% endif %}
+                  </div>
                 </a>
               </td>
-              <td class="muted">{{ item.variant.title }}</td>
+              <td class="muted">
+                {{ item.variant.title }}
+                {% if item.unit_price_measurement %}
+                  <div class="subtle" style="font-size:0.75rem">
+                    {{ item.unit_price | money }} /
+                    {% if item.unit_price_measurement.reference_value != 1 %}
+                      {{ item.unit_price_measurement.reference_value }}
+                    {% endif %}
+                    {{ item.unit_price_measurement.reference_unit }}
+                  </div>
+                {% endif %}
+              </td>
               <td>
                 <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:4rem;height:2.5rem;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.5rem">
               </td>
-              <td>{{ item.final_line_price | money }}</td>
+              <td>
+                {% if item.original_line_price != item.final_line_price %}
+                  <s class="muted" style="font-size:0.85rem;display:block">{{ item.original_line_price | money }}</s>
+                {% endif %}
+                <span class="gold">{{ item.final_line_price | money }}</span>
+                {% if item.line_level_discount_allocations.size > 0 %}
+                  <ul style="list-style:none;padding:0;margin:0.25rem 0 0;font-size:0.75rem;color:var(--blush)">
+                    {% for discount_allocation in item.line_level_discount_allocations %}
+                      <li>🏷️ {{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </td>
             </tr>
           {% endfor %}
         </tbody>
@@ -51,13 +81,43 @@
         {% endif %}
 
         <div class="totals">
+          {% if cart.cart_level_discount_applications.size > 0 %}
+            <div style="margin-bottom:0.75rem;padding:0.5rem 0;border-bottom:1px solid var(--line)">
+              {% for discount in cart.cart_level_discount_applications %}
+                <p style="display:flex;justify-content:space-between;color:var(--blush);font-size:0.9rem;margin:0">
+                  <span>🏷️ {{ discount.title }}</span>
+                  <span>-{{ discount.total_allocated_amount | money }}</span>
+                </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
           <p style="font-size:1.15rem;display:flex;justify-content:space-between">
             <span class="muted">{{ 'cart.subtotal' | t | default: 'Subtotal' }}</span>
             <strong class="gold">{{ cart.total_price | money }}</strong>
           </p>
-          <p class="subtle" style="font-size:0.8rem;margin-top:0.25rem">Taxes and shipping calculated at checkout</p>
+
+          <p class="subtle" style="font-size:0.8rem;margin-top:0.25rem">
+            {% if cart.taxes_included %}
+              Taxes included.
+            {% else %}
+              Taxes calculated at checkout.
+            {% endif %}
+            {% if shop.shipping_policy.body != blank %}
+              <a href="{{ shop.shipping_policy.url }}" class="gold">Shipping</a> calculated at checkout.
+            {% else %}
+              Shipping calculated at checkout.
+            {% endif %}
+          </p>
+
           <button class="btn btn-ghost" type="submit" name="update" style="margin-top:1rem;width:100%">Update bag</button>
           <button class="btn" type="submit" name="checkout" style="margin-top:0.5rem;width:100%">{{ 'cart.checkout' | t | default: 'Proceed to Checkout' }}</button>
+
+          {% if additional_checkout_buttons %}
+            <div class="additional-checkout-buttons" style="margin-top:0.75rem">
+              {{ content_for_additional_checkout_buttons }}
+            </div>
+          {% endif %}
         </div>
       </div>
     </form>

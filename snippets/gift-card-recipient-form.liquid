@@ -1,0 +1,54 @@
+<div class="gift-card-recipient-form" style="margin-top:1.5rem;padding:1rem;border:1px solid var(--line);border-radius:0.75rem;background:var(--elevated)">
+  <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.85rem;color:var(--fg)">
+    <input type="checkbox" id="Recipient-checkbox-{{ section.id }}" name="properties[__shopify_send_gift_card_to_recipient]" value="if_present">
+    <span>I want to send this as a gift to someone special</span>
+  </label>
+
+  <div class="recipient-fields" style="display:grid;gap:0.75rem;margin-top:1rem" data-recipient-fields>
+    <div>
+      <label class="kicker" for="Recipient-email-{{ section.id }}">Recipient email *</label>
+      <input
+        type="email"
+        id="Recipient-email-{{ section.id }}"
+        name="properties[Recipient email]"
+        value="{{ form.email }}"
+        placeholder="recipient@example.com"
+        style="width:100%;height:2.75rem;padding:0 0.9rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);margin-top:0.25rem"
+      >
+    </div>
+
+    <div>
+      <label class="kicker" for="Recipient-name-{{ section.id }}">Recipient name (optional)</label>
+      <input
+        type="text"
+        id="Recipient-name-{{ section.id }}"
+        name="properties[Recipient name]"
+        value="{{ form.name }}"
+        placeholder="Name"
+        style="width:100%;height:2.75rem;padding:0 0.9rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);margin-top:0.25rem"
+      >
+    </div>
+
+    <div>
+      <label class="kicker" for="Recipient-message-{{ section.id }}">Message (optional)</label>
+      <textarea
+        id="Recipient-message-{{ section.id }}"
+        name="properties[Message]"
+        rows="3"
+        placeholder="With love from..."
+        style="width:100%;padding:0.75rem 0.9rem;border:1px solid var(--line);border-radius:0.5rem;background:var(--surface);color:var(--fg);margin-top:0.25rem;font-family:inherit"
+      >{{ form.message }}</textarea>
+    </div>
+
+    <div>
+      <label class="kicker" for="Recipient-send-on-{{ section.id }}">Send date (optional)</label>
+      <input
+        type="date"
+        id="Recipient-send-on-{{ section.id }}"
+        name="properties[Send on]"
+        value="{{ form.send_on }}"
+        style="width:100%;height:2.75rem;padding:0 0.9rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);margin-top:0.25rem"
+      >
+    </div>
+  </div>
+</div>

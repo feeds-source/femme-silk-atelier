@@ -1,0 +1,73 @@
+<section class="wrap section product-recommendations" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show | default: 4 }}">
+  {% if recommendations.performed and recommendations.products_count > 0 %}
+    <p class="kicker">{{ section.settings.kicker | default: 'Complementary' }}</p>
+    <h2 class="display" style="font-style:italic">{{ section.settings.heading | default: 'You may also admire' }}</h2>
+    <div class="grid-shop" style="margin-top:2rem">
+      {% for item in recommendations.products %}
+        {% render 'demo-card', p: item %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+<script>
+  (() => {
+    const handleIntersection = (entries, observer) => {
+      if (!entries[0].isIntersecting) return;
+      observer.unobserve(productRecs);
+      const url = productRecs.dataset.url;
+      fetch(url)
+        .then(response => response.text())
+        .then(text => {
+          const html = document.createElement('div');
+          html.innerHTML = text;
+          const recs = html.querySelector('.product-recommendations');
+          if (recs && recs.innerHTML.trim().length) {
+            productRecs.innerHTML = recs.innerHTML;
+          }
+        })
+        .catch(e => console.error(e));
+    };
+
+    const productRecs = document.querySelector('.product-recommendations');
+    if (productRecs) {
+      new IntersectionObserver(handleIntersection, { rootMargin: '0px 0px 400px 0px' }).observe(productRecs);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Related products",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Complementary"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You may also admire"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Maximum products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Related products"
+    }
+  ]
+}
+{% endschema %}

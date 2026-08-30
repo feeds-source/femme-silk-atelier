@@ -8,18 +8,18 @@
     "theme_support_url": "https://www.silkmoments.com/support"
   },
   {
-    "name": "Brand & Header",
+    "name": "Brand and header",
     "settings": [
       {
         "type": "text",
         "id": "brand_name",
-        "label": "Brand Wordmark",
+        "label": "Brand wordmark",
         "default": "FEMME"
       },
       {
         "type": "text",
         "id": "brand_sub",
-        "label": "Brand Subtitle",
+        "label": "Brand subtitle",
         "default": "Silk Atelier"
       },
       {
@@ -44,7 +44,7 @@
       },
       {
         "type": "header",
-        "content": "Announcement Bar"
+        "content": "Announcement bar"
       },
       {
         "type": "checkbox",
@@ -77,69 +77,69 @@
       {
         "type": "color",
         "id": "color_surface",
-        "label": "Surface / Card Background",
+        "label": "Surface / card background",
         "default": "#161114"
       },
       {
         "type": "color",
         "id": "color_elevated",
-        "label": "Elevated Background",
+        "label": "Elevated background",
         "default": "#1e171a"
       },
       {
         "type": "color",
         "id": "color_fg",
-        "label": "Primary Text",
+        "label": "Primary text",
         "default": "#f4efe6"
       },
       {
         "type": "color",
         "id": "color_muted",
-        "label": "Muted Text",
+        "label": "Muted text",
         "default": "#b7a792"
       },
       {
         "type": "color",
         "id": "color_subtle",
-        "label": "Subtle Text / Borders",
+        "label": "Subtle text / borders",
         "default": "#8a7a6c"
       },
       {
         "type": "color",
         "id": "color_accent",
-        "label": "Accent / Gold",
+        "label": "Accent / gold",
         "default": "#d4b06a"
       },
       {
         "type": "color",
         "id": "color_accent_fg",
-        "label": "Accent Text (on buttons)",
+        "label": "Accent text (on buttons)",
         "default": "#1a1210"
       },
       {
         "type": "color",
         "id": "color_blush",
-        "label": "Blush / Secondary Accent",
+        "label": "Blush / secondary accent",
         "default": "#c45b7a"
       },
       {
         "type": "color",
         "id": "color_line",
-        "label": "Divider Lines",
+        "label": "Divider lines",
         "default": "#3a2d32"
       }
     ]
   },
   {
-    "name": "Cart & Drawer",
+    "name": "Cart",
     "settings": [
       {
         "type": "select",
         "id": "cart_type",
         "label": "Cart type",
         "options": [
-          { "value": "drawer", "label": "Slide-out Drawer" },
-          { "value": "page", "label": "Dedicated Page" }
+          { "value": "drawer", "label": "Drawer" },
+          { "value": "page", "label": "Page" }
         ],
         "default": "drawer"
       },
@@ -183,7 +183,7 @@
     ]
   },
   {
-    "name": "Footer & Legal",
+    "name": "Footer",
     "settings": [
       {
         "type": "textarea",
@@ -200,7 +200,7 @@
       {
         "type": "checkbox",
         "id": "show_currency_selector",
-        "label": "Enable country/currency selector",
+        "label": "Enable country and currency selector",
         "default": true
       },
       {

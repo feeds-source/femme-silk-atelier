@@ -1,5 +1,5 @@
 <section class="page-hero">
-  <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="" width="1600" height="1000">
+  <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="Search the atelier" width="1600" height="1000">
   <div class="hero-veil"></div>
   <div class="wrap page-hero-copy">
     <p class="kicker">Search</p>
@@ -10,10 +10,11 @@
 
 <div class="wrap section">
   <form action="{{ routes.search_url }}" method="get" role="search" class="search-page-form" data-search-page>
-    <label class="search-input-wrap">
-      <span class="visually-hidden">Search the atelier</span>
+    <div class="search-input-wrap">
+      <label for="Search-In-Template" class="visually-hidden">Search the atelier</label>
       <span class="search-icon" aria-hidden="true">⌕</span>
       <input
+        id="Search-In-Template"
         class="search-input"
         type="search"
         name="q"
@@ -21,34 +22,63 @@
         placeholder="Search silk gowns, babydolls, bras, sizes..."
         data-search-page-input
       >
-    </label>
-    <input type="hidden" name="options[prefix]" value="last">
-    <button class="btn" type="submit">Search</button>
+      <input type="hidden" name="options[prefix]" value="last">
+      <button class="btn" type="submit" style="margin-left:0.5rem">Search</button>
+    </div>
   </form>
 
   <div class="search-block" data-search-aisles></div>
 
-  <p class="muted" data-search-count style="margin-top:2rem">
-    {% if search.performed %}
-      {{ search.results_count }} {{ search.results_count | pluralize: 'piece', 'pieces' }}
-    {% else %}
-      Type two letters to search the atelier.
-    {% endif %}
-  </p>
-
-  <div class="grid-shop" data-search-grid style="margin-top:2rem">
-    {% assign shown = 0 %}
-    {% for item in search.results %}
-      {% if item.object_type == 'product' %}
-        {% render 'product-card', product: item %}
-        {% assign shown = shown | plus: 1 %}
+  {% if search.performed %}
+    <p class="muted" data-search-count style="margin-top:2rem">
+      {% if search.results_count > 0 %}
+        Found {{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} for "{{ search.terms }}"
+      {% else %}
+        No results found for "{{ search.terms }}". Try checking your spelling or using different keywords.
       {% endif %}
-    {% endfor %}
-    {% if shown == 0 %}
-      {% render 'demo-catalog', mode: 'all', max_items: 36 %}
-    {% endif %}
-  </div>
+    </p>
+
+    {% paginate search.results by 24 %}
+      <div class="grid-shop" data-search-grid style="margin-top:2rem">
+        {% for item in search.results %}
+          {% case item.object_type %}
+            {% when 'product' %}
+              {% render 'product-card', product: item %}
+            {% when 'article' %}
+              <article class="product-tile" style="padding:1.5rem;background:var(--surface);border:1px solid var(--line);border-radius:1.25rem">
+                <p class="kicker">Journal Article</p>
+                <h3 style="margin-top:0.5rem"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                <p class="muted" style="margin-top:0.5rem;font-size:0.85rem">{{ item.excerpt_or_content | strip_html | truncate: 120 }}</p>
+                <a class="gold" href="{{ item.url }}" style="display:inline-block;margin-top:1rem;font-size:0.8rem">Read entry &rarr;</a>
+              </article>
+            {% when 'page' %}
+              <article class="product-tile" style="padding:1.5rem;background:var(--surface);border:1px solid var(--line);border-radius:1.25rem">
+                <p class="kicker">House Page</p>
+                <h3 style="margin-top:0.5rem"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                <p class="muted" style="margin-top:0.5rem;font-size:0.85rem">{{ item.content | strip_html | truncate: 120 }}</p>
+                <a class="gold" href="{{ item.url }}" style="display:inline-block;margin-top:1rem;font-size:0.8rem">Visit page &rarr;</a>
+              </article>
+          {% endcase %}
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        <div class="filters" style="margin-top:2rem">{{ paginate | default_pagination }}</div>
+      {% endif %}
+    {% endpaginate %}
+  {% else %}
+    <p class="muted" style="margin-top:2rem">Type keywords above to search all products, pages, and journal entries in the atelier.</p>
+    <div class="grid-shop" style="margin-top:2rem">
+      {% render 'demo-catalog', mode: 'all', max_items: 12 %}
+    </div>
+  {% endif %}
 </div>
+
 {% schema %}
-{ "name": "Search", "settings": [] }
+{
+  "name": "Search",
+  "tag": "section",
+  "class": "section",
+  "settings": []
+}
 {% endschema %}

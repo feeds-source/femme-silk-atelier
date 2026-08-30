@@ -84,7 +84,7 @@
     <div class="legal" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem">
       <div>
         <p>{{ 'general.cod' | t | default: 'Cash on delivery worldwide' }} · {{ 'general.sizes' | t | default: 'Size guide support' }}</p>
-        <p>© {{ 'now' | date: '%Y' }} {{ shop.name }} · Silk Atelier</p>
+        <p>© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ powered_by_link }}</p>
       </div>
 
       {% render 'localization-selector' %}

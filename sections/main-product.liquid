@@ -46,6 +46,21 @@
                 <span class="tag tag--sale" style="background:var(--blush);color:#fff;font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:999px">Sale</span>
               {% endif %}
             </div>
+            {% if current.unit_price_measurement %}
+              <div class="unit-price muted" style="font-size:0.75rem;margin-top:0.25rem">
+                {{ current.unit_price | money }} /
+                {% if current.unit_price_measurement.reference_value != 1 %}
+                  {{ current.unit_price_measurement.reference_value }}
+                {% endif %}
+                {{ current.unit_price_measurement.reference_unit }}
+              </div>
+            {% endif %}
+            {% if cart.taxes_included or shop.shipping_policy.body != blank %}
+              <div class="product__tax-note muted" style="font-size:0.75rem;margin-top:0.35rem">
+                {% if cart.taxes_included %}Tax included.{% endif %}
+                {% if shop.shipping_policy.body != blank %}<a href="{{ shop.shipping_policy.url }}" class="gold">Shipping</a> calculated at checkout.{% endif %}
+              </div>
+            {% endif %}
           </div>
 
         {% when 'description' %}
@@ -56,6 +71,9 @@
         {% when 'variant_picker' %}
           <div class="product-block" {{ block.shopify_attributes }}>
             {% form 'product', product, id: 'product-form-main', data-ajax: true %}
+              {% if product.gift_card? %}
+                {% render 'gift-card-recipient-form', product: product, form: form %}
+              {% endif %}
               {% unless product.has_only_default_variant %}
                 <fieldset class="variants">
                   <legend class="kicker">{{ block.settings.size_label | default: 'Size' }}</legend>
@@ -116,12 +134,25 @@
                   {{ 'products.sold_out' | t | default: 'Sold Out' }}
                 {% endif %}
               </button>
+              <div class="product__payment-terms" style="margin-top:0.75rem">
+                {{ form | payment_terms }}
+              </div>
               {% if block.settings.show_dynamic_checkout and current.available %}
                 <div style="margin-top:0.75rem">
                   {{ form | payment_button }}
                 </div>
               {% endif %}
             {% endform %}
+            {% if block.settings.show_pickup_availability %}
+              <div class="pickup-availability" style="margin-top:1rem" data-pickup-availability>
+                {% assign pick_up_availabilities = current.store_availabilities | where: 'pick_up_enabled', true %}
+                {% if pick_up_availabilities.size > 0 and current.available %}
+                  <p class="gold" style="font-size:0.8rem;display:flex;align-items:center;gap:0.4rem">
+                    <span>✓</span> Pickup available at atelier locations
+                  </p>
+                {% endif %}
+              </div>
+            {% endif %}
             {% if block.settings.show_trust_note %}
               <p class="muted" style="margin-top:0.75rem;font-size:0.8rem">
                 {{ 'general.sizes' | t | default: 'Complimentary size exchange' }} · {{ 'general.cod' | t | default: 'Cash on delivery worldwide' }}
