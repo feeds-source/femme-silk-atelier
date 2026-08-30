@@ -8,7 +8,31 @@
  * ------------------------------------------------------------
  */
 {
-  "current": "Noir Atelier",
+  "current": {
+    "brand_name": "FEMME",
+    "brand_sub": "Silk Atelier",
+    "show_announcement": true,
+    "announcement_text": "Complimentary discreet packaging · Cash on delivery worldwide · Free size exchanges within 14 days",
+    "color_bg": "#0c0a0b",
+    "color_surface": "#161114",
+    "color_elevated": "#1e171a",
+    "color_fg": "#f4efe6",
+    "color_muted": "#b7a792",
+    "color_subtle": "#8a7a6c",
+    "color_accent": "#d4b06a",
+    "color_accent_fg": "#1a1210",
+    "color_blush": "#c45b7a",
+    "color_line": "#3a2d32",
+    "cart_type": "drawer",
+    "enable_cart_notes": true,
+    "free_shipping_threshold": 150,
+    "brand_line": "Exotic silk, cut for the body.",
+    "contact_email": "info@silkmoments.com",
+    "show_currency_selector": true,
+    "show_language_selector": true,
+    "show_payment_icons": true,
+    "content_for_index": []
+  },
   "presets": {
     "Noir Atelier": {
       "brand_name": "FEMME",
