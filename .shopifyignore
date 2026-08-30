@@ -4,3 +4,4 @@
 .github
 *.zip
 node_modules
+temp

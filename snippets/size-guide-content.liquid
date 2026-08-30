@@ -98,187 +98,106 @@
   <div class="bars">
     <article>
       <p class="kicker">Cup volume · bust minus band</p>
-      {% assign cups = "A:59:12–14 cm:4.7–5.5 in:1″ gap,B:68:14–16 cm:5.5–6.3 in:2″ gap,C:77:16–18 cm:6.3–7.1 in:3″ gap,D:86:18–20 cm:7.1–7.9 in:4″ gap" | split: "," %}
+      {% assign cups = "A:59:12–14,B:68:14–16,C:77:16–18,D:86:18–20" | split: "," %}
       {% for c in cups %}
         {% assign p = c | split: ":" %}
         <div class="bar-row">
-          <span class="bar-label">{{ p[0] }}</span>
+          <span>{{ p[0] }}</span>
           <div class="bar-track"><div class="bar-fill" style="width:{{ p[1] }}%"></div></div>
-          <span class="subtle bar-value"><strong>{{ p[2] }}</strong> <small>({{ p[3] }})</small></span>
+          <span class="subtle">{{ p[2] }} cm</span>
         </div>
       {% endfor %}
     </article>
 
     <article>
-      <p class="kicker">Band · underbust measurement</p>
-      {% assign bands = "30:18:63–67 cm:25–26.5 in,32:29:68–72 cm:27–28.5 in,34:43:73–77 cm:29–30.5 in,36:57:78–82 cm:31–32.5 in,38:71:83–87 cm:33–34.5 in,40:86:88–92 cm:35–36.5 in,42:100:93–97 cm:37–38.5 in" | split: "," %}
+      <p class="kicker">Band · underbust cm</p>
+      {% assign bands = "30:18:63–67,32:29:68–72,34:43:73–77,36:57:78–82,38:71:83–87,40:86:88–92,42:100:93–97" | split: "," %}
       {% for b in bands %}
         {% assign p = b | split: ":" %}
         <div class="bar-row">
-          <span class="bar-label">{{ p[0] }}</span>
+          <span>{{ p[0] }}</span>
           <div class="bar-track"><div class="bar-fill blush" style="width:{{ p[1] }}%"></div></div>
-          <span class="subtle bar-value"><strong>{{ p[2] }}</strong> <small>({{ p[3] }})</small></span>
+          <span class="subtle">{{ p[2] }} cm</span>
         </div>
       {% endfor %}
+    </article>
+  </div>
+
+  <div class="bars" style="margin-top:2rem">
+    <article>
+      <p class="kicker">Size progression · midpoints cm</p>
+      {% assign mids = "XS:36:22:44,S:43:27:51,M:50:31:59,L:57:36:66,XL:66:43:74,XXL:76:51:84" | split: "," %}
+      {% for row in mids %}
+        {% assign p = row | split: ":" %}
+        <div class="bar-row">
+          <span>{{ p[0] }}</span>
+          <div class="bar-track stacked">
+            <div class="bar-fill" style="width:{{ p[1] }}%"></div>
+          </div>
+          <span class="subtle">Bust {{ p[1] | plus: 54 }} cm</span>
+        </div>
+        <div class="bar-row">
+          <span></span>
+          <div class="bar-track stacked">
+            <div class="bar-fill blush" style="width:{{ p[2] }}%"></div>
+          </div>
+          <span class="subtle">Waist {{ p[2] | plus: 54 }} cm</span>
+        </div>
+        <div class="bar-row">
+          <span></span>
+          <div class="bar-track stacked">
+            <div class="bar-fill muted" style="width:{{ p[3] }}%"></div>
+          </div>
+          <span class="subtle">Hip {{ p[3] | plus: 54 }} cm</span>
+        </div>
+      {% endfor %}
+      <p class="range-legend" style="margin-top:0.75rem">
+        <span><b style="background:var(--accent)"></b>Bust</span>
+        <span><b style="background:var(--blush)"></b>Waist</span>
+        <span><b style="background:var(--muted)"></b>Hip</span>
+      </p>
     </article>
   </div>
 
   <p class="kicker" style="margin-top:3.5rem">XS to XXL</p>
   <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Body ranges</h2>
   <div class="range-chart">
-    <p class="kicker">Bust · waist · hip with exact measurements</p>
-    
-    <div class="range-card">
-      <div class="range-head">
-        <span class="pill is-on">XS</span>
-        <div class="range-specs">
-          <span class="spec-item"><b style="background:var(--accent)"></b>Bust: <strong>78–82 cm</strong> <small>(30.5–32.5″)</small></span>
-          <span class="spec-item"><b style="background:var(--blush)"></b>Waist: <strong>60–64 cm</strong> <small>(23.5–25″)</small></span>
-          <span class="spec-item"><b style="background:var(--muted)"></b>Hip: <strong>86–90 cm</strong> <small>(34–35.5″)</small></span>
-        </div>
-      </div>
-      <div class="range-track">
-        <i class="bust" style="left:32.9%;width:5.7%" title="Bust 78–82 cm"></i>
-        <i class="waist" style="left:7.1%;width:5.7%" title="Waist 60–64 cm"></i>
-        <i class="hip" style="left:44.3%;width:5.7%" title="Hip 86–90 cm"></i>
-      </div>
-    </div>
-
-    <div class="range-card">
-      <div class="range-head">
-        <span class="pill is-on">S</span>
-        <div class="range-specs">
-          <span class="spec-item"><b style="background:var(--accent)"></b>Bust: <strong>83–87 cm</strong> <small>(32.5–34.5″)</small></span>
-          <span class="spec-item"><b style="background:var(--blush)"></b>Waist: <strong>65–69 cm</strong> <small>(25.5–27″)</small></span>
-          <span class="spec-item"><b style="background:var(--muted)"></b>Hip: <strong>91–95 cm</strong> <small>(36–37.5″)</small></span>
-        </div>
-      </div>
-      <div class="range-track">
-        <i class="bust" style="left:40%;width:5.7%" title="Bust 83–87 cm"></i>
-        <i class="waist" style="left:14.3%;width:5.7%" title="Waist 65–69 cm"></i>
-        <i class="hip" style="left:51.4%;width:5.7%" title="Hip 91–95 cm"></i>
-      </div>
-    </div>
-
-    <div class="range-card">
-      <div class="range-head">
-        <span class="pill is-on">M</span>
-        <div class="range-specs">
-          <span class="spec-item"><b style="background:var(--accent)"></b>Bust: <strong>88–92 cm</strong> <small>(34.5–36″)</small></span>
-          <span class="spec-item"><b style="background:var(--blush)"></b>Waist: <strong>70–74 cm</strong> <small>(27.5–29″)</small></span>
-          <span class="spec-item"><b style="background:var(--muted)"></b>Hip: <strong>96–100 cm</strong> <small>(38–39.5″)</small></span>
-        </div>
-      </div>
-      <div class="range-track">
-        <i class="bust" style="left:47.1%;width:5.7%" title="Bust 88–92 cm"></i>
-        <i class="waist" style="left:21.4%;width:5.7%" title="Waist 70–74 cm"></i>
-        <i class="hip" style="left:58.6%;width:5.7%" title="Hip 96–100 cm"></i>
-      </div>
-    </div>
-
-    <div class="range-card">
-      <div class="range-head">
-        <span class="pill is-on">L</span>
-        <div class="range-specs">
-          <span class="spec-item"><b style="background:var(--accent)"></b>Bust: <strong>93–97 cm</strong> <small>(36.5–38″)</small></span>
-          <span class="spec-item"><b style="background:var(--blush)"></b>Waist: <strong>75–79 cm</strong> <small>(29.5–31″)</small></span>
-          <span class="spec-item"><b style="background:var(--muted)"></b>Hip: <strong>101–105 cm</strong> <small>(40–41.5″)</small></span>
-        </div>
-      </div>
-      <div class="range-track">
-        <i class="bust" style="left:54.3%;width:5.7%" title="Bust 93–97 cm"></i>
-        <i class="waist" style="left:28.6%;width:5.7%" title="Waist 75–79 cm"></i>
-        <i class="hip" style="left:65.7%;width:5.7%" title="Hip 101–105 cm"></i>
-      </div>
-    </div>
-
-    <div class="range-card">
-      <div class="range-head">
-        <span class="pill is-on">XL</span>
-        <div class="range-specs">
-          <span class="spec-item"><b style="background:var(--accent)"></b>Bust: <strong>98–104 cm</strong> <small>(38.5–41″)</small></span>
-          <span class="spec-item"><b style="background:var(--blush)"></b>Waist: <strong>80–86 cm</strong> <small>(31.5–34″)</small></span>
-          <span class="spec-item"><b style="background:var(--muted)"></b>Hip: <strong>106–112 cm</strong> <small>(41.5–44″)</small></span>
-        </div>
-      </div>
-      <div class="range-track">
-        <i class="bust" style="left:61.4%;width:8.6%" title="Bust 98–104 cm"></i>
-        <i class="waist" style="left:35.7%;width:8.6%" title="Waist 80–86 cm"></i>
-        <i class="hip" style="left:72.9%;width:8.6%" title="Hip 106–112 cm"></i>
-      </div>
-    </div>
-
-    <div class="range-card">
-      <div class="range-head">
-        <span class="pill is-on">XXL</span>
-        <div class="range-specs">
-          <span class="spec-item"><b style="background:var(--accent)"></b>Bust: <strong>105–112 cm</strong> <small>(41.5–44″)</small></span>
-          <span class="spec-item"><b style="background:var(--blush)"></b>Waist: <strong>87–94 cm</strong> <small>(34.5–37″)</small></span>
-          <span class="spec-item"><b style="background:var(--muted)"></b>Hip: <strong>113–120 cm</strong> <small>(44.5–47″)</small></span>
-        </div>
-      </div>
-      <div class="range-track">
-        <i class="bust" style="left:71.4%;width:10%" title="Bust 105–112 cm"></i>
-        <i class="waist" style="left:45.7%;width:10%" title="Waist 87–94 cm"></i>
-        <i class="hip" style="left:82.9%;width:10%" title="Hip 113–120 cm"></i>
-      </div>
-    </div>
-
+    <p class="kicker">Bust · waist · hip, cm · scale 55–125</p>
+    <div class="range-row"><span>XS</span><div class="range-track">
+      <i class="bust" style="left:32.9%;width:5.7%"></i>
+      <i class="waist" style="left:7.1%;width:5.7%"></i>
+      <i class="hip" style="left:44.3%;width:5.7%"></i>
+    </div><span class="subtle">B 79 · W 63 · H 87 cm</span></div>
+    <div class="range-row"><span>S</span><div class="range-track">
+      <i class="bust" style="left:40%;width:5.7%"></i>
+      <i class="waist" style="left:14.3%;width:5.7%"></i>
+      <i class="hip" style="left:51.4%;width:5.7%"></i>
+    </div><span class="subtle">B 84 · W 67 · H 92 cm</span></div>
+    <div class="range-row"><span>M</span><div class="range-track">
+      <i class="bust" style="left:47.1%;width:5.7%"></i>
+      <i class="waist" style="left:21.4%;width:5.7%"></i>
+      <i class="hip" style="left:58.6%;width:5.7%"></i>
+    </div><span class="subtle">B 89 · W 72 · H 97 cm</span></div>
+    <div class="range-row"><span>L</span><div class="range-track">
+      <i class="bust" style="left:54.3%;width:5.7%"></i>
+      <i class="waist" style="left:28.6%;width:5.7%"></i>
+      <i class="hip" style="left:65.7%;width:5.7%"></i>
+    </div><span class="subtle">B 94 · W 77 · H 102 cm</span></div>
+    <div class="range-row"><span>XL</span><div class="range-track">
+      <i class="bust" style="left:61.4%;width:8.6%"></i>
+      <i class="waist" style="left:35.7%;width:8.6%"></i>
+      <i class="hip" style="left:72.9%;width:8.6%"></i>
+    </div><span class="subtle">B 99–104 · W 82–87 · H 107–112 cm</span></div>
+    <div class="range-row"><span>XXL</span><div class="range-track">
+      <i class="bust" style="left:71.4%;width:10%"></i>
+      <i class="waist" style="left:45.7%;width:10%"></i>
+      <i class="hip" style="left:82.9%;width:10%"></i>
+    </div><span class="subtle">B 106–112 · W 90–96 · H 114–120 cm</span></div>
     <p class="range-legend">
-      <span><b style="background:var(--accent)"></b>Bust (Gold)</span>
-      <span><b style="background:var(--blush)"></b>Waist (Blush)</span>
-      <span><b style="background:var(--muted)"></b>Hip (Muted)</span>
+      <span><b style="background:var(--accent)"></b>Bust</span>
+      <span><b style="background:var(--blush)"></b>Waist</span>
+      <span><b style="background:var(--muted)"></b>Hip</span>
     </p>
-  </div>
-
-  <div class="bars" style="margin-top:2rem">
-    <article>
-      <p class="kicker">Size progression · midpoints cm</p>
-      {% assign mids = "XS:36:22:44:80 cm:62 cm:88 cm,S:43:27:51:85 cm:67 cm:93 cm,M:50:31:59:90 cm:72 cm:98 cm,L:57:36:66:95 cm:77 cm:103 cm,XL:66:43:74:101 cm:83 cm:109 cm,XXL:76:51:84:108.5 cm:90.5 cm:116.5 cm" | split: "," %}
-      {% for row in mids %}
-        {% assign p = row | split: ":" %}
-        <div class="bar-row" style="margin-top:1.25rem">
-          <span class="bar-label">{{ p[0] }}</span>
-          <div class="bar-track stacked">
-            <div class="bar-fill" style="width:{{ p[1] }}%"></div>
-          </div>
-          <span class="subtle bar-value"><strong style="color:var(--accent)">Bust {{ p[4] }}</strong></span>
-        </div>
-        <div class="bar-row" style="margin-top:0.35rem">
-          <span class="bar-label"></span>
-          <div class="bar-track stacked">
-            <div class="bar-fill blush" style="width:{{ p[2] }}%"></div>
-          </div>
-          <span class="subtle bar-value"><strong style="color:var(--blush)">Waist {{ p[5] }}</strong></span>
-        </div>
-        <div class="bar-row" style="margin-top:0.35rem;margin-bottom:0.75rem">
-          <span class="bar-label"></span>
-          <div class="bar-track stacked">
-            <div class="bar-fill muted" style="width:{{ p[3] }}%"></div>
-          </div>
-          <span class="subtle bar-value"><strong style="color:var(--muted)">Hip {{ p[6] }}</strong></span>
-        </div>
-      {% endfor %}
-      <p class="range-legend" style="margin-top:0.75rem">
-        <span><b style="background:var(--accent)"></b>Bust midpoint</span>
-        <span><b style="background:var(--blush)"></b>Waist midpoint</span>
-        <span><b style="background:var(--muted)"></b>Hip midpoint</span>
-      </p>
-    </article>
-
-    <article>
-      <p class="kicker">Nighties & Babydolls · length</p>
-      {% assign nl = "S:82 cm:32.3 in:70:Short hem,M:84 cm:33.1 in:78:House default,L:86 cm:33.9 in:86:Ease through hip,XL:88 cm:34.6 in:94:Longer strap drop" | split: "," %}
-      {% for c in nl %}
-        {% assign p = c | split: ":" %}
-        <div class="bar-row" style="margin-top:1rem">
-          <span class="bar-label">{{ p[0] }}</span>
-          <div class="bar-track"><div class="bar-fill" style="width:{{ p[3] }}%"></div></div>
-          <span class="subtle bar-value"><strong>{{ p[1] }}</strong> <small>({{ p[2] }})</small></span>
-        </div>
-        <p class="subtle" style="font-size:0.75rem;padding-left:3.35rem;margin-top:0.15rem;color:var(--muted)">↳ {{ p[4] }}</p>
-      {% endfor %}
-    </article>
   </div>
 </div>
 
@@ -288,30 +207,20 @@
   <p class="muted" style="max-width:32rem;margin-top:0.75rem">House labels are UK/US band and XS–XXL. Match a label from another market here before you order.</p>
   
   <div class="range-chart">
-    <p class="kicker">Dress numbers comparison</p>
-    {% assign dress = "XS:10:4:33:UK 4–6:US 0–2:EU 32–34,S:18:10:37:UK 8–10:US 4–6:EU 36–38,M:26:18:41:UK 12–14:US 8–10:EU 40–42,L:34:26:45:UK 16–18:US 12–14:EU 44–46,XL:42:34:49:UK 20–22:US 16–18:EU 48–50,XXL:50:42:53:UK 24–26:US 20–22:EU 52–54" | split: "," %}
+    <p class="kicker">Dress numbers · UK / US / EU</p>
+    {% assign dress = "XS:10:4:33,S:18:10:37,M:26:18:41,L:34:26:45,XL:42:34:49,XXL:50:42:53" | split: "," %}
     {% for row in dress %}
       {% assign p = row | split: ":" %}
-      <div class="range-card">
-        <div class="range-head">
-          <span class="pill is-on">{{ p[0] }}</span>
-          <div class="range-specs">
-            <span class="spec-item"><b style="background:var(--accent)"></b><strong>{{ p[4] }}</strong></span>
-            <span class="spec-item"><b style="background:var(--blush)"></b><strong>{{ p[5] }}</strong></span>
-            <span class="spec-item"><b style="background:var(--muted)"></b><strong>{{ p[6] }}</strong></span>
-          </div>
-        </div>
-        <div class="range-track">
-          <i class="bust" style="left:0;width:{{ p[1] }}%"></i>
-          <i class="waist" style="left:0;width:{{ p[2] }}%"></i>
-          <i class="hip" style="left:0;width:{{ p[3] }}%"></i>
-        </div>
-      </div>
+      <div class="range-row"><span>{{ p[0] }}</span><div class="range-track">
+        <i class="bust" style="left:0;width:{{ p[1] }}%"></i>
+        <i class="waist" style="left:0;width:{{ p[2] }}%"></i>
+        <i class="hip" style="left:0;width:{{ p[3] }}%"></i>
+      </div><span class="subtle">UK {{ p[1] | times: 1 | divided_by: 5 | plus: 4 }} · US {{ p[2] | times: 1 | divided_by: 5 | plus: 0 }} · EU {{ p[3] | times: 1 | divided_by: 3 | plus: 30 }}</span></div>
     {% endfor %}
     <p class="range-legend">
-      <span><b style="background:var(--accent)"></b>UK standard</span>
-      <span><b style="background:var(--blush)"></b>US standard</span>
-      <span><b style="background:var(--muted)"></b>EU standard</span>
+      <span><b style="background:var(--accent)"></b>UK</span>
+      <span><b style="background:var(--blush)"></b>US</span>
+      <span><b style="background:var(--muted)"></b>EU</span>
     </p>
   </div>
 
@@ -444,22 +353,7 @@
   <section id="gowns" class="scroll-pad" style="padding-top:4rem">
     <p class="kicker">M–XXL</p>
     <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Gowns</h2>
-    <div class="bars">
-      <article style="grid-column: 1 / -1">
-        <p class="kicker">Hem length vs recommended floor height</p>
-        {% assign gl = "M:145 cm:57.1 in:165–170 cm:5′5″–5′7″:70,L:147 cm:57.9 in:168–173 cm:5′6″–5′8″:78,XL:149 cm:58.7 in:170–176 cm:5′7″–5′9″:86,XXL:151 cm:59.4 in:172–178 cm:5′8″–5′10″:94" | split: "," %}
-        {% for c in gl %}
-          {% assign p = c | split: ":" %}
-          <div class="bar-row" style="margin-top:1.15rem">
-            <span class="bar-label">{{ p[0] }}</span>
-            <div class="bar-track"><div class="bar-fill" style="width:{{ p[5] }}%"></div></div>
-            <span class="subtle bar-value">Hem <strong>{{ p[1] }}</strong> <small>({{ p[2] }})</small> · Floor <strong>{{ p[3] }}</strong></span>
-          </div>
-        {% endfor %}
-      </article>
-    </div>
-
-    <div style="overflow-x:auto;margin-top:1.5rem">
+    <div style="overflow-x:auto">
       <table class="chart-table">
         <thead><tr><th>Size</th><th>Bust cm</th><th>Waist cm</th><th>Hip cm</th><th>Length cm</th><th>Floor height</th><th>Length in</th></tr></thead>
         <tbody>
@@ -478,32 +372,41 @@
     <p class="muted" style="max-width:32rem;margin-top:0.75rem">Size to the open waist. Closed is after lacing. Do not size down more than 4–6 cm.</p>
     
     <div class="range-chart">
-      <p class="kicker">Rib · Open waist · Laced closed measurements</p>
-
-      {% assign corsets = "XS:58–62 cm:22.8–24.4″:64–68 cm:25.2–26.8″:70–74 cm:33.3:6.7:23.3:13.3,S:63–67 cm:24.8–26.4″:69–73 cm:27.2–28.7″:75–79 cm:41.7:6.7:31.7:21.7,M:68–72 cm:26.8–28.3″:74–78 cm:29.1–30.7″:80–84 cm:50:6.7:40:30,L:73–77 cm:28.7–30.3″:79–83 cm:31.1–32.7″:85–89 cm:58.3:6.7:48.3:38.3,XL:78–84 cm:30.7–33.1″:84–90 cm:33.1–35.4″:90–96 cm:66.7:10:56.7:46.7,XXL:85–92 cm:33.5–36.2″:91–98 cm:35.8–38.6″:97–104 cm:78.3:11.7:68.3:58.3" | split: "," %}
-      {% for item in corsets %}
-        {% assign p = item | split: ":" %}
-        <div class="range-card">
-          <div class="range-head">
-            <span class="pill is-on">{{ p[0] }}</span>
-            <div class="range-specs">
-              <span class="spec-item"><b style="background:var(--accent)"></b>Closed: <strong>{{ p[1] }}</strong> <small>({{ p[2] }})</small></span>
-              <span class="spec-item"><b style="background:var(--blush)"></b>Open: <strong>{{ p[3] }}</strong> <small>({{ p[4] }})</small></span>
-              <span class="spec-item"><b style="background:var(--muted)"></b>Rib: <strong>{{ p[5] }}</strong> · <strong>4–6 cm reduction</strong></span>
-            </div>
-          </div>
-          <div class="range-track">
-            <i class="hip" style="left:{{ p[6] }}%;width:{{ p[7] }}%" title="Rib {{ p[5] }}"></i>
-            <i class="waist" style="left:{{ p[8] }}%;width:{{ p[7] }}%" title="Open {{ p[3] }}"></i>
-            <i class="bust" style="left:{{ p[9] }}%;width:{{ p[7] }}%" title="Closed {{ p[1] }}"></i>
-          </div>
-        </div>
-      {% endfor %}
-
+      <p class="kicker">Rib · open · laced closed, cm · scale 50–110</p>
+      <div class="range-row"><span>XS</span><div class="range-track">
+        <i class="hip" style="left:33.3%;width:6.7%"></i>
+        <i class="waist" style="left:23.3%;width:6.7%"></i>
+        <i class="bust" style="left:13.3%;width:6.7%"></i>
+      </div><span class="subtle">Rib 58 · Open 64 · Closed 70 cm</span></div>
+      <div class="range-row"><span>S</span><div class="range-track">
+        <i class="hip" style="left:41.7%;width:6.7%"></i>
+        <i class="waist" style="left:31.7%;width:6.7%"></i>
+        <i class="bust" style="left:21.7%;width:6.7%"></i>
+      </div><span class="subtle">Rib 63 · Open 69 · Closed 75 cm</span></div>
+      <div class="range-row"><span>M</span><div class="range-track">
+        <i class="hip" style="left:50%;width:6.7%"></i>
+        <i class="waist" style="left:40%;width:6.7%"></i>
+        <i class="bust" style="left:30%;width:6.7%"></i>
+      </div><span class="subtle">Rib 68 · Open 74 · Closed 80 cm</span></div>
+      <div class="range-row"><span>L</span><div class="range-track">
+        <i class="hip" style="left:58.3%;width:6.7%"></i>
+        <i class="waist" style="left:48.3%;width:6.7%"></i>
+        <i class="bust" style="left:38.3%;width:6.7%"></i>
+      </div><span class="subtle">Rib 73 · Open 79 · Closed 85 cm</span></div>
+      <div class="range-row"><span>XL</span><div class="range-track">
+        <i class="hip" style="left:66.7%;width:10%"></i>
+        <i class="waist" style="left:56.7%;width:10%"></i>
+        <i class="bust" style="left:46.7%;width:10%"></i>
+      </div><span class="subtle">Rib 78–83 · Open 84–89 · Closed 90–96 cm</span></div>
+      <div class="range-row"><span>XXL</span><div class="range-track">
+        <i class="hip" style="left:78.3%;width:11.7%"></i>
+        <i class="waist" style="left:68.3%;width:11.7%"></i>
+        <i class="bust" style="left:58.3%;width:11.7%"></i>
+      </div><span class="subtle">Rib 87–94 · Open 93–100 · Closed 99–107 cm</span></div>
       <p class="range-legend">
-        <span><b style="background:var(--accent)"></b>Closed (Gold)</span>
-        <span><b style="background:var(--blush)"></b>Open (Blush)</span>
-        <span><b style="background:var(--muted)"></b>Rib (Muted)</span>
+        <span><b style="background:var(--accent)"></b>Closed</span>
+        <span><b style="background:var(--blush)"></b>Open</span>
+        <span><b style="background:var(--muted)"></b>Rib</span>
       </p>
     </div>
 
@@ -526,29 +429,13 @@
     <p class="kicker">Hold-ups & seamed</p>
     <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Hosiery</h2>
     <div class="range-chart">
-      <p class="kicker">Height & thigh measurement ranges</p>
-
-      {% assign hoses = "XS:150–158 cm:59–62″ (4′11″–5′2″):48–52 cm:19–20.5″:70–74 cm:12.5:20,S:155–163 cm:61–64″ (5′1″–5′4″):50–54 cm:19.7–21.3″:73–77 cm:25:20,M:160–168 cm:63–66″ (5′3″–5′6″):53–57 cm:20.9–22.4″:76–80 cm:37.5:20,L:165–173 cm:65–68″ (5′5″–5′8″):56–61 cm:22–24″:79–83 cm:50:20,XL:170–178 cm:67–70″ (5′7″–5′10″):60–66 cm:23.6–26″:82–86 cm:62.5:20,XXL:173–182 cm:68–72″ (5′8″–6′0″):65–72 cm:25.6–28.3″:84–88 cm:70:22.5" | split: "," %}
-      {% for item in hoses %}
-        {% assign p = item | split: ":" %}
-        <div class="range-card">
-          <div class="range-head">
-            <span class="pill is-on">{{ p[0] }}</span>
-            <div class="range-specs">
-              <span class="spec-item"><b style="background:var(--accent)"></b>Height: <strong>{{ p[1] }}</strong> <small>({{ p[2] }})</small></span>
-              <span class="spec-item"><b style="background:var(--blush)"></b>Thigh: <strong>{{ p[3] }}</strong> <small>({{ p[4] }})</small></span>
-              <span class="spec-item"><b style="background:var(--muted)"></b>Inseam: <strong>{{ p[5] }}</strong></span>
-            </div>
-          </div>
-          <div class="range-track">
-            <i class="bust" style="left:{{ p[6] }}%;width:{{ p[7] }}%" title="Height {{ p[1] }}"></i>
-          </div>
-        </div>
-      {% endfor %}
-
-      <p class="range-legend">
-        <span><b style="background:var(--accent)"></b>Height Range</span>
-      </p>
+      <p class="kicker">Height range, cm · scale 145–185</p>
+      <div class="range-row"><span>XS</span><div class="range-track"><i class="bust" style="left:12.5%;width:20%"></i></div><span class="subtle">150–157 cm</span></div>
+      <div class="range-row"><span>S</span><div class="range-track"><i class="bust" style="left:25%;width:20%"></i></div><span class="subtle">155–162 cm</span></div>
+      <div class="range-row"><span>M</span><div class="range-track"><i class="bust" style="left:37.5%;width:20%"></i></div><span class="subtle">160–167 cm</span></div>
+      <div class="range-row"><span>L</span><div class="range-track"><i class="bust" style="left:50%;width:20%"></i></div><span class="subtle">165–172 cm</span></div>
+      <div class="range-row"><span>XL</span><div class="range-track"><i class="bust" style="left:62.5%;width:20%"></i></div><span class="subtle">170–177 cm</span></div>
+      <div class="range-row"><span>XXL</span><div class="range-track"><i class="bust" style="left:70%;width:22.5%"></i></div><span class="subtle">172–181 cm</span></div>
     </div>
 
     <div style="overflow-x:auto;margin-top:1.5rem">

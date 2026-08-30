@@ -567,7 +567,41 @@ button, [type="submit"] { font: inherit; cursor: pointer; }
 }
 .range-track i.bust { background: var(--accent); }
 .range-track i.waist { background: var(--blush); }
-.range-track i.hip { background: var(--muted); }
+.range-row {
+  display: grid;
+  grid-template-columns: 2.75rem 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+.range-row > span:first-child {
+  font-weight: 600;
+  color: var(--fg);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+.range-row > span.subtle {
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  min-width: 11rem;
+}
+@media (max-width: 768px) {
+  .range-row {
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.4rem 0.75rem;
+  }
+  .range-row > span.subtle {
+    grid-column: 1 / -1;
+    text-align: left;
+    padding-left: 3.25rem;
+    white-space: normal;
+    font-size: 0.75rem;
+    margin-top: -0.15rem;
+  }
+}
 
 .range-legend {
   display: flex;
