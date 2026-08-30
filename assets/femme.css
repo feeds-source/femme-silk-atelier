@@ -381,7 +381,262 @@ button, [type="submit"] { font: inherit; cursor: pointer; }
   .ken, .ken-hover { transform: none; }
 }
 
+/* Size Guide Visual Charts & Measurement Bars */
+.bra-heat {
+  display: grid;
+  grid-template-columns: 2.5rem repeat(4, 1fr);
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  max-width: 32rem;
+  font-size: 0.8rem;
+}
+.bra-heat .lab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+.bra-heat .heat-on {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--elevated);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.25rem;
+  font-weight: 600;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.bra-heat .heat-on:hover {
+  background: rgba(212, 176, 106, 0.2);
+  transform: translateY(-1px);
+}
+.bra-heat .heat-off {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--line);
+  color: var(--subtle);
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.25rem;
+}
+
+.bars {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .bars { grid-template-columns: 1fr 1fr; }
+}
+.bars article {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+.bar-row {
+  display: grid;
+  grid-template-columns: 2.75rem 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+  margin-top: 0.85rem;
+  font-size: 0.85rem;
+}
+.bar-row .bar-label {
+  font-weight: 600;
+  color: var(--fg);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+.bar-row .bar-value {
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  min-width: 7rem;
+  text-align: right;
+}
+.bar-row .bar-value strong {
+  color: var(--fg);
+  font-weight: 500;
+}
+.bar-row .bar-value small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.bar-track {
+  position: relative;
+  height: 0.75rem;
+  background: var(--elevated);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+}
+.bar-track.stacked {
+  height: 0.6rem;
+}
+.bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+.bar-fill.blush { background: var(--blush); }
 .bar-fill.muted { background: var(--muted); }
+
+/* Range Cards & Measurement Strips */
+.range-chart {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+.range-card {
+  margin-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.range-card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.range-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+}
+.range-specs {
+  display: flex;
+  gap: 1rem 1.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.spec-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-variant-numeric: tabular-nums;
+}
+.spec-item b {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+}
+.spec-item strong {
+  color: var(--fg);
+  font-weight: 500;
+}
+.spec-item small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.range-track {
+  position: relative;
+  height: 1rem;
+  background: var(--elevated);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.range-track i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.range-track:hover i {
+  opacity: 1;
+}
+.range-track i.bust { background: var(--accent); }
+.range-track i.waist { background: var(--blush); }
+.range-track i.hip { background: var(--muted); }
+
+.range-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  flex-wrap: wrap;
+}
+.range-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.range-legend span b {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+}
+
+/* Charts Table */
+.chart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  text-align: left;
+}
+.chart-table th {
+  padding: 0.75rem 1rem;
+  background: var(--elevated);
+  color: var(--accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  font-weight: 600;
+}
+.chart-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--line);
+  color: var(--fg);
+}
+.chart-table tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.015);
+}
+.chart-table tr:hover td {
+  background: rgba(212, 176, 106, 0.05);
+}
+
+/* Sister sizes badge list */
+.sister {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+.sister .hair {
+  width: 1rem;
+  height: 1px;
+  background: var(--line);
+}
+
 .fit-lab {
   margin-top: 2rem;
   border: 1px solid var(--line);
