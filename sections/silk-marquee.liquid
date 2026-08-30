@@ -1,12 +1,12 @@
-<section class="marquee" aria-hidden="true">
+<section class="marquee" aria-hidden="true" style="--marquee-duration: {{ section.settings.speed | default: 48 }}s">
   <div class="marquee-track">
     {% for i in (1..2) %}
       {% for block in section.blocks %}
         <figure {{ block.shopify_attributes }}>
           {% if block.settings.image %}
-            {{ block.settings.image | image_url: width: 600 | image_tag: alt: block.settings.alt }}
+            {{ block.settings.image | image_url: width: 600 | image_tag: alt: block.settings.alt | default: 'Silk gallery', loading: 'lazy' }}
           {% else %}
-            <img src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.alt | escape }}" width="640" height="440">
+            <img src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.alt | escape }}" width="640" height="440" loading="lazy">
           {% endif %}
         </figure>
       {% endfor %}
@@ -17,6 +17,18 @@
 {% schema %}
 {
   "name": "Silk marquee",
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "s",
+      "label": "Scroll duration",
+      "default": 45
+    }
+  ],
   "blocks": [
     {
       "type": "tile",
@@ -24,20 +36,23 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "fallback", "label": "Asset filename", "default": "tile-emerald.jpg" },
-        { "type": "text", "id": "alt", "label": "Alt", "default": "Silk" }
+        { "type": "text", "id": "alt", "label": "Alt description", "default": "Silk" }
       ]
     }
   ],
   "presets": [
     {
       "name": "Silk marquee",
+      "settings": {
+        "speed": 45
+      },
       "blocks": [
-        { "type": "tile", "settings": { "fallback": "tile-emerald.jpg", "alt": "Emerald silk" } },
-        { "type": "tile", "settings": { "fallback": "tile-ribbon.jpg", "alt": "Champagne ribbon" } },
-        { "type": "tile", "settings": { "fallback": "tile-peacock.jpg", "alt": "Peacock" } },
-        { "type": "tile", "settings": { "fallback": "hero.jpg", "alt": "Atelier silk" } },
-        { "type": "tile", "settings": { "fallback": "sleep.jpg", "alt": "Satin night" } },
-        { "type": "tile", "settings": { "fallback": "lounge.jpg", "alt": "Lounge" } }
+        { "type": "tile", "settings": { "fallback": "tile-emerald.jpg", "alt": "Emerald charmeuse silk" } },
+        { "type": "tile", "settings": { "fallback": "tile-ribbon.jpg", "alt": "Champagne silk ribbon" } },
+        { "type": "tile", "settings": { "fallback": "tile-peacock.jpg", "alt": "Peacock jewel silk" } },
+        { "type": "tile", "settings": { "fallback": "hero.jpg", "alt": "Atelier night silk" } },
+        { "type": "tile", "settings": { "fallback": "sleep.jpg", "alt": "Moonlit satin" } },
+        { "type": "tile", "settings": { "fallback": "lounge.jpg", "alt": "Emerald evening lounge" } }
       ]
     }
   ]
