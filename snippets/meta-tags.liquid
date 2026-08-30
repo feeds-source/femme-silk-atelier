@@ -1,18 +1,54 @@
+{%- capture seo_title -%}
+  {%- if page_title != blank -%}
+    {%- if page.handle == 'the-atelier' or page.handle == 'atelier' or page.handle == 'about' -%}
+      The Atelier — Femme Silk Moments | Jewel-Tone Silk Lingerie
+    {%- elsif page.handle == 'size-guide' or page.handle == 'sizes' -%}
+      Size Guide & Fit Studio — 30B–42C, XS–XXL | Femme Silk Moments
+    {%- elsif page.handle == 'contact' -%}
+      Atelier Concierge & Inquiries | Femme Silk Moments
+    {%- else -%}
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    {%- endif -%}
+  {%- else -%}
+    {{ shop.name }} · Silk Atelier
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture seo_description -%}
+  {%- if page_description != blank -%}
+    {{ page_description }}
+  {%- elsif page.handle == 'the-atelier' or page.handle == 'atelier' or page.handle == 'about' -%}
+    Femme is an adult house of jewel silk. Exotic silk lingerie, lounge, and nightwear cut for the body. Cash on delivery worldwide.
+  {%- elsif page.handle == 'size-guide' or page.handle == 'sizes' -%}
+    Explore the Femme Silk Atelier sizing matrix. Precise bra band and cup fittings from 30B to 42C, body ranges from XS to XXL, corset reductions, and hosiery charts.
+  {%- elsif page.handle == 'contact' -%}
+    Write to the Femme Silk Atelier. Inquiries on sizing, custom orders, and bespoke bridal consultations replied to within 12 hours.
+  {%- else -%}
+    {{ settings.brand_line | default: 'Exotic silk, cut for the body. Jewel-tone lounge, sleep, and lingerie. Cash on delivery worldwide.' }}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- assign og_image = page_image | default: settings.logo -%}
+
 <meta property="og:site_name" content="{{ shop.name | escape }}">
 <meta property="og:url" content="{{ canonical_url }}">
-<meta property="og:title" content="{{ page_title | escape }}">
+<meta property="og:title" content="{{ seo_title | strip | escape }}">
 <meta property="og:type" content="website">
-{%- if page_description -%}
-  <meta property="og:description" content="{{ page_description | escape }}">
+<meta property="og:description" content="{{ seo_description | strip | escape }}">
+
+{%- if og_image != blank -%}
+  <meta property="og:image" content="http:{{ og_image | image_url: width: 1200 }}">
+  <meta property="og:image:secure_url" content="https:{{ og_image | image_url: width: 1200 }}">
+  <meta property="og:image:width" content="{{ og_image.width | default: 1200 }}">
+  <meta property="og:image:height" content="{{ og_image.height | default: 800 }}">
+{%- else -%}
+  <meta property="og:image" content="http:{{ 'hero.jpg' | asset_url }}">
+  <meta property="og:image:secure_url" content="https:{{ 'hero.jpg' | asset_url }}">
 {%- endif -%}
-{%- if page_image -%}
-  <meta property="og:image" content="http:{{ page_image | image_url: width: 1200 }}">
-  <meta property="og:image:secure_url" content="https:{{ page_image | image_url: width: 1200 }}">
-  <meta property="og:image:width" content="{{ page_image.width }}">
-  <meta property="og:image:height" content="{{ page_image.height }}">
-{%- endif -%}
+
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ page_title | escape }}">
-{%- if page_description -%}
-  <meta name="twitter:description" content="{{ page_description | escape }}">
-{%- endif -%}
+<meta name="twitter:title" content="{{ seo_title | strip | escape }}">
+<meta name="twitter:description" content="{{ seo_description | strip | escape }}">
