@@ -26,6 +26,12 @@
     },
     "campaign": {
       "type": "campaign-rotator",
+      "settings": {
+        "autoplay_interval": 7,
+        "min_height": 52,
+        "overlay_opacity": 60,
+        "show_dots": true
+      },
       "blocks": {
         "s1": { "type": "slide", "settings": { "kicker": "Sleep", "title": "Moonlit satin", "fallback": "sleep.jpg", "video_fallback": "sleep.mp4" } },
         "s2": { "type": "slide", "settings": { "kicker": "Lingerie", "title": "Ruby lace night", "fallback": "lingerie.jpg", "video_fallback": "lingerie.mp4" } },

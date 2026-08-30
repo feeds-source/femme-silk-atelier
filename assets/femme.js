@@ -6,6 +6,7 @@
     menuBtn.setAttribute("aria-expanded", String(open));
   });
 
+  const campaignSec = document.querySelector("[data-campaign]");
   const media = document.querySelectorAll("[data-campaign-media]");
   const copies = document.querySelectorAll("[data-campaign-copy]");
   const dots = document.querySelectorAll("[data-campaign-dot]");
@@ -27,7 +28,8 @@
       dots.forEach((el, idx) => el.classList.toggle("is-on", idx === i));
     };
     dots.forEach((el, idx) => el.addEventListener("click", () => show(idx)));
-    setInterval(() => show(i + 1), 7000);
+    const interval = Number(campaignSec?.dataset.autoplayInterval) || 7000;
+    setInterval(() => show(i + 1), interval);
   }
 
   document.querySelectorAll('form[action*="/cart/add"]').forEach((form) => {

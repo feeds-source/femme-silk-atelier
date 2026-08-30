@@ -1,10 +1,18 @@
-<section class="campaign" data-campaign>
+{% assign section_height = section.settings.min_height | default: 52 %}
+{% assign overlay_alpha = section.settings.overlay_opacity | default: 60 | divided_by: 100.0 %}
+
+<section
+  class="campaign"
+  data-campaign
+  data-autoplay-interval="{{ section.settings.autoplay_interval | default: 7 | times: 1000 }}"
+  style="min-height: {{ section_height }}vh;"
+>
   {% for block in section.blocks %}
     <div data-campaign-media {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
       {% if block.settings.image %}
-        {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'ken' }}
+        {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'ken', loading: 'lazy' }}
       {% else %}
-        <img class="ken" src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.title | escape }}" width="1600" height="1000">
+        <img class="ken" src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.title | escape }}" width="1600" height="1000" loading="lazy">
       {% endif %}
       {% assign slide_video = block.settings.video_url %}
       {% if slide_video == blank and block.settings.video_fallback != blank %}
@@ -17,8 +25,10 @@
       {% endif %}
     </div>
   {% endfor %}
-  <div class="hero-veil"></div>
-  <div class="campaign__copy wrap">
+
+  <div class="hero-veil" style="background: linear-gradient(180deg, rgb(12 10 11 / {{ overlay_alpha | times: 0.2 }}) 0%, rgb(12 10 11 / {{ overlay_alpha }}) 100%);"></div>
+
+  <div class="campaign__copy wrap" style="min-height: {{ section_height }}vh;">
     {% for block in section.blocks %}
       <div data-campaign-copy {% unless forloop.first %}hidden{% endunless %}>
         <p class="kicker">{{ block.settings.kicker }}</p>
@@ -29,16 +39,57 @@
       </div>
     {% endfor %}
   </div>
-  <div class="dots">
-    {% for block in section.blocks %}
-      <button type="button" data-campaign-dot class="{% if forloop.first %}is-on{% endif %}" aria-label="{{ block.settings.title }}">{{ forloop.index }}</button>
-    {% endfor %}
-  </div>
+
+  {% if section.settings.show_dots %}
+    <div class="dots">
+      {% for block in section.blocks %}
+        <button type="button" data-campaign-dot class="{% if forloop.first %}is-on{% endif %}" aria-label="{{ block.settings.title }}">{{ forloop.index }}</button>
+      {% endfor %}
+    </div>
+  {% endif %}
 </section>
 
 {% schema %}
 {
   "name": "Campaign rotator",
+  "settings": [
+    {
+      "type": "range",
+      "id": "autoplay_interval",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "label": "Slide rotation speed",
+      "default": 7
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 40,
+      "max": 90,
+      "step": 2,
+      "unit": "vh",
+      "label": "Section height",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 10,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay darkness",
+      "default": 60
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show navigation indicators",
+      "default": true
+    }
+  ],
   "blocks": [
     {
       "type": "slide",
@@ -57,6 +108,12 @@
   "presets": [
     {
       "name": "Campaign rotator",
+      "settings": {
+        "autoplay_interval": 7,
+        "min_height": 52,
+        "overlay_opacity": 60,
+        "show_dots": true
+      },
       "blocks": [
         { "type": "slide", "settings": { "kicker": "Sleep", "title": "Moonlit satin", "fallback": "sleep.jpg", "video_fallback": "sleep.mp4" } },
         { "type": "slide", "settings": { "kicker": "Lingerie", "title": "Ruby lace night", "fallback": "lingerie.jpg", "video_fallback": "lingerie.mp4" } },
