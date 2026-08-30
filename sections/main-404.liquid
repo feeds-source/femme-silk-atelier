@@ -1,8 +1,91 @@
-<section class="wrap section">
-  <p class="kicker">404</p>
-  <h1 class="display" style="font-style:italic">This piece has left the atelier.</h1>
-  <a class="btn" href="{{ routes.all_products_collection_url }}" style="margin-top:1.5rem">Shop the house</a>
+{% assign kicker = section.settings.kicker | default: '404 · Unfound' %}
+{% assign title = section.settings.title | default: 'Lost in the atelier' %}
+{% assign text = section.settings.text | default: 'This piece has slipped into the night or moved to a new salon room. Explore our curated collections below or search the house.' %}
+{% assign button_label = section.settings.button_label | default: 'Return to the house' %}
+
+<section class="page-hero cine-page" style="min-height:22rem">
+  <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="{{ title | escape }}" width="1600" height="1000" loading="eager">
+  <div class="hero-veil"></div>
+  <div class="wrap page-hero-copy">
+    <p class="kicker">{{ kicker }}</p>
+    <h1 class="display page-title">{{ title }}</h1>
+    <p class="muted lede">{{ text }}</p>
+    <a class="btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" style="margin-top:1.5rem">
+      {{ button_label }}
+    </a>
+  </div>
 </section>
+
+<div class="wrap section" style="text-align:center;max-width:44rem">
+  <p class="kicker">Curated rooms</p>
+  <h2 class="display" style="font-style:italic;margin-top:0.5rem">Explore the house</h2>
+  
+  <div class="search-pills" style="justify-content:center;margin-top:1.5rem">
+    <a class="pill" href="{{ collections.babydoll.url | default: routes.all_products_collection_url }}">Babydolls</a>
+    <a class="pill" href="{{ collections['bra-sets'].url | default: routes.all_products_collection_url }}">Bra Sets</a>
+    <a class="pill" href="{{ collections.gowns.url | default: routes.all_products_collection_url }}">Silk Gowns</a>
+    <a class="pill" href="{{ collections.corsetry.url | default: routes.all_products_collection_url }}">Corsetry</a>
+    <a class="pill" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size charts</a>
+  </div>
+
+  {% if section.settings.show_search != false %}
+    <div style="margin-top:3rem;padding:2rem;background:var(--surface);border:1px solid var(--line);border-radius:1.5rem">
+      <p class="kicker">Search the atelier</p>
+      <form action="{{ routes.search_url }}" method="get" role="search" style="display:flex;gap:0.5rem;margin-top:1rem;justify-content:center;flex-wrap:wrap">
+        <input
+          type="search"
+          name="q"
+          placeholder="Search babydolls, bras, gowns, sizes..."
+          style="flex:1;min-width:14rem;height:3rem;padding:0 1.25rem;border:1px solid var(--line);border-radius:999px;background:var(--elevated);color:var(--fg)"
+        >
+        <button class="btn" type="submit" style="height:3rem">Search</button>
+      </form>
+    </div>
+  {% endif %}
+</div>
+
 {% schema %}
-{ "name": "404", "settings": [] }
+{
+  "name": "404",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "404 · Unfound"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Lost in the atelier"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "This piece has slipped into the night or moved to a new salon room. Explore our curated collections below or search the house."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Return to the house"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search form",
+      "default": true
+    }
+  ],
+  "presets": [{ "name": "404" }]
+}
 {% endschema %}

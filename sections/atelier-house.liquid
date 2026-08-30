@@ -1,26 +1,40 @@
+{% assign hero_kicker = section.settings.hero_kicker | default: 'House' %}
+{% assign hero_title = section.settings.hero_title | default: 'The atelier' %}
+{% assign hero_lede = section.settings.hero_lede | default: 'Exotic silk, cut for the body. Emerald, champagne, ruby — still-life, then motion.' %}
+{% assign button_label = section.settings.button_label | default: 'Shop the house' %}
+
 <section class="page-hero cine-page">
-  <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="The atelier" width="1920" height="1080">
+  <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="{{ hero_title | escape }}" width="1920" height="1080">
   <video class="motion-video" autoplay muted loop playsinline poster="{{ 'hero.jpg' | asset_url }}" aria-hidden="true">
     <source src="{{ 'hero.mp4' | asset_url }}" type="video/mp4">
   </video>
   <div class="hero-veil"></div>
   <div class="wrap page-hero-copy">
-    <p class="kicker">House</p>
-    <h1 class="display page-title">The atelier</h1>
-    <p class="muted lede">Exotic silk, cut for the body. Emerald, champagne, ruby — still-life, then motion.</p>
-    <a class="btn" href="{{ routes.all_products_collection_url }}" style="margin-top:1.5rem">Shop the house</a>
+    <p class="kicker">{{ hero_kicker }}</p>
+    <h1 class="display page-title">{{ hero_title }}</h1>
+    <p class="muted lede">{{ hero_lede }}</p>
+    <a class="btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" style="margin-top:1.5rem">
+      {{ button_label }}
+    </a>
   </div>
 </section>
 
 <section class="wrap section split-intro">
   <div>
-    <p class="kicker">Femme</p>
-    <h2 class="display" style="font-style:italic">An adult house of jewel silk.</h2>
+    <p class="kicker">{{ section.settings.story_kicker | default: 'Femme' }}</p>
+    <h2 class="display" style="font-style:italic">{{ section.settings.story_heading | default: 'An adult house of jewel silk.' }}</h2>
   </div>
   <div>
-    <p class="muted lede">Femme is Silk Moments after dusk: lingerie, night, and lounge. Banners that breathe, fabric that moves. Every still is shot as a painting, then the film starts.</p>
-    <p class="muted lede">Pieces are cut for 30B–42C and Free Size to XXL. Cash on delivery worldwide. A printable receipt at every order.</p>
-    <p class="subtle">Returns are not offered on worn pieces — measure first, then write <a class="gold" href="mailto:{{ settings.contact_email | default: 'info@silkmoments.com' }}">{{ settings.contact_email | default: 'info@silkmoments.com' }}</a>.</p>
+    <p class="muted lede">
+      {{ section.settings.story_body_1 | default: 'Femme is Silk Moments after dusk: lingerie, night, and lounge. Banners that breathe, fabric that moves. Every still is shot as a painting, then the film starts.' }}
+    </p>
+    <p class="muted lede">
+      {{ section.settings.story_body_2 | default: 'Pieces are cut for 30B–42C and Free Size to XXL. Cash on delivery worldwide. A printable receipt at every order.' }}
+    </p>
+    <p class="subtle">
+      Returns are not offered on worn pieces — measure first, then write 
+      <a class="gold" href="mailto:{{ settings.contact_email | default: 'info@silkmoments.com' }}">{{ settings.contact_email | default: 'info@silkmoments.com' }}</a>.
+    </p>
   </div>
 </section>
 
@@ -30,7 +44,7 @@
   <div class="room-grid">
     <article class="room-card">
       <div class="room-media">
-        <img class="ken" src="{{ 'sleep.jpg' | asset_url }}" alt="Night" width="800" height="600">
+        <img class="ken" src="{{ 'sleep.jpg' | asset_url }}" alt="Night" width="800" height="600" loading="lazy">
         <video class="motion-video" autoplay muted loop playsinline poster="{{ 'sleep.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'sleep.mp4' | asset_url }}" type="video/mp4"></video>
         <div class="hero-veil"></div>
         <div class="room-copy"><p class="kicker">Night</p><h3>Night</h3></div>
@@ -46,7 +60,7 @@
     </article>
     <article class="room-card">
       <div class="room-media">
-        <img class="ken" src="{{ 'lingerie.jpg' | asset_url }}" alt="Body" width="800" height="600">
+        <img class="ken" src="{{ 'lingerie.jpg' | asset_url }}" alt="Body" width="800" height="600" loading="lazy">
         <video class="motion-video" autoplay muted loop playsinline poster="{{ 'lingerie.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'lingerie.mp4' | asset_url }}" type="video/mp4"></video>
         <div class="hero-veil"></div>
         <div class="room-copy"><p class="kicker">Body</p><h3>Body</h3></div>
@@ -61,7 +75,7 @@
     </article>
     <article class="room-card">
       <div class="room-media">
-        <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="After dusk" width="800" height="600">
+        <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="After dusk" width="800" height="600" loading="lazy">
         <div class="hero-veil"></div>
         <div class="room-copy"><p class="kicker">After dusk</p><h3>After dusk</h3></div>
       </div>
@@ -96,37 +110,37 @@
   <h2 class="display" style="font-style:italic">Still-life, then motion</h2>
   <div class="lookbook">
     <figure class="look-card">
-      <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="House film" width="800" height="600">
+      <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="House film" width="800" height="600" loading="lazy">
       <video class="motion-video" autoplay muted loop playsinline poster="{{ 'hero.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'hero.mp4' | asset_url }}" type="video/mp4"></video>
       <figcaption>House film</figcaption>
     </figure>
     <figure class="look-card">
-      <img class="ken" src="{{ 'sleep.jpg' | asset_url }}" alt="Moonlit satin" width="800" height="600">
+      <img class="ken" src="{{ 'sleep.jpg' | asset_url }}" alt="Moonlit satin" width="800" height="600" loading="lazy">
       <video class="motion-video" autoplay muted loop playsinline poster="{{ 'sleep.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'sleep.mp4' | asset_url }}" type="video/mp4"></video>
       <figcaption>Moonlit satin</figcaption>
     </figure>
     <figure class="look-card">
-      <img class="ken" src="{{ 'lingerie.jpg' | asset_url }}" alt="Ruby lace night" width="800" height="600">
+      <img class="ken" src="{{ 'lingerie.jpg' | asset_url }}" alt="Ruby lace night" width="800" height="600" loading="lazy">
       <video class="motion-video" autoplay muted loop playsinline poster="{{ 'lingerie.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'lingerie.mp4' | asset_url }}" type="video/mp4"></video>
       <figcaption>Ruby lace night</figcaption>
     </figure>
     <figure class="look-card">
-      <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="Emerald after dusk" width="800" height="600">
+      <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="Emerald after dusk" width="800" height="600" loading="lazy">
       <figcaption>Emerald after dusk</figcaption>
     </figure>
     <figure class="look-card">
-      <img class="ken" src="{{ 'tile-peacock.jpg' | asset_url }}" alt="Peacock silk" width="800" height="600">
+      <img class="ken" src="{{ 'tile-peacock.jpg' | asset_url }}" alt="Peacock silk" width="800" height="600" loading="lazy">
       <figcaption>Peacock silk</figcaption>
     </figure>
     <figure class="look-card">
-      <img class="ken" src="{{ 'tile-emerald.jpg' | asset_url }}" alt="Emerald still" width="800" height="600">
+      <img class="ken" src="{{ 'tile-emerald.jpg' | asset_url }}" alt="Emerald still" width="800" height="600" loading="lazy">
       <figcaption>Emerald still</figcaption>
     </figure>
   </div>
 </section>
 
 <section class="page-hero" style="min-height:16rem">
-  <img src="{{ 'lounge.jpg' | asset_url }}" alt="The house is open" width="1600" height="800" style="opacity:0.35">
+  <img src="{{ 'lounge.jpg' | asset_url }}" alt="The house is open" width="1600" height="800" style="opacity:0.35" loading="lazy">
   <div class="hero-veil"></div>
   <div class="wrap page-hero-copy">
     <p class="kicker">Visit</p>
@@ -138,7 +152,65 @@
 {% schema %}
 {
   "name": "Atelier house",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_kicker",
+      "label": "Hero kicker",
+      "default": "House"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "The atelier"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_lede",
+      "label": "Hero description",
+      "default": "Exotic silk, cut for the body. Emerald, champagne, ruby — still-life, then motion."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop the house"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Story section"
+    },
+    {
+      "type": "text",
+      "id": "story_kicker",
+      "label": "Story kicker",
+      "default": "Femme"
+    },
+    {
+      "type": "text",
+      "id": "story_heading",
+      "label": "Story heading",
+      "default": "An adult house of jewel silk."
+    },
+    {
+      "type": "textarea",
+      "id": "story_body_1",
+      "label": "Story paragraph 1",
+      "default": "Femme is Silk Moments after dusk: lingerie, night, and lounge. Banners that breathe, fabric that moves. Every still is shot as a painting, then the film starts."
+    },
+    {
+      "type": "textarea",
+      "id": "story_body_2",
+      "label": "Story paragraph 2",
+      "default": "Pieces are cut for 30B–42C and Free Size to XXL. Cash on delivery worldwide. A printable receipt at every order."
+    }
+  ],
   "presets": [{ "name": "Atelier house" }]
 }
 {% endschema %}

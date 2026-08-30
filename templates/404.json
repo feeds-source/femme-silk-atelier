@@ -1,6 +1,15 @@
 {
   "sections": {
-    "main": { "type": "main-404", "settings": {} }
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "kicker": "404 · Unfound",
+        "title": "Lost in the atelier",
+        "text": "This piece has slipped into the night or moved to a new salon room. Explore our curated collections below or search the house.",
+        "button_label": "Return to the house",
+        "show_search": true
+      }
+    }
   },
   "order": ["main"]
 }

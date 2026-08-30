@@ -1,6 +1,15 @@
 {
   "sections": {
-    "main": { "type": "main-contact", "settings": {} }
+    "main": {
+      "type": "main-contact",
+      "settings": {
+        "kicker": "Atelier concierge",
+        "title": "Write to the house",
+        "lede": "Questions about an order, bespoke bridal consultation, or finding your size from 30B to 42C? Our atelier replies within 12 hours.",
+        "contact_email": "info@silkmoments.com",
+        "hours_note": "Monday – Saturday: 09:00 – 21:00 GMT"
+      }
+    }
   },
   "order": ["main"]
 }

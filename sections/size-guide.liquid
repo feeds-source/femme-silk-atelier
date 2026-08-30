@@ -1,11 +1,17 @@
-<section class="page-hero">
-  <img class="ken" src="{{ 'measure-front.jpg' | asset_url }}" alt="" width="1600" height="1000">
+{% assign kicker = section.settings.kicker | default: 'Atelier fittings' %}
+{% assign title = section.settings.title | default: 'Size charts and fit studio' %}
+{% assign lede = section.settings.lede | default: 'Find your precise measurements from the tape, then explore the house maps — bra cups, body ranges, corset reduction, hosiery, and silk gowns.' %}
+
+<section class="page-hero cine-page">
+  <img class="ken" src="{{ 'measure-front.jpg' | asset_url }}" alt="{{ title | escape }}" width="1600" height="1000" loading="eager">
   <div class="hero-veil"></div>
   <div class="wrap page-hero-copy">
-    <p class="kicker">Atelier fittings</p>
-    <h1 class="display page-title">Size charts</h1>
-    <p class="muted lede">Find a size from the tape, then read the maps — bra heat, body ranges, corset lacing, hose, gowns.</p>
-    <button type="button" class="btn" style="margin-top:1.25rem" onclick="window.print()">Print charts</button>
+    <p class="kicker">{{ kicker }}</p>
+    <h1 class="display page-title">{{ title }}</h1>
+    <p class="muted lede">{{ lede }}</p>
+    {% if section.settings.show_print_button != false %}
+      <button type="button" class="btn" style="margin-top:1.25rem" onclick="window.print()">Print size charts</button>
+    {% endif %}
   </div>
 </section>
 
@@ -509,6 +515,32 @@
 {% schema %}
 {
   "name": "Size guide",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Atelier fittings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Size charts and fit studio"
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "Description",
+      "default": "Find your precise measurements from the tape, then explore the house maps — bra cups, body ranges, corset reduction, hosiery, and silk gowns."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_print_button",
+      "label": "Show print charts button",
+      "default": true
+    }
+  ],
+  "presets": [{ "name": "Size guide" }]
 }
 {% endschema %}
