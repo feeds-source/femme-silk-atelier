@@ -43,10 +43,12 @@
           {% endif %}
         {% endfor %}
       {% else %}
-        <a href="{{ routes.root_url }}" class="{% if request.page_type == 'index' %}is-on{% endif %}">Home</a>
-        <a href="{{ routes.all_products_collection_url }}" class="{% if request.page_type == 'collection' or request.page_type == 'product' %}is-on{% endif %}">Shop</a>
-        <a href="{{ pages['size-guide'].url | default: pages.sizes.url | default: '/pages/size-guide' }}" class="{% if page.handle == 'size-guide' or page.handle == 'sizes' %}is-on{% endif %}">Sizes</a>
-        <a href="{{ pages['the-atelier'].url | default: pages.atelier.url | default: pages.about.url | default: '/pages/the-atelier' }}" class="{% if page.handle == 'the-atelier' or page.handle == 'atelier' or page.handle == 'about' %}is-on{% endif %}">Atelier</a>
+        <a href="{{ routes.all_products_collection_url }}" class="{% if request.page_type == 'collection' and collection.handle == 'all' %}is-on{% endif %}">Shop</a>
+        <a href="{{ collections.sleep.url | default: '/collections/sleep' }}" class="{% if collection.handle == 'sleep' %}is-on{% endif %}">Sleep</a>
+        <a href="{{ collections.lingerie.url | default: '/collections/lingerie' }}" class="{% if collection.handle == 'lingerie' %}is-on{% endif %}">Lingerie</a>
+        <a href="{{ collections.lounge.url | default: '/collections/lounge' }}" class="{% if collection.handle == 'lounge' %}is-on{% endif %}">Lounge</a>
+        <a href="{{ pages['the-atelier'].url | default: pages.atelier.url | default: pages.about.url | default: '/pages/the-atelier' }}" class="{% if page.handle == 'the-atelier' or page.handle == 'atelier' or page.handle == 'about' %}is-on{% endif %}">The Atelier</a>
+        <a href="{{ pages['size-guide'].url | default: pages.sizes.url | default: '/pages/size-guide' }}" class="{% if page.handle == 'size-guide' or page.handle == 'sizes' %}is-on{% endif %}">Size Guide</a>
         <a href="{{ pages.contact.url | default: '/pages/contact' }}" class="{% if page.handle == 'contact' %}is-on{% endif %}">Contact</a>
       {% endif %}
     </nav>
@@ -81,16 +83,13 @@
         {% endif %}
       {% endfor %}
     {% else %}
-      <a href="{{ routes.root_url }}">Home</a>
-      <a href="{{ routes.all_products_collection_url }}">Shop</a>
-      <a href="{{ pages['size-guide'].url | default: pages.sizes.url | default: '/pages/size-guide' }}">Sizes</a>
-      <a href="{{ pages['the-atelier'].url | default: pages.atelier.url | default: pages.about.url | default: '/pages/the-atelier' }}">Atelier</a>
+      <a href="{{ routes.all_products_collection_url }}">Shop All</a>
+      <a href="{{ collections.sleep.url | default: '/collections/sleep' }}">Sleep</a>
+      <a href="{{ collections.lingerie.url | default: '/collections/lingerie' }}">Lingerie</a>
+      <a href="{{ collections.lounge.url | default: '/collections/lounge' }}">Lounge</a>
+      <a href="{{ pages['the-atelier'].url | default: pages.atelier.url | default: pages.about.url | default: '/pages/the-atelier' }}">The Atelier</a>
+      <a href="{{ pages['size-guide'].url | default: pages.sizes.url | default: '/pages/size-guide' }}">Size Guide</a>
       <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact</a>
-      {% for collection in collections %}
-        {% unless collection.handle == 'frontpage' or collection.all_products_count == 0 %}
-          <a href="{{ collection.url }}" style="padding-left:1rem;color:var(--muted)">↳ {{ collection.title }}</a>
-        {% endunless %}
-      {% endfor %}
     {% endif %}
   </nav>
 
