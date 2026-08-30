@@ -160,6 +160,33 @@
             {% endif %}
           </div>
 
+        {% when 'trust_badges' %}
+          <div class="product-block product-trust" style="margin-top:1.5rem;padding:1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:1rem" {{ block.shopify_attributes }}>
+            <div style="display:grid;gap:0.85rem">
+              <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.85rem">
+                <span style="font-size:1.1rem">📦</span>
+                <div>
+                  <strong style="color:var(--fg)">{{ block.settings.t1_title | default: 'Discreet Atelier Presentation' }}</strong>
+                  <p class="subtle" style="font-size:0.75rem;margin:0">{{ block.settings.t1_sub | default: 'Signature noir and gold gift box with every order' }}</p>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.85rem">
+                <span style="font-size:1.1rem">💵</span>
+                <div>
+                  <strong style="color:var(--fg)">{{ block.settings.t2_title | default: 'Cash on Delivery Worldwide' }}</strong>
+                  <p class="subtle" style="font-size:0.75rem;margin:0">{{ block.settings.t2_sub | default: 'Doorstep inspection and printable receipt included' }}</p>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.85rem">
+                <span style="font-size:1.1rem">📐</span>
+                <div>
+                  <strong style="color:var(--fg)">{{ block.settings.t3_title | default: '14-Day Complimentary Exchange' }}</strong>
+                  <p class="subtle" style="font-size:0.75rem;margin:0">{{ block.settings.t3_sub | default: 'Free size adjustment support across 30B–42C & XS–XXL' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         {% when 'collapsible_tab' %}
           <div class="product-block accordion" style="margin-top:1.25rem;border-top:1px solid var(--line);padding-top:0.75rem" {{ block.shopify_attributes }}>
             <details style="cursor:pointer">
@@ -262,6 +289,19 @@
           "label": "Show atelier guarantee note",
           "default": true
         }
+      ]
+    },
+    {
+      "type": "trust_badges",
+      "name": "Trust badges",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "t1_title", "label": "Badge 1 Title", "default": "Discreet Atelier Presentation" },
+        { "type": "text", "id": "t1_sub", "label": "Badge 1 Note", "default": "Signature noir and gold gift box with every order" },
+        { "type": "text", "id": "t2_title", "label": "Badge 2 Title", "default": "Cash on Delivery Worldwide" },
+        { "type": "text", "id": "t2_sub", "label": "Badge 2 Note", "default": "Doorstep inspection and printable receipt included" },
+        { "type": "text", "id": "t3_title", "label": "Badge 3 Title", "default": "14-Day Complimentary Exchange" },
+        { "type": "text", "id": "t3_sub", "label": "Badge 3 Note", "default": "Free size adjustment support across 30B–42C & XS–XXL" }
       ]
     },
     {

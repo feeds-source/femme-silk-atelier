@@ -1,0 +1,52 @@
+<section class="wrap section" style="padding-top:2.5rem;padding-bottom:2.5rem">
+  <div class="trust-strip">
+    <div class="trust-item">
+      <span class="trust-icon" aria-hidden="true">📐</span>
+      <div>
+        <p class="trust-title">{{ section.settings.t1_title | default: '30B–42C & XS–XXL' }}</p>
+        <p class="trust-desc">{{ section.settings.t1_desc | default: 'Cut to the tape with interactive sister size matrix' }}</p>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <span class="trust-icon" aria-hidden="true">📦</span>
+      <div>
+        <p class="trust-title">{{ section.settings.t2_title | default: 'Discreet Luxury Packaging' }}</p>
+        <p class="trust-desc">{{ section.settings.t2_desc | default: 'Signature noir and gold presentation box on all orders' }}</p>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <span class="trust-icon" aria-hidden="true">💵</span>
+      <div>
+        <p class="trust-title">{{ section.settings.t3_title | default: 'Cash on Delivery' }}</p>
+        <p class="trust-desc">{{ section.settings.t3_desc | default: 'Doorstep payment worldwide with printable receipt' }}</p>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <span class="trust-icon" aria-hidden="true">↺</span>
+      <div>
+        <p class="trust-title">{{ section.settings.t4_title | default: '14-Day Free Exchange' }}</p>
+        <p class="trust-desc">{{ section.settings.t4_desc | default: 'Effortless fit guarantee on all unworn pieces' }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust strip",
+  "settings": [
+    { "type": "text", "id": "t1_title", "label": "Pillar 1 Title", "default": "30B–42C & XS–XXL" },
+    { "type": "text", "id": "t1_desc", "label": "Pillar 1 Subtitle", "default": "Cut to the tape with interactive sister size matrix" },
+    { "type": "text", "id": "t2_title", "label": "Pillar 2 Title", "default": "Discreet Luxury Packaging" },
+    { "type": "text", "id": "t2_desc", "label": "Pillar 2 Subtitle", "default": "Signature noir and gold presentation box on all orders" },
+    { "type": "text", "id": "t3_title", "label": "Pillar 3 Title", "default": "Cash on Delivery" },
+    { "type": "text", "id": "t3_desc", "label": "Pillar 3 Subtitle", "default": "Doorstep payment worldwide with printable receipt" },
+    { "type": "text", "id": "t4_title", "label": "Pillar 4 Title", "default": "14-Day Free Exchange" },
+    { "type": "text", "id": "t4_desc", "label": "Pillar 4 Subtitle", "default": "Effortless fit guarantee on all unworn pieces" }
+  ],
+  "presets": [{ "name": "Trust strip" }]
+}
+{% endschema %}

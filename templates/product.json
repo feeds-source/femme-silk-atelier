@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -42,6 +33,17 @@
             "show_trust_note": true
           }
         },
+        "trust_badges": {
+          "type": "trust_badges",
+          "settings": {
+            "t1_title": "Discreet Atelier Presentation",
+            "t1_sub": "Signature noir & gold presentation box on all orders",
+            "t2_title": "Cash on Delivery Worldwide",
+            "t2_sub": "Doorstep inspection with printable receipt",
+            "t3_title": "14-Day Complimentary Exchange",
+            "t3_sub": "Free size exchange support across 30B–42C & XS–XXL"
+          }
+        },
         "description": {
           "type": "description",
           "settings": {}
@@ -50,14 +52,14 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Atelier Silk Care & Materials",
-            "content": "<p>100% 19mm Mulberry Silk with French Leavers lace accents. Hand wash cold with delicate silk detergent or dry clean only.</p>"
+            "content": "<p>100% 19mm Mulberry Silk with French Leavers lace accents. Hand wash cold with delicate silk detergent or dry clean only. Dry flat in shade.</p>"
           }
         },
         "shipping_tab": {
           "type": "collapsible_tab",
           "settings": {
             "heading": "Shipping, Returns & Cash on Delivery",
-            "content": "<p>Complimentary discreet luxury packaging with all atelier orders. Free size exchanges within 14 days of delivery.</p>"
+            "content": "<p>Complimentary discreet luxury packaging with all atelier orders. Cash on delivery worldwide with doorstep inspection. Free size exchanges within 14 days of delivery.</p>"
           }
         }
       },
@@ -68,6 +70,7 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "trust_badges",
         "description",
         "care_tab",
         "shipping_tab"

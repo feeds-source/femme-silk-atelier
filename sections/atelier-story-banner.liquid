@@ -1,0 +1,37 @@
+<section class="wrap section" style="padding-top:3.5rem;padding-bottom:3.5rem">
+  <div class="atelier-story-card">
+    <div class="atelier-story-media">
+      <img src="{{ 'hero.jpg' | asset_url }}" alt="The Femme Atelier" width="1200" height="800" loading="lazy">
+      <div class="hero-veil" style="opacity:0.35"></div>
+    </div>
+    <div class="atelier-story-content">
+      <p class="kicker">{{ section.settings.kicker | default: 'The House' }}</p>
+      <h2 class="display" style="font-style:italic">{{ section.settings.heading | default: 'An adult house of jewel silk.' }}</h2>
+      <p class="muted" style="line-height:1.7;margin-top:1rem">
+        {{ section.settings.body | default: 'Femme is Silk Moments after dusk: lingerie, night, and lounge. Banners that breathe, fabric that moves. Every still is shot as a painting, then the film starts. Cut for 30B–42C and XS to XXL with complimentary discreet packaging.' }}
+      </p>
+      <div style="display:flex;gap:1rem;margin-top:1.75rem;flex-wrap:wrap">
+        <a class="btn" href="{{ section.settings.button_link | default: pages['the-atelier'].url | default: '/pages/the-atelier' }}">
+          {{ section.settings.button_label | default: 'Discover The Atelier' }}
+        </a>
+        <a class="pill" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">
+          Explore Fit Matrix
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Atelier story banner",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "The House" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "An adult house of jewel silk." },
+    { "type": "textarea", "id": "body", "label": "Narrative Copy", "default": "Femme is Silk Moments after dusk: lingerie, night, and lounge. Banners that breathe, fabric that moves. Every still is shot as a painting, then the film starts. Cut for 30B–42C and XS to XXL with complimentary discreet packaging." },
+    { "type": "text", "id": "button_label", "label": "Button Label", "default": "Discover The Atelier" },
+    { "type": "url", "id": "button_link", "label": "Button Link" }
+  ],
+  "presets": [{ "name": "Atelier story banner" }]
+}
+{% endschema %}

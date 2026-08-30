@@ -13,10 +13,19 @@
   </video>
   <div class="hero-veil"></div>
   <div class="hero__copy wrap">
-    <p class="kicker">{{ section.settings.kicker }}</p>
-    <h1>{{ section.settings.title }}</h1>
-    <p class="body">{{ section.settings.body }}</p>
-    <a class="btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+    <p class="kicker">{{ section.settings.kicker | default: 'Night Atelier · Pure Silk & Lace' }}</p>
+    <h1>{{ section.settings.title | default: 'Exotic silk, cut for the body.' }}</h1>
+    <p class="body">{{ section.settings.body | default: 'Jewel-tone lounge, sleep, and lingerie in emerald, champagne, and ruby. Cash on delivery worldwide with signature atelier presentation.' }}</p>
+    <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap">
+      <a class="btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+        {{ section.settings.button_label | default: 'Shop the house' }}
+      </a>
+      {% if section.settings.secondary_button_label != blank %}
+        <a class="pill" href="{{ section.settings.secondary_button_link | default: pages['size-guide'].url | default: '/pages/size-guide' }}">
+          {{ section.settings.secondary_button_label }}
+        </a>
+      {% endif %}
+    </div>
   </div>
 </section>
 
@@ -24,11 +33,13 @@
 {
   "name": "Cinematic hero",
   "settings": [
-    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Night atelier" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Night Atelier · Pure Silk & Lace" },
     { "type": "text", "id": "title", "label": "Title", "default": "Exotic silk, cut for the body." },
-    { "type": "textarea", "id": "body", "label": "Body", "default": "Jewel-tone lounge, sleep, and lingerie. Cash on delivery, worldwide." },
-    { "type": "text", "id": "button_label", "label": "Button", "default": "Shop the house" },
-    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Jewel-tone lounge, sleep, and lingerie in emerald, champagne, and ruby. Cash on delivery worldwide with signature atelier presentation." },
+    { "type": "text", "id": "button_label", "label": "Primary Button", "default": "Shop the house" },
+    { "type": "url", "id": "button_link", "label": "Primary Button link" },
+    { "type": "text", "id": "secondary_button_label", "label": "Secondary Button", "default": "Fit studio & sizing" },
+    { "type": "url", "id": "secondary_button_link", "label": "Secondary Button link" },
     { "type": "image_picker", "id": "image", "label": "Poster" },
     { "type": "text", "id": "video_url", "label": "MP4 URL (blank uses hero.mp4)" }
   ],

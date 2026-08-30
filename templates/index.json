@@ -1,23 +1,29 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
       "type": "cinematic-hero",
       "settings": {
-        "kicker": "Night atelier",
+        "kicker": "Night Atelier · Pure Silk & Lace",
         "title": "Exotic silk, cut for the body.",
-        "body": "Jewel-tone lounge, sleep, and lingerie. Cash on delivery, worldwide.",
+        "body": "Jewel-tone lounge, sleep, and lingerie in emerald, champagne, and ruby. Cash on delivery worldwide with signature atelier presentation.",
         "button_label": "Shop the house",
         "button_link": "",
+        "secondary_button_label": "Fit studio & sizing",
+        "secondary_button_link": "/pages/size-guide",
         "video_url": ""
+      }
+    },
+    "trust_strip": {
+      "type": "trust-strip",
+      "settings": {
+        "t1_title": "30B–42C & XS–XXL",
+        "t1_desc": "Cut to the tape with interactive sister size matrix",
+        "t2_title": "Discreet Luxury Packaging",
+        "t2_desc": "Signature noir and gold presentation box on all orders",
+        "t3_title": "Cash on Delivery",
+        "t3_desc": "Doorstep payment worldwide with printable receipt",
+        "t4_title": "14-Day Free Exchange",
+        "t4_desc": "Effortless fit guarantee on all unworn pieces"
       }
     },
     "marquee": {
@@ -84,9 +90,9 @@
         "s1": {
           "type": "slide",
           "settings": {
-            "kicker": "Sleep",
-            "title": "Moonlit satin",
-            "link": "",
+            "kicker": "Sleep Room",
+            "title": "Moonlit satin & short nighties",
+            "link": "/collections/sleep",
             "fallback": "sleep.jpg",
             "video_url": "",
             "video_fallback": "sleep.mp4"
@@ -95,9 +101,9 @@
         "s2": {
           "type": "slide",
           "settings": {
-            "kicker": "Lingerie",
-            "title": "Ruby lace night",
-            "link": "",
+            "kicker": "Lingerie Room",
+            "title": "Ruby lace night & bespoke corsetry",
+            "link": "/collections/lingerie",
             "fallback": "lingerie.jpg",
             "video_url": "",
             "video_fallback": "lingerie.mp4"
@@ -106,9 +112,9 @@
         "s3": {
           "type": "slide",
           "settings": {
-            "kicker": "Lounge",
-            "title": "Emerald after dusk",
-            "link": "",
+            "kicker": "Lounge Room",
+            "title": "Emerald after dusk & resort robes",
+            "link": "/collections/lounge",
             "fallback": "lounge.jpg",
             "video_url": "",
             "video_fallback": ""
@@ -125,6 +131,16 @@
         "min_height": 52,
         "overlay_opacity": 60,
         "show_dots": true
+      }
+    },
+    "atelier_story": {
+      "type": "atelier-story-banner",
+      "settings": {
+        "kicker": "The House",
+        "heading": "An adult house of jewel silk.",
+        "body": "Femme is Silk Moments after dusk: lingerie, night, and lounge. Banners that breathe, fabric that moves. Every still is shot as a painting, then the film starts. Cut for 30B–42C and XS to XXL with complimentary discreet packaging.",
+        "button_label": "Discover The Atelier",
+        "button_link": "/pages/the-atelier"
       }
     },
     "aisles": {
@@ -253,19 +269,16 @@
         "p3"
       ],
       "settings": {}
-    },
-    "17881224441dcce3a4": {
-      "type": "_blocks",
-      "settings": {}
     }
   },
   "order": [
     "hero",
+    "trust_strip",
     "marquee",
     "campaign",
+    "atelier_story",
     "aisles",
     "featured",
-    "split",
-    "17881224441dcce3a4"
+    "split"
   ]
 }
