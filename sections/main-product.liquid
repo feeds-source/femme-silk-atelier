@@ -5,6 +5,10 @@
     {% if product.featured_image %}
       {{ product.featured_image | image_url: width: 1400 | image_tag: class: 'ken', loading: 'eager', alt: product.featured_image.alt | default: product.title }}
     {% endif %}
+    {% assign pdp_video = product.media | where: 'media_type', 'video' | first %}
+    {% if pdp_video %}
+      {{ pdp_video | video_tag: image_size: '1400x', autoplay: true, loop: true, muted: true, controls: false, class: 'motion-video' }}
+    {% endif %}
     {% if product.tags.size > 0 %}<span class="tag">{{ product.tags.first }}</span>{% endif %}
   </div>
 

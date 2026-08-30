@@ -41,7 +41,7 @@
     {% for product in collection.products %}
       {% render 'product-card', product: product %}
     {% else %}
-      <p class="muted">No pieces in this aisle yet.</p>
+      {% render 'demo-catalog', mode: collection.handle, max_items: 36 %}
     {% endfor %}
   </div>
 
