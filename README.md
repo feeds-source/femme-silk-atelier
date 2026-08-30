@@ -1,34 +1,40 @@
 # Femme Silk Atelier — Shopify theme
 
-Online Store 2.0 theme. Ink, champagne gold, cinematic home, size + inventory, visual size guide.
-
-Theme folders sit at the **repo root** (`layout/`, `config/`, `sections/`, `templates/`, `snippets/`, `assets/`, `locales/`, `blocks/`). Shopify GitHub connect needs that — do not nest them in a subfolder.
+Online Store 2.0. Theme folders are at the **repo root** (not in a subfolder).
 
 ## Connect from GitHub
 
-1. Shopify admin → **Online Store → Themes → Add theme → Connect from GitHub**
-2. Authorize GitHub if asked
-3. Pick this repo: **`feeds-source/femme-silk-atelier`** (not `vite-react-template`)
-4. Branch **`main`**
-5. Preview, then Publish
+Use this repo only: **`feeds-source/femme-silk-atelier`**, branch **`main`**.  
+Do **not** connect `vite-react-template` (that is the Cloudflare Worker shop).
 
-If you previously connected a different repo, disconnect it and connect this one.
+1. [GitHub → Settings → Applications → Authorized GitHub Apps → Shopify](https://github.com/settings/installations)  
+   Repository access must include **femme-silk-atelier**. Save.
+2. Shopify admin → **Online Store → Themes → Add theme → Connect from GitHub**
+3. Pick **`feeds-source/femme-silk-atelier`** → **`main`**
+
+### If Shopify says “main isn’t a valid theme”
+
+| Cause | Fix |
+|---|---|
+| Wrong repo | Connect `femme-silk-atelier`, not `vite-react-template` |
+| Shopify app can’t see this repo | Grant the Shopify GitHub app access (step 1), then connect again |
+| Connected while the repo was empty | Disconnect / skip that card, connect **main** again after commit `4fb8ce2`+ |
+| Theme nested in a folder | Must see `layout/theme.liquid` at the **root** of main — it is |
+
+Root of `main` must look like:
+
+```
+assets/  blocks/  config/  layout/  locales/  sections/  snippets/  templates/
+```
+
+Required files present: `layout/theme.liquid`, `config/settings_schema.json`.
+
+After a failed connect: remove the broken theme card, then **Add theme → Connect from GitHub** again.
+
+Theme check: structure is valid (only image width/height lint).
 
 ## Store setup
 
-Create **collections** that match the aisles (handles suggested):
-
-- `babydoll` `short-nighty` `long-nighty` `gowns` `teddies`
-- `bras` `bra-sets` `panties` `camisole` `corsetry` `hosiery` `body-stockings` `shapewear`
-- `bridal` `swim` `loungewear` `resort` `thermal` `accessories`
-
-**Products — size + inventory**
-
-- Option 1 must be named **Size**
-- Track quantity **per variant**
-- Product **type** = aisle name
-- Tag `featured` / `Exotic` / `Best seller` to span two columns
-
-**Pages:** create **Size guide** (handle `size-guide`, template **size-guide**), plus `about` and `contact`.
-
-**Payments:** enable Cash on Delivery if you use it.
+Collections: `bras` `babydoll` `gowns` `swim` `corsetry` …  
+Products: option **Size**, track qty per variant.  
+Page **Size guide**, handle `size-guide`, template **size-guide**.
