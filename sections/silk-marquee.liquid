@@ -6,7 +6,7 @@
           {% if block.settings.image %}
             {{ block.settings.image | image_url: width: 600 | image_tag: alt: block.settings.alt }}
           {% else %}
-            <img src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.alt | escape }}">
+            <img src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.alt | escape }}" width="640" height="440">
           {% endif %}
         </figure>
       {% endfor %}

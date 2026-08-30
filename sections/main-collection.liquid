@@ -2,7 +2,7 @@
   {% if collection.featured_image %}
     {{ collection.featured_image | image_url: width: 2000 | image_tag: class: 'ken' }}
   {% else %}
-    <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="">
+    <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="" width="1600" height="1000">
   {% endif %}
   <div class="hero-veil"></div>
   <div class="wrap">

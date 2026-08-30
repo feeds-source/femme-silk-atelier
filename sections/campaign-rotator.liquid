@@ -4,7 +4,7 @@
       {% if block.settings.image %}
         {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'ken' }}
       {% else %}
-        <img class="ken" src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.title | escape }}">
+        <img class="ken" src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.title | escape }}" width="1600" height="1000">
       {% endif %}
       {% if block.settings.video_url != blank %}
         <video class="motion-video" autoplay muted loop playsinline>

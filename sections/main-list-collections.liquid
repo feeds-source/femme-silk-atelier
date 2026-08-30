@@ -8,7 +8,7 @@
           {% if collection.featured_image %}
             {{ collection.featured_image | image_url: width: 900 | image_tag: class: 'ken-hover' }}
           {% else %}
-            <img class="ken-hover" src="{{ 'lounge.jpg' | asset_url }}" alt="{{ collection.title | escape }}">
+            <img class="ken-hover" src="{{ 'lounge.jpg' | asset_url }}" alt="{{ collection.title | escape }}" width="1200" height="900">
           {% endif %}
           <div class="hero-veil"></div>
           <div class="aisle__copy">

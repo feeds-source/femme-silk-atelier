@@ -8,7 +8,7 @@
           {% if block.settings.image %}
             {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'ken-hover' }}
           {% else %}
-            <img class="ken-hover" src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.title | escape }}">
+            <img class="ken-hover" src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.title | escape }}" width="1200" height="900">
           {% endif %}
           <div class="hero-veil"></div>
           <div class="aisle__copy">

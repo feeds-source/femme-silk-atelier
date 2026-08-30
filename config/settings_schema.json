@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Femme Silk Atelier",
-    "theme_version": "1.0.0",
+    "theme_version": "1.1.0",
     "theme_author": "Silk Moments",
     "theme_documentation_url": "https://www.silkmoments.com",
     "theme_support_url": "https://www.silkmoments.com"
@@ -13,7 +13,8 @@
       { "type": "text", "id": "brand_name", "label": "Wordmark", "default": "FEMME" },
       { "type": "text", "id": "brand_sub", "label": "Subtitle", "default": "Silk Atelier" },
       { "type": "textarea", "id": "brand_line", "label": "Footer line", "default": "Exotic silk, cut for the body." },
-      { "type": "text", "id": "contact_email", "label": "Email", "default": "info@silkmoments.com" }
+      { "type": "text", "id": "contact_email", "label": "Email", "default": "info@silkmoments.com" },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
     ]
   },
   {

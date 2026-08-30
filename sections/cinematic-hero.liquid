@@ -2,7 +2,7 @@
   {% if section.settings.image %}
     {{ section.settings.image | image_url: width: 2000 | image_tag: class: 'ken', loading: 'eager', alt: section.settings.title }}
   {% else %}
-    <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="{{ section.settings.title | escape }}">
+    <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="{{ section.settings.title | escape }}" width="1600" height="2000">
   {% endif %}
   {% if section.settings.video_url != blank %}
     <video class="motion-video" autoplay muted loop playsinline>
