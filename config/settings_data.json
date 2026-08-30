@@ -11,6 +11,8 @@
   "current": {
     "brand_name": "FEMME",
     "brand_sub": "Silk Atelier",
+    "logo": "{{ shop.brand.logo }}",
+    "favicon": "{{ shop.brand.logo }}",
     "show_announcement": true,
     "announcement_text": "Complimentary discreet packaging · Cash on delivery worldwide · Free size exchanges within 14 days",
     "color_bg": "#0c0a0b",
