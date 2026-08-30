@@ -7,7 +7,7 @@
         "title": "Exotic silk, cut for the body.",
         "body": "Jewel-tone lounge, sleep, and lingerie in emerald, champagne, and ruby. Cash on delivery worldwide with signature atelier presentation.",
         "button_label": "Shop the house",
-        "button_link": "",
+        "button_link": "/collections/all",
         "secondary_button_label": "Fit studio & sizing",
         "secondary_button_link": "/pages/size-guide",
         "video_url": ""
@@ -152,7 +152,7 @@
             "kicker": "Babydoll",
             "title": "Short lace night",
             "collection": "",
-            "link": "",
+            "link": "/collections/sleep",
             "fallback": "ruby-babydoll.jpg"
           }
         },
@@ -162,7 +162,7 @@
             "kicker": "Bra Sets",
             "title": "Balconette pairs",
             "collection": "",
-            "link": "",
+            "link": "/collections/lingerie",
             "fallback": "lace-balconette-set.jpg"
           }
         },
@@ -172,7 +172,7 @@
             "kicker": "Gowns",
             "title": "Satin after dusk",
             "collection": "",
-            "link": "",
+            "link": "/collections/sleep",
             "fallback": "satin-gown.jpg"
           }
         },
@@ -182,7 +182,7 @@
             "kicker": "Swim",
             "title": "Jewel bikini",
             "collection": "",
-            "link": "",
+            "link": "/collections/lounge",
             "fallback": "silk-bikini.jpg"
           }
         },
@@ -192,7 +192,7 @@
             "kicker": "Corsetry",
             "title": "Boning and gold",
             "collection": "",
-            "link": "",
+            "link": "/collections/lingerie",
             "fallback": "emerald-bustier.jpg"
           }
         },
@@ -202,7 +202,7 @@
             "kicker": "Body Stockings",
             "title": "Sheer noir",
             "collection": "",
-            "link": "",
+            "link": "/collections/lingerie",
             "fallback": "body-stocking.jpg"
           }
         }
@@ -225,7 +225,7 @@
       "settings": {
         "kicker": "The Collection",
         "title": "House Highlights",
-        "collection": "",
+        "collection": "all",
         "limit": 9
       }
     },
@@ -238,7 +238,7 @@
             "kicker": "Couture atelier",
             "title": "Hand-finished lace",
             "collection": "",
-            "link": "",
+            "link": "/collections/lingerie",
             "fallback": "lace-camisole.jpg"
           }
         },
@@ -248,7 +248,7 @@
             "kicker": "Bridal suite",
             "title": "Ivory silk Charmeuse",
             "collection": "",
-            "link": "",
+            "link": "/collections/lounge",
             "fallback": "getting-ready-robe.jpg"
           }
         },
@@ -258,7 +258,7 @@
             "kicker": "Bespoke evening",
             "title": "Gold seaming and noir",
             "collection": "",
-            "link": "",
+            "link": "/collections/sleep",
             "fallback": "ruby-waspie.jpg"
           }
         }

@@ -5,26 +5,18 @@
         <p class="kicker">{{ section.settings.kicker }}</p>
         <h2>{{ section.settings.title }}</h2>
       </div>
-      <a class="gold" href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}">{{ 'general.view_all' | t }}</a>
+      {% assign target_coll = collections[section.settings.collection] | default: section.settings.collection | default: collections.all %}
+      <a class="gold" href="{{ target_coll.url | default: routes.all_products_collection_url }}">{{ 'general.view_all' | t | default: 'View all pieces' }}</a>
     </div>
     <div class="grid-bento">
       {% assign shown = 0 %}
-      {% if section.settings.collection != blank %}
-        {% for product in section.settings.collection.products limit: section.settings.limit %}
+      {% if target_coll != blank and target_coll.products.size > 0 %}
+        {% for product in target_coll.products limit: section.settings.limit %}
           {% render 'product-card', product: product %}
           {% assign shown = shown | plus: 1 %}
         {% endfor %}
       {% endif %}
-      {% if shown == 0 %}
-        {% for product in collections.all.products %}
-          {% if product.tags contains 'Exotic' or product.tags contains 'featured' or product.tags contains 'Best seller' or product.tags.size > 0 %}
-            {% render 'product-card', product: product %}
-            {% assign shown = shown | plus: 1 %}
-            {% if shown >= section.settings.limit %}{% break %}{% endif %}
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-      {% if shown == 0 %}
+      {% if shown == 0 and collections.all.products.size > 0 %}
         {% for product in collections.all.products limit: section.settings.limit %}
           {% render 'product-card', product: product %}
           {% assign shown = shown | plus: 1 %}
