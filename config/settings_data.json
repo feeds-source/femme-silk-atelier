@@ -11,6 +11,8 @@
   "current": {
     "brand_name": "FEMME",
     "brand_sub": "Silk Atelier",
+    "logo": "{{ shop.brand.logo }}",
+    "favicon": "{{ shop.brand.logo }}",
     "show_announcement": true,
     "announcement_text": "Complimentary discreet packaging · Cash on delivery worldwide · Free size exchanges within 14 days",
     "color_bg": "#0c0a0b",
@@ -26,6 +28,8 @@
     "cart_type": "drawer",
     "enable_cart_notes": true,
     "free_shipping_threshold": 150,
+    "social_instagram_link": "https://www.instagram.com/silkmoments",
+    "social_tiktok_link": "https://www.tiktok.com/@silkmoments",
     "brand_line": "Exotic silk, cut for the body.",
     "contact_email": "info@silkmoments.com",
     "show_currency_selector": true,
