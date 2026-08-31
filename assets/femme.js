@@ -331,6 +331,12 @@
     return { products, aisles, pages };
   }
 
+  const formatPrice = (num) => {
+    if (num == null || isNaN(num)) return "";
+    const sym = window.FEMME?.currencySymbol || "$";
+    return `${sym}${Number(num).toFixed(2)}`;
+  };
+
   function renderHouseHits(container, hits, query) {
     const typed = fold(query).length >= 2;
     if (typed && !hits.products.length && !hits.aisles.length && !hits.pages.length) {
@@ -353,7 +359,7 @@
       hits.products.forEach((p) => {
         html += `<a class="predictive-item" href="${searchUrl(p.name)}">
           <img src="${asset(p.id + ".jpg")}" alt="">
-          <span><strong>${p.name}</strong><em>$${p.price.toFixed(2)}</em></span>
+          <span><strong>${p.name}</strong><em>${formatPrice(p.price)}</em></span>
         </a>`;
       });
       html += `</div>`;
@@ -436,7 +442,7 @@
         html += `<p class="kicker">Pieces in the atelier</p><div class="predictive-grid">`;
         shopProducts.forEach((p) => {
           const img = p.image ? `<img src="${p.image}" alt="">` : "";
-          html += `<a class="predictive-item" href="${p.url}">${img}<span><strong>${p.title}</strong><em>${p.price ? "$" + Number(p.price).toFixed(2) : ""}</em></span></a>`;
+          html += `<a class="predictive-item" href="${p.url}">${img}<span><strong>${p.title}</strong><em>${formatPrice(p.price)}</em></span></a>`;
         });
         html += `</div><a class="gold" href="${searchUrl(query)}" style="display:inline-block;margin-top:1.25rem">See all results</a>`;
         searchResults.innerHTML = html;

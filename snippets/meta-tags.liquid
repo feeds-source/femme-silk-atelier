@@ -1,19 +1,24 @@
+{%- assign brand_full = settings.brand_name | default: 'Femme' | append: ' · ' | append: settings.brand_sub | default: 'Silk Atelier' -%}
+{%- if shop.name != blank and shop.name != 'My Store' -%}
+  {%- assign shop_display = shop.name -%}
+{%- else -%}
+  {%- assign shop_display = brand_full -%}
+{%- endif -%}
+
 {%- capture seo_title -%}
-  {%- if page_title != blank -%}
-    {%- if page.handle == 'the-atelier' or page.handle == 'atelier' or page.handle == 'about' -%}
-      The Atelier — Femme Silk Moments | Jewel-Tone Silk Lingerie
-    {%- elsif page.handle == 'size-guide' or page.handle == 'sizes' -%}
-      Size Guide & Fit Studio — 30B–42C, XS–XXL | Femme Silk Moments
-    {%- elsif page.handle == 'contact' -%}
-      Atelier Concierge & Inquiries | Femme Silk Moments
-    {%- else -%}
-      {{ page_title }}
-      {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-    {%- endif -%}
+  {%- if page.handle == 'the-atelier' or page.handle == 'atelier' or page.handle == 'about' -%}
+    The Atelier — Femme Silk Atelier | Jewel-Tone Silk Lingerie
+  {%- elsif page.handle == 'size-guide' or page.handle == 'sizes' -%}
+    Size Guide & Fit Studio — 30B–42C, XS–XXL | Femme Silk Atelier
+  {%- elsif page.handle == 'contact' -%}
+    Atelier Concierge & Inquiries | Femme Silk Atelier
+  {%- elsif page_title != blank and page_title != 'My Store' -%}
+    {{ page_title }}
+    {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop_display %} &ndash; {{ shop_display }}{% endunless -%}
   {%- else -%}
-    {{ shop.name }} · Silk Atelier
+    {{ shop_display }} — {{ settings.brand_line | default: 'Exotic silk, cut for the body.' }}
   {%- endif -%}
 {%- endcapture -%}
 
@@ -33,7 +38,7 @@
 
 {%- assign og_image = page_image | default: settings.logo -%}
 
-<meta property="og:site_name" content="{{ shop.name | escape }}">
+<meta property="og:site_name" content="{{ shop_display | escape }}">
 <meta property="og:url" content="{{ canonical_url }}">
 <meta property="og:title" content="{{ seo_title | strip | escape }}">
 <meta property="og:type" content="website">

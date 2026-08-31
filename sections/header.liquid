@@ -16,7 +16,8 @@
   <div class="wrap site-header__bar">
     <a class="brand" href="{{ routes.root_url }}">
       {% if settings.logo != blank %}
-        {{ settings.logo | image_url: width: 300 | image_tag: class: 'brand__logo', alt: shop.name }}
+        {% assign brand_title = settings.brand_name | default: 'Femme' | append: ' ' | append: settings.brand_sub | default: 'Silk Atelier' %}
+        {{ settings.logo | image_url: width: 300 | image_tag: class: 'brand__logo', alt: brand_title }}
       {% else %}
         <span class="brand__name">{{ settings.brand_name | default: 'FEMME' }}</span>
         <span class="brand__sub">{{ settings.brand_sub | default: 'Silk Atelier' }}</span>

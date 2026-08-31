@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>
       {%- if page.handle == 'the-atelier' or page.handle == 'atelier' or page.handle == 'about' -%}
-        The Atelier — Femme Silk Moments | Jewel-Tone Silk Lingerie
+        The Atelier — Femme Silk Atelier | Jewel-Tone Silk Lingerie
       {%- elsif page.handle == 'size-guide' or page.handle == 'sizes' -%}
-        Size Guide & Fit Studio — 30B–42C, XS–XXL | Femme Silk Moments
+        Size Guide & Fit Studio — 30B–42C, XS–XXL | Femme Silk Atelier
       {%- elsif page.handle == 'contact' -%}
-        Atelier Concierge & Inquiries | Femme Silk Moments
+        Atelier Concierge & Inquiries | Femme Silk Atelier
       {%- else -%}
-        {{ page_title }}
-        {%- if current_tags %} – {{ current_tags | join: ', ' }}{% endif -%}
-        {%- if current_page != 1 %} – Page {{ current_page }}{% endif -%}
-        {%- unless page_title contains shop.name %} · {{ shop.name }}{% endunless -%}
+        {%- assign brand_full = settings.brand_name | default: 'Femme' | append: ' · ' | append: settings.brand_sub | default: 'Silk Atelier' -%}
+        {%- if shop.name != blank and shop.name != 'My Store' -%}
+          {%- assign shop_display = shop.name -%}
+        {%- else -%}
+          {%- assign shop_display = brand_full -%}
+        {%- endif -%}
+        {%- if page_title != blank and page_title != 'My Store' -%}
+          {{ page_title }}
+          {%- if current_tags %} – {{ current_tags | join: ', ' }}{% endif -%}
+          {%- if current_page != 1 %} – Page {{ current_page }}{% endif -%}
+          {%- unless page_title contains shop_display %} · {{ shop_display }}{% endunless -%}
+        {%- else -%}
+          {{ shop_display }} — {{ settings.brand_line | default: 'Exotic silk, cut for the body.' }}
+        {%- endif -%}
       {%- endif -%}
     </title>
     <meta name="description" content="{%- if page_description != blank -%}{{ page_description | escape }}{%- elsif page.handle == 'the-atelier' or page.handle == 'atelier' or page.handle == 'about' -%}Femme is an adult house of jewel silk. Exotic silk lingerie, lounge, and nightwear cut for the body. Cash on delivery worldwide.{%- elsif page.handle == 'size-guide' or page.handle == 'sizes' -%}Explore the Femme Silk Atelier sizing matrix. Precise bra band and cup fittings from 30B to 42C, body ranges from XS to XXL, corset reductions, and hosiery charts.{%- elsif page.handle == 'contact' -%}Write to the Femme Silk Atelier. Inquiries on sizing, custom orders, and bespoke bridal consultations replied to within 12 hours.{%- else -%}{{ settings.brand_line | default: 'Exotic silk, cut for the body. Jewel-tone lounge, sleep, and lingerie. Cash on delivery worldwide.' | escape }}{%- endif -%}">
@@ -34,6 +44,8 @@
       window.FEMME = {
         searchUrl: {{ routes.search_url | json }},
         shopUrl: {{ routes.all_products_collection_url | json }},
+        currencySymbol: {{ cart.currency.symbol | default: '$' | json }},
+        currencyCode: {{ cart.currency.iso_code | default: 'USD' | json }},
         asset: function (name) {
           return {{ 'femme.css' | asset_url | json }}.replace(/femme\.css(\?.*)?$/, name);
         }

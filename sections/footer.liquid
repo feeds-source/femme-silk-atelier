@@ -102,7 +102,7 @@
     <div class="legal" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem">
       <div>
         <p>{{ 'general.cod' | t | default: 'Cash on delivery worldwide' }} · {{ 'general.sizes' | t | default: 'Complimentary size exchange' }} · Discreet luxury presentation</p>
-        <p style="margin-top:0.25rem">© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ powered_by_link }}</p>
+        <p style="margin-top:0.25rem">© {{ 'now' | date: '%Y' }} {% if shop.name == blank or shop.name == 'My Store' %}{{ settings.brand_name | default: 'FEMME' }} {{ settings.brand_sub | default: 'Silk Atelier' }}{% else %}{{ shop.name }}{% endif %} · {{ powered_by_link }}</p>
       </div>
 
       {% render 'localization-selector' %}

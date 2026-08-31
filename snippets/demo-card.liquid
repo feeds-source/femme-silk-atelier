@@ -14,8 +14,14 @@
   </a>
   <a href="{{ routes.all_products_collection_url }}" class="card-body">
     <p class="cat">{{ cat }}</p>
-    <h3>{{ title }}</h3>
-    <p class="price">{{ price }}</p>
+    {%- assign raw_num = price | remove: '$' | strip | times: 100 -%}
+    <p class="price">
+      {%- if raw_num > 0 -%}
+        {{ raw_num | money }}
+      {%- else -%}
+        {{ price }}
+      {%- endif -%}
+    </p>
   </a>
   <div class="card-actions">
     <label class="kicker">Size</label>
