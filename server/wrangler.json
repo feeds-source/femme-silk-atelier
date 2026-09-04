@@ -5,11 +5,12 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  "workers_dev": true,
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "femme-atelier-db",
-      "database_id": "local-d1"
+      "database_id": "b32b48ff-3aae-4f6e-b377-1d99a81ad524"
     }
   ]
 }
