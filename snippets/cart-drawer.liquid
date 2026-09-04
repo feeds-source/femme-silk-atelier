@@ -93,7 +93,7 @@
       </p>
 
       <form action="{{ routes.cart_url }}" method="post" id="cart-drawer-form">
-        <button class="btn btn--full" type="submit" name="checkout" style="height:3rem">
+        <button class="btn btn--full" type="submit" name="checkout" formaction="/checkout" style="height:3rem">
           {{ 'cart.checkout' | t | default: 'Checkout' }} &rarr;
         </button>
       </form>

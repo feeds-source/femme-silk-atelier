@@ -111,7 +111,7 @@
           </p>
 
           <button class="btn btn-ghost" type="submit" name="update" style="margin-top:1rem;width:100%">Update bag</button>
-          <button class="btn" type="submit" name="checkout" style="margin-top:0.5rem;width:100%">{{ 'cart.checkout' | t | default: 'Proceed to Checkout' }}</button>
+          <button class="btn" type="submit" name="checkout" formaction="/checkout" style="margin-top:0.5rem;width:100%">{{ 'cart.checkout' | t | default: 'Proceed to Checkout' }}</button>
 
           {% if additional_checkout_buttons %}
             <div class="additional-checkout-buttons" style="margin-top:0.75rem">
