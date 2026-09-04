@@ -5,3 +5,5 @@
 *.zip
 node_modules
 temp
+server
+*.db
