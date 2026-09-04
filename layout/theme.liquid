@@ -11,7 +11,9 @@
       {%- elsif page.handle == 'contact' -%}
         Atelier Concierge & Inquiries | Femme Silk Atelier
       {%- else -%}
-        {%- assign brand_full = settings.brand_name | default: 'Femme' | append: ' · ' | append: settings.brand_sub | default: 'Silk Atelier' -%}
+        {%- assign b_name = settings.brand_name | default: 'Femme' -%}
+        {%- assign b_sub = settings.brand_sub | default: 'Silk Atelier' -%}
+        {%- assign brand_full = b_name | append: ' · ' | append: b_sub -%}
         {%- if shop.name != blank and shop.name != 'My Store' -%}
           {%- assign shop_display = shop.name -%}
         {%- else -%}
@@ -39,6 +41,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
     {% render 'css-vars' %}
     {% render 'meta-tags' %}
+    {% render 'ld-json' %}
     {{ 'femme.css' | asset_url | stylesheet_tag }}
     <script>
       window.FEMME = {
@@ -60,6 +63,9 @@
       {{ content_for_layout }}
     </main>
     {% sections 'footer-group' %}
+    {% if settings.cart_type == 'drawer' %}
+      {% render 'cart-drawer' %}
+    {% endif %}
     <script src="{{ 'femme.js' | asset_url }}" defer></script>
   </body>
 </html>

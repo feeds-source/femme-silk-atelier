@@ -1,11 +1,36 @@
 <section class="wrap section" style="max-width:28rem">
-  <p class="kicker">Account</p>
-  <h1 class="display" style="font-style:italic">Sign in</h1>
-  {% form 'customer_login' %}
-    {{ form.errors | default_errors }}
-    <input type="email" name="customer[email]" placeholder="Email" autocomplete="email" style="display:block;width:100%;height:2.75rem;margin:0.75rem 0;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem">
-    <input type="password" name="customer[password]" placeholder="Password" autocomplete="current-password" style="display:block;width:100%;height:2.75rem;margin:0.75rem 0;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem">
-    <button class="btn" type="submit">Sign in</button>
-  {% endform %}
-  <p style="margin-top:1rem"><a class="gold" href="{{ routes.account_register_url }}">Create an account</a></p>
+  <div id="CustomerLoginForm">
+    <p class="kicker">{{ 'customer.login.title' | t | default: 'Account' }}</p>
+    <h1 class="display" style="font-style:italic">{{ 'customer.login.submit' | t | default: 'Sign in' }}</h1>
+    {% form 'customer_login' %}
+      {{ form.errors | default_errors }}
+      <label for="CustomerEmail" class="visually-hidden">{{ 'customer.login.email' | t | default: 'Email' }}</label>
+      <input id="CustomerEmail" type="email" name="customer[email]" placeholder="Email" autocomplete="email" required style="display:block;width:100%;height:2.75rem;margin:0.75rem 0;background:var(--elevated);border:1px solid var(--line);border-radius:999px;color:var(--fg);padding:0 1rem">
+      <label for="CustomerPassword" class="visually-hidden">{{ 'customer.login.password' | t | default: 'Password' }}</label>
+      <input id="CustomerPassword" type="password" name="customer[password]" placeholder="Password" autocomplete="current-password" required style="display:block;width:100%;height:2.75rem;margin:0.75rem 0;background:var(--elevated);border:1px solid var(--line);border-radius:999px;color:var(--fg);padding:0 1rem">
+      <button class="btn" type="submit" style="width:100%">{{ 'customer.login.submit' | t | default: 'Sign in' }}</button>
+    {% endform %}
+    <div style="display:flex;justify-content:space-between;margin-top:1.25rem;font-size:0.85rem">
+      <a class="subtle" href="#recover" onclick="document.getElementById('CustomerLoginForm').style.display='none';document.getElementById('RecoverPasswordForm').style.display='block';return false;">Forgot password?</a>
+      <a class="gold" href="{{ routes.account_register_url }}">Create account</a>
+    </div>
+  </div>
+
+  <div id="RecoverPasswordForm" style="display:none">
+    <p class="kicker">Recovery</p>
+    <h1 class="display" style="font-style:italic">Reset password</h1>
+    <p class="muted" style="margin-top:0.5rem;font-size:0.9rem">We will send you an email to reset your atelier password.</p>
+    {% form 'recover_customer_password' %}
+      {{ form.errors | default_errors }}
+      {% if form.posted_successfully? %}
+        <p class="gold" style="margin:1rem 0">✓ Check your email for instructions to reset your password.</p>
+      {% endif %}
+      <label for="RecoverEmail" class="visually-hidden">Email</label>
+      <input id="RecoverEmail" type="email" name="email" placeholder="Enter your email" autocomplete="email" required style="display:block;width:100%;height:2.75rem;margin:1rem 0;background:var(--elevated);border:1px solid var(--line);border-radius:999px;color:var(--fg);padding:0 1rem">
+      <button class="btn" type="submit" style="width:100%">Submit</button>
+    {% endform %}
+    <p style="margin-top:1.25rem;text-align:center;font-size:0.85rem">
+      <a class="subtle" href="#login" onclick="document.getElementById('RecoverPasswordForm').style.display='none';document.getElementById('CustomerLoginForm').style.display='block';return false;">&larr; Cancel and return to sign in</a>
+    </p>
+  </div>
 </section>

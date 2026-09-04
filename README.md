@@ -16,7 +16,7 @@ Theme **2.2.0** matches the live house at silkmoments.com:
 
 ## Install
 
-**Zip:** download [`Femme-Silk-Atelier.zip`](https://github.com/feeds-source/silkmoments-shop/raw/main/public/Femme-Silk-Atelier.zip) → Online Store → Themes → Add theme → **Upload zip file**. Do not unzip. Zip root must show `layout/`, not a wrapper folder.
+**Zip:** use [`Femme Silk Atelier-2.2.0.zip`](./Femme%20Silk%20Atelier-2.2.0.zip) from this repository → Online Store → Themes → Add theme → **Upload zip file**. Do not unzip. Zip root directly shows `layout/`, `templates/`, `sections/`, etc.
 
 **GitHub:** connect **`feeds-source/femme-silk-atelier`**, branch **`main`** — not `vite-react-template` and not `silkmoments-shop`. Grant the Shopify GitHub app access to this repo first.
 

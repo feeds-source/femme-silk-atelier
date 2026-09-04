@@ -1,0 +1,89 @@
+{%- assign b_name = settings.brand_name | default: 'FEMME' -%}
+{%- assign b_sub = settings.brand_sub | default: 'Silk Atelier' -%}
+{%- assign brand_full = b_name | append: ' · ' | append: b_sub -%}
+{%- if shop.name != blank and shop.name != 'My Store' -%}
+  {%- assign shop_display = shop.name -%}
+{%- else -%}
+  {%- assign shop_display = brand_full -%}
+{%- endif -%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ shop_display | json }},
+  "url": {{ canonical_url | json }},
+  {%- if settings.logo != blank -%}
+    "logo": "https:{{ settings.logo | image_url: width: 600 }}",
+  {%- endif -%}
+  {%- if settings.contact_email != blank -%}
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": {{ settings.contact_email | json }},
+      "contactType": "customer service"
+    },
+  {%- endif -%}
+  "sameAs": [
+    {%- assign socials = '' -%}
+    {%- if settings.social_instagram_link != blank -%}{%- assign socials = socials | append: settings.social_instagram_link | append: ',' -%}{%- endif -%}
+    {%- if settings.social_pinterest_link != blank -%}{%- assign socials = socials | append: settings.social_pinterest_link | append: ',' -%}{%- endif -%}
+    {%- if settings.social_tiktok_link != blank -%}{%- assign socials = socials | append: settings.social_tiktok_link | append: ',' -%}{%- endif -%}
+    {%- if settings.social_facebook_link != blank -%}{%- assign socials = socials | append: settings.social_facebook_link | append: ',' -%}{%- endif -%}
+    {%- assign social_array = socials | split: ',' -%}
+    {%- for s in social_array -%}
+      {{ s | json }}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ shop_display | json }},
+  "url": {{ shop.url | json }},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ shop.url }}{{ routes.search_url }}?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+{%- if request.page_type == 'product' -%}
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "description": {{ product.description | strip_html | truncate: 320 | json }},
+    {%- if product.featured_image -%}
+      "image": [
+        "https:{{ product.featured_image | image_url: width: 1200 }}"
+      ],
+    {%- endif -%}
+    "brand": {
+      "@type": "Brand",
+      "name": {{ shop_display | json }}
+    },
+    {%- if current_variant.sku != blank -%}
+      "sku": {{ current_variant.sku | json }},
+    {%- endif -%}
+    "offers": [
+      {%- for variant in product.variants -%}
+        {
+          "@type": "Offer",
+          "name": {{ variant.title | json }},
+          "price": {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency": {{ cart.currency.iso_code | json }},
+          "priceValidUntil": "{{ 'now' | date: '%s' | plus: 2592000 | date: '%Y-%m-%d' }}",
+          "availability": "https://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "url": "{{ shop.url }}{{ variant.url }}"
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+  </script>
+{%- endif -%}

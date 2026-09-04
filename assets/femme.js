@@ -32,12 +32,173 @@
     setInterval(() => show(i + 1), interval);
   }
 
+  const cartDrawer = document.getElementById("cart-drawer");
+  const formatMoney = (cents) => {
+    const sym = (window.FEMME && window.FEMME.currencySymbol) || "$";
+    return `${sym}${(cents / 100).toFixed(2)}`;
+  };
+
+  const openDrawer = () => {
+    if (!cartDrawer) return;
+    cartDrawer.classList.add("is-open");
+    cartDrawer.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeDrawer = () => {
+    if (!cartDrawer) return;
+    cartDrawer.classList.remove("is-open");
+    cartDrawer.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+
+  if (cartDrawer) {
+    document.querySelectorAll("[data-cart-trigger]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        openDrawer();
+      });
+    });
+
+    cartDrawer.querySelectorAll("[data-cart-close]").forEach((el) => {
+      el.addEventListener("click", closeDrawer);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && cartDrawer.classList.contains("is-open")) {
+        closeDrawer();
+      }
+    });
+
+    const updateDrawer = (cart) => {
+      document.querySelectorAll("[data-cart-count]").forEach((el) => {
+        el.textContent = String(cart.item_count);
+      });
+      const drawerCount = cartDrawer.querySelector("[data-drawer-count]");
+      if (drawerCount) drawerCount.textContent = String(cart.item_count);
+
+      const drawerSubtotal = cartDrawer.querySelector("[data-drawer-subtotal]");
+      if (drawerSubtotal) drawerSubtotal.textContent = formatMoney(cart.total_price);
+
+      const shippingEl = cartDrawer.querySelector("[data-shipping-threshold]");
+      if (shippingEl) {
+        const threshold = Number(shippingEl.dataset.shippingThreshold) || 0;
+        if (threshold > 0) {
+          const pct = Math.min(100, Math.round((cart.total_price / threshold) * 100));
+          const bar = shippingEl.querySelector(".cart-drawer__progress-bar");
+          if (bar) bar.style.width = `${pct}%`;
+          const textEl = shippingEl.querySelector("p");
+          if (textEl) {
+            if (cart.total_price >= threshold) {
+              textEl.className = "gold";
+              textEl.textContent = "✓ You have unlocked complimentary worldwide delivery.";
+            } else {
+              textEl.className = "subtle";
+              textEl.innerHTML = `Add <strong class="gold">${formatMoney(threshold - cart.total_price)}</strong> more for complimentary delivery.`;
+            }
+          }
+        }
+      }
+
+      const body = cartDrawer.querySelector("[data-drawer-body]");
+      const footer = cartDrawer.querySelector(".cart-drawer__footer");
+      if (cart.item_count === 0) {
+        if (footer) footer.style.display = "none";
+        if (body) {
+          body.innerHTML = `
+            <div class="cart-drawer__empty" style="text-align:center;padding:4rem 1.5rem">
+              <p class="muted">Your bag is empty.</p>
+              <a class="btn" href="${window.FEMME?.shopUrl || '/collections/all'}" style="margin-top:1.5rem">Shop the house</a>
+            </div>
+          `;
+          body.querySelector("a")?.addEventListener("click", closeDrawer);
+        }
+      } else {
+        if (footer) footer.style.display = "";
+        if (body) {
+          body.innerHTML = `
+            <div class="cart-drawer__items" data-drawer-items>
+              ${cart.items
+                .map(
+                  (item) => `
+                <div class="cart-drawer__item" data-item-key="${item.key}">
+                  <div class="cart-drawer__item-media">
+                    ${item.image ? `<img src="${item.image}" alt="${item.title}" loading="lazy">` : ""}
+                  </div>
+                  <div class="cart-drawer__item-info">
+                    <a class="cart-drawer__item-title" href="${item.url}">${item.product_title}</a>
+                    ${item.variant_title ? `<p class="cart-drawer__item-variant">${item.variant_title}</p>` : ""}
+                    <div class="cart-drawer__item-price">
+                      ${item.original_line_price !== item.final_line_price ? `<s class="muted" style="font-size:0.8rem">${formatMoney(item.original_line_price)}</s> ` : ""}
+                      <span class="gold">${formatMoney(item.final_line_price)}</span>
+                    </div>
+                    <div class="cart-drawer__item-bottom">
+                      <div class="cart-drawer__qty-stepper">
+                        <button type="button" class="qty-step" data-qty-change="-1" data-key="${item.key}">&minus;</button>
+                        <span class="qty-val">${item.quantity}</span>
+                        <button type="button" class="qty-step" data-qty-change="1" data-key="${item.key}">+</button>
+                      </div>
+                      <button type="button" class="cart-drawer__item-remove" data-item-remove data-key="${item.key}">Remove</button>
+                    </div>
+                  </div>
+                </div>
+              `
+                )
+                .join("")}
+            </div>
+          `;
+          attachDrawerEvents();
+        }
+      }
+    };
+
+    const attachDrawerEvents = () => {
+      cartDrawer.querySelectorAll("[data-qty-change]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const key = btn.dataset.key;
+          const diff = Number(btn.dataset.qtyChange);
+          const currentQty = Number(btn.parentElement.querySelector(".qty-val")?.textContent || 1);
+          const newQty = Math.max(0, currentQty + diff);
+          btn.disabled = true;
+          const updated = await fetch("/cart/change.js", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ id: key, quantity: newQty }),
+          }).then((r) => r.json());
+          updateDrawer(updated);
+        });
+      });
+
+      cartDrawer.querySelectorAll("[data-item-remove]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const key = btn.dataset.key;
+          btn.disabled = true;
+          const updated = await fetch("/cart/change.js", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ id: key, quantity: 0 }),
+          }).then((r) => r.json());
+          updateDrawer(updated);
+        });
+      });
+    };
+
+    attachDrawerEvents();
+
+    window.FEMME_CART = {
+      open: openDrawer,
+      close: closeDrawer,
+      update: updateDrawer,
+    };
+  }
+
   document.querySelectorAll('form[action*="/cart/add"]').forEach((form) => {
     form.addEventListener("submit", async (e) => {
       if (!form.hasAttribute("data-ajax")) return;
       e.preventDefault();
       const body = new FormData(form);
-      await fetch(window.Shopify?.routes?.root ? `${window.Shopify.routes.root}cart/add.js` : "/cart/add.js", {
+      const addEndpoint = window.Shopify?.routes?.root ? `${window.Shopify.routes.root}cart/add.js` : "/cart/add.js";
+      await fetch(addEndpoint, {
         method: "POST",
         body,
         headers: { Accept: "application/json" },
@@ -53,6 +214,10 @@
         setTimeout(() => {
           btn.textContent = prev;
         }, 1400);
+      }
+      if (cartDrawer) {
+        window.FEMME_CART.update(cart);
+        openDrawer();
       }
     });
   });

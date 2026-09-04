@@ -30,6 +30,11 @@
       <div class="filters" style="margin-top:2rem">{{ paginate | default_pagination }}</div>
     {% endif %}
   {% endpaginate %}
+  {% for block in section.blocks %}
+    {% if block.type == '@app' %}
+      <div style="margin: 2rem 0">{% render block %}</div>
+    {% endif %}
+  {% endfor %}
 </section>
 
 {% schema %}
@@ -37,6 +42,7 @@
   "name": "Blog",
   "tag": "section",
   "class": "section",
+  "blocks": [{ "type": "@app" }],
   "settings": []
 }
 {% endschema %}

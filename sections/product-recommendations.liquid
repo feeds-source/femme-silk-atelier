@@ -4,7 +4,7 @@
     <h2 class="display" style="font-style:italic">{{ section.settings.heading | default: 'You may also admire' }}</h2>
     <div class="grid-shop" style="margin-top:2rem">
       {% for item in recommendations.products %}
-        {% render 'demo-card', p: item %}
+        {% render 'product-card', product: item %}
       {% endfor %}
     </div>
   {% endif %}

@@ -26,7 +26,7 @@
 
     {% assign menu_links = linklists[section.settings.menu].links %}
     <nav class="nav-desk" aria-label="Primary">
-      {% if menu_links.size > 3 %}
+      {% if section.settings.menu != blank and menu_links.size > 0 %}
         {% for link in menu_links %}
           {% if link.links.size > 0 %}
             <div class="nav-dropdown" style="position:relative;display:inline-flex;align-items:center">
@@ -74,7 +74,7 @@
   </div>
 
   <nav class="nav-mob" data-nav-mob>
-    {% if menu_links.size > 3 %}
+    {% if section.settings.menu != blank and menu_links.size > 0 %}
       {% for link in menu_links %}
         <a href="{{ link.url }}">{{ link.title }}</a>
         {% if link.links.size > 0 %}

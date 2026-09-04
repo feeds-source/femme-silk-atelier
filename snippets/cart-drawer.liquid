@@ -1,0 +1,107 @@
+<div id="cart-drawer" class="cart-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t | default: 'Your Bag' }}">
+  <div class="cart-drawer__veil" data-cart-close tabindex="-1"></div>
+  <div class="cart-drawer__panel">
+    <div class="cart-drawer__header">
+      <div class="cart-drawer__title-wrap">
+        <p class="kicker">{{ 'general.bag' | t | default: 'Atelier Bag' }}</p>
+        <h2 class="display" style="font-size:1.5rem;font-style:italic;margin:0">{{ 'cart.title' | t | default: 'Your Bag' }} (<span data-drawer-count>{{ cart.item_count }}</span>)</h2>
+      </div>
+      <button type="button" class="cart-drawer__close" data-cart-close aria-label="Close bag">&times;</button>
+    </div>
+
+    {% if settings.free_shipping_threshold > 0 %}
+      {% assign threshold_cents = settings.free_shipping_threshold | times: 100 %}
+      <div class="cart-drawer__shipping" data-shipping-threshold="{{ threshold_cents }}">
+        {% if cart.total_price >= threshold_cents %}
+          <p class="gold" style="font-size:0.8rem;letter-spacing:0.04em">✓ You have unlocked complimentary worldwide delivery.</p>
+        {% else %}
+          {% assign needed = threshold_cents | minus: cart.total_price %}
+          <p class="subtle" style="font-size:0.8rem">
+            Add <strong class="gold">{{ needed | money }}</strong> more for complimentary delivery.
+          </p>
+        {% endif %}
+        <div class="cart-drawer__progress">
+          {% assign pct = cart.total_price | times: 100 | divided_by: threshold_cents | at_most: 100 %}
+          <div class="cart-drawer__progress-bar" style="width: {{ pct }}%"></div>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="cart-drawer__body" data-drawer-body>
+      {% if cart.item_count == 0 %}
+        <div class="cart-drawer__empty" style="text-align:center;padding:4rem 1.5rem">
+          <p class="muted">{{ 'cart.empty' | t | default: 'Your bag is empty.' }}</p>
+          <a class="btn" href="{{ routes.all_products_collection_url }}" style="margin-top:1.5rem" data-cart-close>Shop the house</a>
+        </div>
+      {% else %}
+        <div class="cart-drawer__items" data-drawer-items>
+          {% for item in cart.items %}
+            <div class="cart-drawer__item" data-item-key="{{ item.key }}" data-line="{{ forloop.index }}">
+              <div class="cart-drawer__item-media">
+                {% if item.image %}
+                  {{ item.image | image_url: width: 180 | image_tag: loading: 'lazy', alt: item.title }}
+                {% endif %}
+              </div>
+              <div class="cart-drawer__item-info">
+                <a class="cart-drawer__item-title" href="{{ item.url }}">{{ item.product.title }}</a>
+                {% unless item.product.has_only_default_variant %}
+                  <p class="cart-drawer__item-variant">{{ item.variant.title }}</p>
+                {% endunless %}
+                <div class="cart-drawer__item-price">
+                  {% if item.original_line_price != item.final_line_price %}
+                    <s class="muted" style="font-size:0.8rem">{{ item.original_line_price | money }}</s>
+                  {% endif %}
+                  <span class="gold">{{ item.final_line_price | money }}</span>
+                </div>
+                <div class="cart-drawer__item-bottom">
+                  <div class="cart-drawer__qty-stepper">
+                    <button type="button" class="qty-step" data-qty-change="-1" data-key="{{ item.key }}">&minus;</button>
+                    <span class="qty-val" data-item-qty>{{ item.quantity }}</span>
+                    <button type="button" class="qty-step" data-qty-change="1" data-key="{{ item.key }}">+</button>
+                  </div>
+                  <button type="button" class="cart-drawer__item-remove" data-item-remove data-key="{{ item.key }}">{{ 'cart.remove' | t | default: 'Remove' }}</button>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="cart-drawer__footer" {% if cart.item_count == 0 %}style="display:none"{% endif %}>
+      {% if settings.enable_cart_notes %}
+        <details class="cart-drawer__notes">
+          <summary class="subtle" style="cursor:pointer;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase">
+            + Atelier delivery or gift note
+          </summary>
+          <textarea
+            name="note"
+            form="cart-drawer-form"
+            rows="2"
+            placeholder="Discreet delivery instructions, gift sentiment..."
+            style="width:100%;margin-top:0.5rem;padding:0.6rem;background:var(--elevated);border:1px solid var(--line);border-radius:0.5rem;color:var(--fg);font-size:0.85rem;font-family:inherit"
+          >{{ cart.note }}</textarea>
+        </details>
+      {% endif %}
+
+      <div class="cart-drawer__subtotal" style="display:flex;justify-content:space-between;align-items:baseline;margin:1rem 0 0.5rem">
+        <span class="subtle" style="text-transform:uppercase;font-size:0.75rem;letter-spacing:0.14em">{{ 'cart.subtotal' | t | default: 'Subtotal' }}</span>
+        <strong class="gold" data-drawer-subtotal style="font-size:1.25rem">{{ cart.total_price | money }}</strong>
+      </div>
+      <p class="subtle" style="font-size:0.75rem;margin:0 0 1rem;line-height:1.4">
+        {{ 'general.cod' | t | default: 'Cash on delivery worldwide' }} · Taxes and shipping calculated at checkout.
+      </p>
+
+      <form action="{{ routes.cart_url }}" method="post" id="cart-drawer-form">
+        <button class="btn btn--full" type="submit" name="checkout" style="height:3rem">
+          {{ 'cart.checkout' | t | default: 'Checkout' }} &rarr;
+        </button>
+      </form>
+      <div style="text-align:center;margin-top:0.75rem">
+        <a class="subtle" href="{{ routes.cart_url }}" style="font-size:0.75rem;text-decoration:underline">
+          View bag page
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
