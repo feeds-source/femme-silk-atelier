@@ -1,0 +1,15 @@
+{
+  "name": "femme-silk-atelier-api",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "femme-atelier-db",
+      "database_id": "local-d1"
+    }
+  ]
+}
