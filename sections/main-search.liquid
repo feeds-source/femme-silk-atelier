@@ -30,9 +30,16 @@
 
   <div class="search-block" data-search-aisles></div>
 
+  {% assign house_cats = 'bras,bralettes,seamless,sleep-sets,slips,leakproof,active,robes,bra-sets,panties,camisole,babydoll,short-nighty,long-nighty,gowns,teddies,bridal,corsetry,hosiery,body-stockings,shapewear,swim,loungewear,resort,thermal,accessories' | split: ',' %}
+  {% assign term_handle = search.terms | handleize %}
+  {% assign house_hit = false %}
+  {% if house_cats contains term_handle %}{% assign house_hit = true %}{% endif %}
+
   {% if search.performed %}
     <p class="muted" data-search-count style="margin-top:2rem">
-      {% if search.results_count > 0 %}
+      {% if house_hit %}
+        {{ search.terms }}
+      {% elsif search.results_count > 0 %}
         Found {{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} for "{{ search.terms }}"
       {% else %}
         {{ search.terms }}
@@ -41,7 +48,7 @@
 
     {% paginate search.results by 24 %}
       <div class="grid-shop" data-search-grid style="margin-top:2rem">
-        {% if search.results_count == 0 %}
+        {% if house_hit or search.results_count == 0 %}
           {% render 'demo-catalog', mode: search.terms, max_items: 60 %}
         {% else %}
         {% for item in search.results %}

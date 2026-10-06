@@ -70,7 +70,7 @@
     {% assign walk = "Bralettes|Wireless all day|cloud-bralette.jpg,Seamless|Nothing to show|invisible-brief.jpg,Sleep Sets|Matching sleep|champagne-sleep-set.jpg,Bra Sets|Balconette pairs|lace-balconette-set.jpg,Gowns|Satin after dusk|satin-gown.jpg,Swim|Jewel bikini|silk-bikini.jpg,Corsetry|Boning and gold|emerald-bustier.jpg,Body Stockings|Sheer noir|body-stocking.jpg" | split: "," %}
     {% for row in walk %}
       {% assign bit = row | split: "|" %}
-      <a class="aisle group" href="{{ routes.search_url }}?q={{ bit[0] | url_encode }}">
+      <a class="aisle group" href="{{ routes.search_url }}?type=product&q={{ bit[0] | url_encode }}">
         <img class="ken" src="{{ bit[2] | asset_url }}" alt="{{ bit[0] | escape }}" width="800" height="600">
         <video class="motion-video" autoplay muted loop playsinline poster="{{ bit[2] | asset_url }}" aria-hidden="true">
           <source src="{{ bit[2] | replace: '.jpg', '.mp4' | asset_url }}" type="video/mp4">
@@ -94,7 +94,7 @@
     <a class="pill {% if handle == 'all' %}is-on{% endif %}" href="{{ routes.all_products_collection_url }}">All</a>
     {% assign femme_cats = 'Bras,Bralettes,Seamless,Sleep Sets,Slips,Leakproof,Active,Robes,Bra Sets,Panties,Camisole,Babydoll,Short Nighty,Long Nighty,Gowns,Teddies,Bridal,Corsetry,Hosiery,Body Stockings,Shapewear,Swim,Loungewear,Resort,Thermal,Accessories' | split: ',' %}
     {% for c in femme_cats %}
-      <a class="pill {% if collection.title == c %}is-on{% endif %}" href="{{ routes.search_url }}?q={{ c | url_encode }}">{{ c }}</a>
+      <a class="pill {% if collection.title == c %}is-on{% endif %}" href="{{ routes.search_url }}?type=product&q={{ c | url_encode }}">{{ c }}</a>
     {% endfor %}
   </div>
 </nav>
