@@ -32,6 +32,8 @@
     "social_tiktok_link": "https://www.tiktok.com/@silkmoments",
     "brand_line": "Exotic silk, cut for the body.",
     "contact_email": "info@silkmoments.com",
+    "auth0_domain": "silkmoments.us.auth0.com",
+    "auth0_client_id": "NFWd6eudI4TbilRjYSsduUjIqGtrBYn5",
     "show_currency_selector": true,
     "show_language_selector": true,
     "show_payment_icons": true,

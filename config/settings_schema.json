@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Femme Silk Atelier",
-    "theme_version": "2.6.0",
+    "theme_version": "2.7.0",
     "theme_author": "Silk Moments",
     "theme_documentation_url": "https://www.silkmoments.com/docs",
     "theme_support_url": "https://www.silkmoments.com/support"
@@ -76,12 +76,14 @@
         "type": "text",
         "id": "auth0_domain",
         "label": "Auth0 domain",
+        "default": "silkmoments.us.auth0.com",
         "info": "your-tenant.auth0.com"
       },
       {
         "type": "text",
         "id": "auth0_client_id",
-        "label": "Auth0 client ID"
+        "label": "Auth0 client ID",
+        "default": "NFWd6eudI4TbilRjYSsduUjIqGtrBYn5"
       }
     ]
   },
