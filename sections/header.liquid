@@ -59,6 +59,10 @@
         <span aria-hidden="true">🔍</span> Search
       </button>
 
+      <button type="button" class="pill" data-auth-open>
+        <span data-auth-label>{% if customer %}{{ customer.first_name | default: 'Account' }}{% else %}Sign in{% endif %}</span>
+      </button>
+
       {% if shop.customer_accounts_enabled %}
         <a class="pill" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">
           {% if customer %}Account{% else %}Sign in{% endif %}

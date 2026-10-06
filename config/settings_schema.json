@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Femme Silk Atelier",
-    "theme_version": "2.2.0",
+    "theme_version": "2.6.0",
     "theme_author": "Silk Moments",
     "theme_documentation_url": "https://www.silkmoments.com/docs",
     "theme_support_url": "https://www.silkmoments.com/support"
@@ -62,6 +62,26 @@
         "type": "url",
         "id": "announcement_link",
         "label": "Announcement link"
+      }
+    ]
+  },
+  {
+    "name": "Auth0",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Use an Auth0 Single Page Application. Allowed callback URL, logout URL, and web origin: your store homepage, including the trailing slash."
+      },
+      {
+        "type": "text",
+        "id": "auth0_domain",
+        "label": "Auth0 domain",
+        "info": "your-tenant.auth0.com"
+      },
+      {
+        "type": "text",
+        "id": "auth0_client_id",
+        "label": "Auth0 client ID"
       }
     ]
   },

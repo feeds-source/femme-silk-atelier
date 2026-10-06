@@ -10,6 +10,7 @@
       <input id="CustomerPassword" type="password" name="customer[password]" placeholder="Password" autocomplete="current-password" required style="display:block;width:100%;height:2.75rem;margin:0.75rem 0;background:var(--elevated);border:1px solid var(--line);border-radius:999px;color:var(--fg);padding:0 1rem">
       <button class="btn" type="submit" style="width:100%">{{ 'customer.login.submit' | t | default: 'Sign in' }}</button>
     {% endform %}
+    <button type="button" class="btn btn--ghost" data-auth-open style="width:100%;margin-top:0.75rem">Continue with Auth0</button>
     <div style="display:flex;justify-content:space-between;margin-top:1.25rem;font-size:0.85rem">
       <a class="subtle" href="#recover" onclick="document.getElementById('CustomerLoginForm').style.display='none';document.getElementById('RecoverPasswordForm').style.display='block';return false;">Forgot password?</a>
       <a class="gold" href="{{ routes.account_register_url }}">Create account</a>

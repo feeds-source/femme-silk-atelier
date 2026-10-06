@@ -49,6 +49,11 @@
         shopUrl: {{ routes.all_products_collection_url | json }},
         currencySymbol: {{ cart.currency.symbol | default: '$' | json }},
         currencyCode: {{ cart.currency.iso_code | default: 'USD' | json }},
+        auth0Domain: {{ settings.auth0_domain | json }},
+        auth0ClientId: {{ settings.auth0_client_id | json }},
+        accountLogin: {{ routes.account_login_url | json }},
+        accountUrl: {{ routes.account_url | json }},
+        accountsEnabled: {{ shop.customer_accounts_enabled | json }},
         asset: function (name) {
           return {{ 'femme.css' | asset_url | json }}.replace(/femme\.css(\?.*)?$/, name);
         }
@@ -70,6 +75,7 @@
     <div id="house-wish" class="house-layer" hidden></div>
     <div id="house-orders" class="house-layer" hidden></div>
     <div id="house-checkout" class="house-layer" hidden></div>
+    <div id="house-auth" class="house-layer" hidden></div>
     <script src="{{ 'femme.js' | asset_url }}" defer></script>
     <script src="{{ 'house-store.js' | asset_url }}" defer></script>
   </body>

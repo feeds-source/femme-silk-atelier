@@ -296,6 +296,15 @@
     }
     if (e.target.closest("[data-wish-open]")) { renderWish(); return; }
     if (e.target.closest("[data-orders-open]")) { renderOrders(); return; }
+    if (e.target.closest("[data-auth-open]")) { renderAuth(); return; }
+    if (e.target.closest("[data-auth0]")) { startAuth0(); return; }
+    if (e.target.closest("[data-auth-out]")) {
+      localStorage.removeItem("femme-auth");
+      paintAuth();
+      const layer = document.getElementById("house-auth");
+      if (layer) closeLayer(layer);
+      return;
+    }
     if (e.target.closest("[data-close-layer]")) {
       const layer = e.target.closest(".house-layer");
       if (layer) closeLayer(layer);
@@ -321,9 +330,110 @@
     }
   }, true);
 
+  function authSession() {
+    try { return JSON.parse(localStorage.getItem("femme-auth") || "null"); } catch (e) { return null; }
+  }
+  function paintAuth() {
+    const user = authSession();
+    document.querySelectorAll("[data-auth-label]").forEach((el) => {
+      el.textContent = user ? (user.name || user.email || "Account") : "Sign in";
+    });
+  }
+  function b64url(bytes) {
+    let s = "";
+    bytes.forEach((b) => { s += String.fromCharCode(b); });
+    return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  function auth0Domain() {
+    return String(window.FEMME?.auth0Domain || "").replace(/^https?:\/\//, "").replace(/\/$/, "");
+  }
+  function redirectUri() {
+    return window.location.origin + "/";
+  }
+  async function startAuth0() {
+    const domain = auth0Domain();
+    const clientId = window.FEMME?.auth0ClientId;
+    if (!domain || !clientId) return;
+    const bytes = new Uint8Array(32);
+    crypto.getRandomValues(bytes);
+    const verifier = b64url(bytes);
+    const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier)));
+    const challenge = b64url(digest);
+    sessionStorage.setItem("femme-auth0-verifier", verifier);
+    const url = new URL("https://" + domain + "/authorize");
+    url.searchParams.set("response_type", "code");
+    url.searchParams.set("client_id", clientId);
+    url.searchParams.set("redirect_uri", redirectUri());
+    url.searchParams.set("scope", "openid profile email");
+    url.searchParams.set("code_challenge", challenge);
+    url.searchParams.set("code_challenge_method", "S256");
+    window.location.assign(url.toString());
+  }
+  async function finishAuth0() {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const verifier = sessionStorage.getItem("femme-auth0-verifier");
+    const domain = auth0Domain();
+    if (!code || !verifier || !domain || !window.FEMME?.auth0ClientId) return;
+    const tokenRes = await fetch("https://" + domain + "/oauth/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        grant_type: "authorization_code",
+        client_id: window.FEMME.auth0ClientId,
+        code_verifier: verifier,
+        code,
+        redirect_uri: redirectUri()
+      })
+    });
+    const tok = await tokenRes.json();
+    if (!tok.access_token) return;
+    const info = await fetch("https://" + domain + "/userinfo", {
+      headers: { Authorization: "Bearer " + tok.access_token }
+    }).then((r) => r.json());
+    localStorage.setItem("femme-auth", JSON.stringify({
+      name: info.name || info.nickname || info.email,
+      email: info.email || "",
+      sub: info.sub || ""
+    }));
+    sessionStorage.removeItem("femme-auth0-verifier");
+    const clean = new URL(window.location.href);
+    ["code", "state"].forEach((k) => clean.searchParams.delete(k));
+    history.replaceState({}, "", clean.pathname + clean.search + clean.hash);
+    paintAuth();
+    renderAuth();
+  }
+  function renderAuth() {
+    const host = document.getElementById("house-auth");
+    if (!host) return;
+    const user = authSession();
+    const ready = Boolean(auth0Domain() && window.FEMME?.auth0ClientId);
+    const shop = window.FEMME?.accountsEnabled
+      ? `<a class="gold" href="${esc(user ? window.FEMME.accountUrl : window.FEMME.accountLogin)}">Shopify account</a>`
+      : "";
+    host.innerHTML = `
+      <div class="house-veil" data-close-layer></div>
+      <aside class="side-panel" role="dialog" aria-label="Sign in">
+        <header><p class="kicker">Account</p><button type="button" data-close-layer aria-label="Close">&times;</button></header>
+        ${user ? `
+          <h2 class="display">${esc(user.name || "Signed in")}</h2>
+          <p class="muted">${esc(user.email)}</p>
+          <button type="button" class="btn" data-auth-out>Sign out</button>
+        ` : `
+          <h2 class="display">Sign in</h2>
+          <p class="muted">Auth0 opens a secure login. Google and email live there, not in this theme.</p>
+          ${ready ? `<button type="button" class="btn" data-auth0>Continue with Auth0</button>` : `<p class="subtle">Add the Auth0 domain and client ID under Theme settings, then publish again. Callback URL: ${esc(redirectUri())}</p>`}
+        `}
+        <p style="margin-top:1rem">${shop}</p>
+      </aside>`;
+    openLayer("house-auth");
+  }
+
   mountTools();
   document.querySelectorAll("[data-shop-tools]").forEach(applyTools);
   paintWishCount();
+  paintAuth();
+  finishAuth0();
   const piece = new URLSearchParams(window.location.search).get("piece");
   if (piece && byId(piece)) renderPdp(piece);
 })();
