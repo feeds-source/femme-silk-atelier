@@ -33,10 +33,7 @@
   }
 
   const cartDrawer = document.getElementById("cart-drawer");
-  const formatMoney = (cents) => {
-    const sym = (window.FEMME && window.FEMME.currencySymbol) || "$";
-    return `${sym}${(cents / 100).toFixed(2)}`;
-  };
+  const formatMoney = (cents) => `$${(Number(cents) / 100).toFixed(2)}`;
 
   const openDrawer = () => {
     if (!cartDrawer) return;
@@ -103,6 +100,10 @@
       const body = cartDrawer.querySelector("[data-drawer-body]");
       const footer = cartDrawer.querySelector(".cart-drawer__footer");
       if (cart.item_count === 0) {
+        if (readHouse().length) {
+          paintHouse();
+          return;
+        }
         if (footer) footer.style.display = "none";
         if (body) {
           body.innerHTML = `
@@ -395,6 +396,10 @@
     ["everyday-soft-bra","Everyday Soft Cup Bra","Bras",42],
     ["ultimate-tshirt-bra","Ultimate T-Shirt Bra","Bras",48],
     ["first-fit-teen-bra","First Fit Bralette","Bras",28],
+    ["cloud-bralette","Cloud Wireless Bralette","Bralettes",38],
+    ["studio-bra","Studio Soft Bra","Active",44],
+    ["invisible-brief","Invisible Seamless Brief","Seamless",18],
+    ["silk-leakproof","Silk-Feel Leakproof Brief","Leakproof",24],
     ["lace-balconette-set","Lace Balconette Set","Bra Sets",78],
     ["daily-hipster","Daily Hipster Brief","Panties",16],
     ["seamless-thong","Seamless Soft Thong","Panties",14],
@@ -402,6 +407,8 @@
     ["lace-camisole","Champagne Lace Camisole","Camisole",36],
     ["ruby-babydoll","Ruby Lace Babydoll","Babydoll",88],
     ["satin-night-set","Satin Night Cami Set","Short Nighty",64],
+    ["champagne-sleep-set","Champagne Sleep Set","Sleep Sets",78],
+    ["atelier-slip","Atelier Half Slip","Slips",58],
     ["short-lace-nighty","Noir Short Lace Nighty","Short Nighty",72],
     ["silk-night-slip","Champagne Night Slip","Long Nighty",86],
     ["satin-gown","Black Satin Gown","Gowns",96],
@@ -421,6 +428,7 @@
     ["sculpt-midi","Sculpt Midi Slip","Shapewear",62],
     ["silk-bikini","Ruby Silk Bikini","Swim",58],
     ["cloud-robe","Cloud Knit Robe","Loungewear",72],
+    ["noir-robe","Noir Atelier Robe","Robes",84],
     ["lounge-wide-pant","Wide-Leg Lounge Pant","Loungewear",58],
     ["silk-kaftan","Jewel Silk Kaftan","Resort",132],
     ["orchid-sarong","Orchid Silk Sarong","Resort",64],
@@ -430,7 +438,7 @@
     ["gold-body-chain","Gold Body Chain","Accessories",54],
   ].map(([id, name, cat, price]) => ({ id, name, cat, price }));
 
-  const AISLE_NAMES = ["Babydoll","Bra Sets","Gowns","Swim","Corsetry","Body Stockings","Bras","Panties","Teddies","Bridal","Loungewear","Hosiery","Shapewear","Resort","Camisole","Short Nighty","Long Nighty","Thermal","Accessories"];
+  const AISLE_NAMES = ["Bralettes","Seamless","Sleep Sets","Slips","Leakproof","Active","Robes","Bra Sets","Gowns","Swim","Corsetry","Body Stockings","Bras","Panties","Teddies","Bridal","Loungewear","Hosiery","Shapewear","Resort","Camisole","Short Nighty","Long Nighty","Babydoll","Thermal","Accessories"];
   const PAGES = [
     { title: "Size guide", href: "/pages/size-guide", terms: "size sizes fit chart measure band cup sister bra 30b 32b 34c" },
     { title: "The atelier", href: "/pages/atelier", terms: "atelier about house craft silk story femme" },
@@ -498,8 +506,7 @@
 
   const formatPrice = (num) => {
     if (num == null || isNaN(num)) return "";
-    const sym = window.FEMME?.currencySymbol || "$";
-    return `${sym}${Number(num).toFixed(2)}`;
+    return `$${Number(num).toFixed(2)}`;
   };
 
   function renderHouseHits(container, hits, query) {
@@ -639,4 +646,109 @@
       if (pageCount) pageCount.textContent = n ? `${n} ${n === 1 ? "piece" : "pieces"}` : `No pieces found matching “${q}”.`;
     }
   }
+
+  const HOUSE_KEY = "femme-house-bag";
+  function readHouse() {
+    try { return JSON.parse(localStorage.getItem(HOUSE_KEY) || "[]"); } catch (e) { return []; }
+  }
+  function writeHouse(items) {
+    localStorage.setItem(HOUSE_KEY, JSON.stringify(items));
+    paintHouse();
+  }
+  function usd(n) { return `$${Number(n).toFixed(2)}`; }
+  function paintHouse() {
+    const items = readHouse();
+    const page = document.querySelector("[data-house-cart-page]");
+    if (!items.length) {
+      if (page) page.innerHTML = "";
+      return;
+    }
+    const count = items.reduce((n, i) => n + i.qty, 0);
+    const total = items.reduce((n, i) => n + i.price * i.qty, 0);
+    document.querySelectorAll("[data-cart-count], [data-drawer-count]").forEach((el) => {
+      el.textContent = String(count);
+    });
+    if (page) {
+      page.innerHTML = `<div class="grid-shop" style="margin-top:1.5rem">${items.map((i) => `
+        <article class="product-tile">
+          <div class="card-media media-fill"><img src="${i.image}" alt=""></div>
+          <div class="card-body"><p class="cat">${i.size}</p><h3>${i.title}</h3><p class="price">${usd(i.price * i.qty)}</p></div>
+          <div class="card-actions">
+            <button type="button" class="btn" data-house-remove data-id="${i.id}" data-size="${i.size}">Remove</button>
+          </div>
+        </article>`).join("")}</div>
+        <p class="gold" style="margin-top:1.5rem">Subtotal ${usd(total)}</p>`;
+      const empty = page.parentElement?.querySelector(":scope > p.muted");
+      if (empty) empty.hidden = true;
+    }
+    if (!cartDrawer) return;
+    const body = cartDrawer.querySelector("[data-drawer-body]");
+    const footer = cartDrawer.querySelector(".cart-drawer__footer");
+    if (footer) {
+      footer.style.display = "";
+      const form = footer.querySelector("form");
+      if (form) form.onsubmit = (e) => { e.preventDefault(); window.location = "/cart"; };
+    }
+    const sub = cartDrawer.querySelector("[data-drawer-subtotal]");
+    if (sub) sub.textContent = usd(total);
+    if (body) {
+      body.innerHTML = `<div class="cart-drawer__items">${items.map((i) => `
+        <div class="cart-drawer__item">
+          <div class="cart-drawer__item-media"><img src="${i.image}" alt=""></div>
+          <div class="cart-drawer__item-info">
+            <p class="cart-drawer__item-title">${i.title}</p>
+            <p class="cart-drawer__item-variant">${i.size}</p>
+            <div class="cart-drawer__item-price"><span class="gold">${usd(i.price * i.qty)}</span></div>
+            <div class="cart-drawer__item-bottom">
+              <div class="cart-drawer__qty-stepper">
+                <button type="button" class="qty-step" data-house-qty="-1" data-id="${i.id}" data-size="${i.size}">&minus;</button>
+                <span class="qty-val">${i.qty}</span>
+                <button type="button" class="qty-step" data-house-qty="1" data-id="${i.id}" data-size="${i.size}">+</button>
+              </div>
+              <button type="button" class="cart-drawer__item-remove" data-house-remove data-id="${i.id}" data-size="${i.size}">Remove</button>
+            </div>
+          </div>
+        </div>`).join("")}</div>`;
+    }
+  }
+
+  document.addEventListener("click", (e) => {
+    const add = e.target.closest("[data-house-add]");
+    if (add) {
+      const card = add.closest("article");
+      const size = card?.querySelector("select")?.value || "M";
+      const id = add.dataset.id;
+      const items = readHouse();
+      const hit = items.find((i) => i.id === id && i.size === size);
+      if (hit) hit.qty += 1;
+      else items.push({
+        id,
+        title: add.dataset.title,
+        price: Number(add.dataset.price) || 0,
+        image: add.dataset.image,
+        size,
+        qty: 1,
+      });
+      writeHouse(items);
+      const prev = add.textContent;
+      add.textContent = "Added";
+      setTimeout(() => { add.textContent = prev; }, 1200);
+      openDrawer();
+      return;
+    }
+    const qty = e.target.closest("[data-house-qty]");
+    if (qty) {
+      const items = readHouse();
+      const hit = items.find((i) => i.id === qty.dataset.id && i.size === qty.dataset.size);
+      if (!hit) return;
+      hit.qty += Number(qty.dataset.houseQty);
+      writeHouse(hit.qty > 0 ? items : items.filter((i) => i !== hit));
+      return;
+    }
+    const remove = e.target.closest("[data-house-remove]");
+    if (remove) {
+      writeHouse(readHouse().filter((i) => !(i.id === remove.dataset.id && i.size === remove.dataset.size)));
+    }
+  });
+  paintHouse();
 })();

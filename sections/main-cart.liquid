@@ -10,6 +10,7 @@
     {% endif %}
   {% endfor %}
 
+  <div data-house-cart-page></div>
   {% if cart.item_count == 0 %}
     <p class="muted" style="margin-top:1rem">{{ 'cart.empty' | t | default: 'Your bag is empty.' }}</p>
     <a class="btn" href="{{ routes.all_products_collection_url }}" style="margin-top:1.5rem">Shop the house</a>

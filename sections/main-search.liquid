@@ -41,6 +41,9 @@
 
     {% paginate search.results by 24 %}
       <div class="grid-shop" data-search-grid style="margin-top:2rem">
+        {% if search.results_count == 0 %}
+          {% render 'demo-catalog', mode: search.terms, max_items: 60 %}
+        {% else %}
         {% for item in search.results %}
           {% case item.object_type %}
             {% when 'product' %}
@@ -61,6 +64,7 @@
               </article>
           {% endcase %}
         {% endfor %}
+        {% endif %}
       </div>
 
       {% if paginate.pages > 1 %}

@@ -106,7 +106,7 @@
       {% if collection.products_count > 0 %}
         {{ collection.products_count }} {{ collection.products_count | pluralize: 'piece', 'pieces' }}
       {% else %}
-        House preview — import products to replace the atelier catalog
+        House catalog · prices in USD
       {% endif %}
     </p>
     <a class="gold" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size charts</a>
@@ -115,7 +115,7 @@
     {% for product in collection.products %}
       {% render 'product-card', product: product %}
     {% else %}
-      {% render 'demo-catalog', mode: handle, max_items: 36 %}
+      {% render 'demo-catalog', mode: handle, max_items: 60 %}
     {% endfor %}
   </div>
   {% if paginate.pages > 1 %}
