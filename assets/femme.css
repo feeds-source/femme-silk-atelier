@@ -82,7 +82,7 @@ button, [type="submit"] { font: inherit; cursor: pointer; }
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, rgb(12 10 11 / 0.12) 0%, rgb(12 10 11 / 0.78) 100%);
+  background: linear-gradient(180deg, rgb(12 10 11 / 0.05) 0%, rgb(12 10 11 / 0.42) 100%);
 }
 .footer-veil {
   background: linear-gradient(180deg, rgb(12 10 11 / 0.9) 0%, rgb(12 10 11 / 0.95) 50%, rgb(12 10 11 / 0.98) 100%);
@@ -1190,7 +1190,18 @@ button, [type="submit"] { font: inherit; cursor: pointer; }
 .shop-tools label { display:grid; gap:0.3rem; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
 .shop-tools select, .qty-input, .checkout input { background:var(--elevated); color:var(--fg); border:1px solid var(--line); border-radius:0.6rem; padding:0.55rem 0.7rem; font:inherit; }
 .house-layer { position:fixed; inset:0; z-index:80; }
-.house-veil { position:absolute; inset:0; background:rgba(0,0,0,0.62); }
+.house-veil { position:absolute; inset:0; background:rgba(0,0,0,0.36); }
+.ken, .ken-hover, .motion-video,
+.page-hero > img, .page-hero > video,
+.hero img, .hero video,
+.aisle img, .aisle video,
+.campaign img, .campaign video,
+.grid-campaigns img, .grid-campaigns video,
+.product-tile img, .product-tile video,
+.pdp-media img, .pdp-media video,
+.marquee-track img, .marquee-track video {
+  filter: brightness(1.2) contrast(1.05) saturate(1.12);
+}
 .pdp, .side-panel, .checkout { position:relative; z-index:1; background:var(--bg); color:var(--fg); overflow:auto; }
 .pdp { margin:2vh auto; width:min(1100px, 96vw); max-height:96vh; display:grid; grid-template-columns:1.1fr 0.9fr; border:1px solid var(--line); border-radius:1.2rem; }
 .pdp-media { min-height:70vh; position:relative; }

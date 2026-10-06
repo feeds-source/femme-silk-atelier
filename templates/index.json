@@ -138,7 +138,7 @@
       "settings": {
         "autoplay_interval": 7,
         "min_height": 52,
-        "overlay_opacity": 60,
+        "overlay_opacity": 32,
         "show_dots": true
       }
     },
