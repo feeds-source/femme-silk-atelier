@@ -21,10 +21,10 @@
   <h2 class="display" style="font-style:italic;margin-top:0.5rem">Explore the house</h2>
   
   <div class="search-pills" style="justify-content:center;margin-top:1.5rem">
-    <a class="pill" href="{{ collections.babydoll.url | default: routes.all_products_collection_url }}">Babydolls</a>
-    <a class="pill" href="{{ collections['bra-sets'].url | default: routes.all_products_collection_url }}">Bra Sets</a>
-    <a class="pill" href="{{ collections.gowns.url | default: routes.all_products_collection_url }}">Silk Gowns</a>
-    <a class="pill" href="{{ collections.corsetry.url | default: routes.all_products_collection_url }}">Corsetry</a>
+    <a class="pill" href="{{ routes.search_url }}?q=Babydoll">Babydolls</a>
+    <a class="pill" href="{{ routes.search_url }}?q=Bra+Sets">Bra Sets</a>
+    <a class="pill" href="{{ routes.search_url }}?q=Gowns">Silk Gowns</a>
+    <a class="pill" href="{{ routes.search_url }}?q=Corsetry">Corsetry</a>
     <a class="pill" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size charts</a>
   </div>
 

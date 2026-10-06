@@ -35,7 +35,7 @@
       {% if search.results_count > 0 %}
         Found {{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} for "{{ search.terms }}"
       {% else %}
-        No results found for "{{ search.terms }}". Try checking your spelling or using different keywords.
+        {{ search.terms }}
       {% endif %}
     </p>
 

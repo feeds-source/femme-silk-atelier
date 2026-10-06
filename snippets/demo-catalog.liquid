@@ -19,10 +19,20 @@
   {% assign cat_name = cat | downcase %}
   {% assign title_name = title | downcase %}
   {% assign include = false %}
+  {% assign room_sleep = ',babydoll,short nighty,long nighty,sleep sets,slips,gowns,teddies,robes,' %}
+  {% assign room_lingerie = ',bras,bralettes,bra sets,panties,seamless,leakproof,active,camisole,corsetry,hosiery,body stockings,shapewear,' %}
+  {% assign room_lounge = ',bridal,swim,loungewear,resort,thermal,accessories,' %}
+  {% assign needle = ',' | append: cat_name | append: ',' %}
   {% if demo_mode == 'all' or demo_mode == 'shop' or demo_mode == 'frontpage' or demo_mode == blank %}
     {% assign include = true %}
   {% elsif demo_mode == 'featured' %}
     {% if tag != blank %}{% assign include = true %}{% endif %}
+  {% elsif demo_mode == 'sleep' and room_sleep contains needle %}
+    {% assign include = true %}
+  {% elsif demo_mode == 'lingerie' and room_lingerie contains needle %}
+    {% assign include = true %}
+  {% elsif demo_mode == 'lounge' and room_lounge contains needle %}
+    {% assign include = true %}
   {% elsif demo_mode == cat_handle or demo_mode == cat_name or title_name contains demo_mode or cat_name contains demo_mode %}
     {% assign include = true %}
   {% endif %}
