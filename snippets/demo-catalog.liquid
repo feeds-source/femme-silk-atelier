@@ -25,10 +25,7 @@
     {% assign include = true %}
   {% endif %}
   {% if include %}
-    {% assign video = '' %}
-    {% if handle == 'everyday-soft-bra' or handle == 'ultimate-tshirt-bra' or handle == 'lace-balconette-set' or handle == 'ruby-babydoll' or handle == 'satin-night-set' or handle == 'noir-teddy' or handle == 'mesh-bodysuit' or handle == 'ivory-bridal-set' or handle == 'emerald-bustier' %}
-      {% assign video = handle | append: '.mp4' %}
-    {% endif %}
+    {% assign video = handle | append: '.mp4' %}
     {% assign wide = false %}
     {% if tag == 'Best seller' or tag == 'Exotic' %}{% assign wide = true %}{% endif %}
     {% assign image_file = handle | append: '.jpg' %}

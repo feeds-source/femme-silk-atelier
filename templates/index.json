@@ -126,7 +126,7 @@
             "link": "/collections/lounge",
             "fallback": "lounge.jpg",
             "video_url": "",
-            "video_fallback": ""
+            "video_fallback": "lounge.mp4"
           }
         }
       },

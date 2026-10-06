@@ -7,6 +7,10 @@
             {{ block.settings.image | image_url: width: 600 | image_tag: alt: block.settings.alt | default: 'Silk gallery', loading: 'lazy' }}
           {% else %}
             <img src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.alt | escape }}" width="640" height="440" loading="lazy">
+            {% assign tile_film = block.settings.fallback | replace: '.jpg', '.mp4' %}
+            <video class="motion-video" autoplay muted loop playsinline poster="{{ block.settings.fallback | asset_url }}" aria-hidden="true">
+              <source src="{{ tile_film | asset_url }}" type="video/mp4">
+            </video>
           {% endif %}
         </figure>
       {% endfor %}

@@ -12,6 +12,10 @@
       {% assign card_video = product.media | where: 'media_type', 'video' | first %}
       {% if card_video %}
         {{ card_video | video_tag: image_size: '900x', autoplay: true, loop: true, muted: true, controls: false, class: 'motion-video' }}
+      {% else %}
+        <video class="motion-video" autoplay muted loop playsinline {% if product.featured_image %}poster="{{ product.featured_image | image_url: width: 900 }}"{% endif %} aria-hidden="true">
+          <source src="{{ product.handle | append: '.mp4' | asset_url }}" type="video/mp4">
+        </video>
       {% endif %}
       {% if product.compare_at_price > product.price %}
         <span class="tag" style="background:var(--blush)">Sale</span>

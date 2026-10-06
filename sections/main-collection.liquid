@@ -25,17 +25,20 @@
   {% when 'loungewear' %}
     {% assign hero_img = 'lounge.jpg' %}{% assign hero_kick = 'After dusk' %}{% assign hero_body = 'Knit robes and wide-leg ease. Emerald after dusk.' %}
 {% endcase %}
+{% if hero_vid == blank %}
+  {% assign hero_vid = hero_img | replace: '.jpg', '.mp4' %}
+{% endif %}
 
 <section class="page-hero">
   {% if collection.featured_image %}
     {{ collection.featured_image | image_url: width: 2000 | image_tag: class: 'ken', loading: 'eager', alt: collection.title }}
   {% else %}
     <img class="ken" src="{{ hero_img | asset_url }}" alt="" width="1600" height="1000" loading="eager">
-    {% if hero_vid != blank %}
-      <video class="motion-video" autoplay muted loop playsinline poster="{{ hero_img | asset_url }}" aria-hidden="true">
-        <source src="{{ hero_vid | asset_url }}" type="video/mp4">
-      </video>
-    {% endif %}
+  {% endif %}
+  {% if hero_vid != blank %}
+    <video class="motion-video" autoplay muted loop playsinline poster="{{ hero_img | asset_url }}" aria-hidden="true">
+      <source src="{{ hero_vid | asset_url }}" type="video/mp4">
+    </video>
   {% endif %}
   <div class="hero-veil"></div>
   <div class="wrap page-hero-copy">
