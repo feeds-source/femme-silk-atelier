@@ -1,5 +1,14 @@
-<article class="product-tile{% if wide %} span-wide{% endif %}">
-  <a href="{{ routes.all_products_collection_url }}" class="card-media-link">
+<article
+  class="product-tile{% if wide %} span-wide{% endif %}"
+  data-piece="{{ handle }}"
+  data-title="{{ title | escape }}"
+  data-cat="{{ cat | escape }}"
+  data-price="{{ price | remove: '$' | strip }}"
+  data-image="{{ image | asset_url }}"
+  data-video="{% if video != blank %}{{ video | asset_url }}{% endif %}"
+  data-chart="{{ chart }}"
+>
+  <a href="{{ routes.all_products_collection_url }}?piece={{ handle }}" class="card-media-link" data-open-piece="{{ handle }}">
     <div class="card-media media-fill">
       <img class="ken" src="{{ image | asset_url }}" alt="{{ title | escape }}" width="900" height="1200">
       {% if video != blank %}
@@ -10,10 +19,12 @@
       {% if tag != blank %}
         <span class="tag">{{ tag }}</span>
       {% endif %}
+      <button type="button" class="wish-heart" data-wish="{{ handle }}" aria-label="Save {{ title | escape }}">♡</button>
     </div>
   </a>
-  <a href="{{ routes.search_url }}?q={{ title | url_encode }}" class="card-body">
+  <a href="{{ routes.all_products_collection_url }}?piece={{ handle }}" class="card-body" data-open-piece="{{ handle }}">
     <p class="cat">{{ cat }}</p>
+    <h3>{{ title }}</h3>
     <p class="price">{{ price }}</p>
   </a>
   <div class="card-actions">
@@ -35,15 +46,17 @@
         <option>XS</option><option>S</option><option selected>M</option><option>L</option><option>XL</option><option>XXL</option>
       {% endif %}
     </select>
-    <button
-      type="button"
-      class="btn"
-      style="margin-top:0.5rem"
-      data-house-add
-      data-id="{{ handle }}"
-      data-title="{{ title | escape }}"
-      data-price="{{ price | remove: '$' | strip }}"
-      data-image="{{ image | asset_url }}"
-    >{{ 'products.add' | t }}</button>
+    <div class="card-action-row">
+      <button type="button" class="btn btn--ghost" data-open-piece="{{ handle }}">Quick view</button>
+      <button
+        type="button"
+        class="btn"
+        data-house-add
+        data-id="{{ handle }}"
+        data-title="{{ title | escape }}"
+        data-price="{{ price | remove: '$' | strip }}"
+        data-image="{{ image | asset_url }}"
+      >{{ 'products.add' | t }}</button>
+    </div>
   </div>
 </article>

@@ -720,14 +720,15 @@
       const id = add.dataset.id;
       const items = readHouse();
       const hit = items.find((i) => i.id === id && i.size === size);
-      if (hit) hit.qty += 1;
+      const extra = Math.max(1, Number(add.dataset.qty || 1));
+      if (hit) hit.qty += extra;
       else items.push({
         id,
         title: add.dataset.title,
         price: Number(add.dataset.price) || 0,
         image: add.dataset.image,
         size,
-        qty: 1,
+        qty: extra,
       });
       writeHouse(items);
       const prev = add.textContent;

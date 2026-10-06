@@ -65,6 +65,11 @@
         </a>
       {% endif %}
 
+      <button type="button" class="pill" data-wish-open aria-label="Saved pieces">
+        Saved <span data-wish-count>0</span>
+      </button>
+      <button type="button" class="pill" data-orders-open aria-label="Your orders">Orders</button>
+
       <a class="pill bag-pill" href="{{ routes.cart_url }}" data-cart-trigger>
         Bag <span data-cart-count>{{ cart.item_count }}</span>
       </a>
