@@ -1,3 +1,23 @@
+{% assign slug = request.path | split: '/' | last | handle %}
+{% assign house = '|bras|bralettes|seamless|sleep-sets|slips|leakproof|active|robes|bra-sets|panties|camisole|babydoll|short-nighty|long-nighty|gowns|teddies|bridal|corsetry|hosiery|body-stockings|shapewear|swim|loungewear|resort|thermal|accessories|' %}
+{% assign mark = '|' | append: slug | append: '|' %}
+{% if house contains mark %}
+  {% assign cat_title = slug | replace: '-', ' ' | capitalize %}
+  <section class="page-hero cine-page" style="min-height:22rem">
+    <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="{{ cat_title | escape }}" width="1600" height="1000">
+    <div class="hero-veil"></div>
+    <div class="wrap page-hero-copy">
+      <p class="kicker">Collection</p>
+      <h1 class="display page-title">{{ cat_title }}</h1>
+      <p class="muted lede">The {{ cat_title }} aisle, cut in jewel silk.</p>
+    </div>
+  </section>
+  <div class="wrap section">
+    <div class="grid-shop">
+      {% render 'demo-catalog', mode: slug, max_items: 60 %}
+    </div>
+  </div>
+{% else %}
 {% assign kicker = section.settings.kicker | default: '404 · Unfound' %}
 {% assign title = section.settings.title | default: 'Lost in the atelier' %}
 {% assign text = section.settings.text | default: 'This piece has slipped into the night or moved to a new salon room. Explore our curated collections below or search the house.' %}
@@ -21,10 +41,10 @@
   <h2 class="display" style="font-style:italic;margin-top:0.5rem">Explore the house</h2>
   
   <div class="search-pills" style="justify-content:center;margin-top:1.5rem">
-    <a class="pill" href="{{ routes.search_url }}?type=product&q=Babydoll">Babydolls</a>
-    <a class="pill" href="{{ routes.search_url }}?type=product&q=Bra+Sets">Bra Sets</a>
-    <a class="pill" href="{{ routes.search_url }}?type=product&q=Gowns">Silk Gowns</a>
-    <a class="pill" href="{{ routes.search_url }}?type=product&q=Corsetry">Corsetry</a>
+    <a class="pill" href="/collections/babydoll">Babydolls</a>
+    <a class="pill" href="/collections/bra-sets">Bra Sets</a>
+    <a class="pill" href="/collections/gowns">Silk Gowns</a>
+    <a class="pill" href="/collections/corsetry">Corsetry</a>
     <a class="pill" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size charts</a>
   </div>
 
@@ -43,6 +63,7 @@
     </div>
   {% endif %}
 </div>
+{% endif %}
 
 {% schema %}
 {

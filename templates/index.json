@@ -161,7 +161,7 @@
             "kicker": "Bralettes",
             "title": "Wireless all day",
             "collection": "",
-            "link": "/search?q=Bralettes",
+            "link": "/collections/bralettes",
             "fallback": "cloud-bralette.jpg"
           }
         },
@@ -171,7 +171,7 @@
             "kicker": "Seamless",
             "title": "Nothing to show",
             "collection": "",
-            "link": "/search?q=Seamless",
+            "link": "/collections/seamless",
             "fallback": "invisible-brief.jpg"
           }
         },
@@ -181,7 +181,7 @@
             "kicker": "Sleep Sets",
             "title": "Matching sleep",
             "collection": "",
-            "link": "/search?q=Sleep%20Sets",
+            "link": "/collections/sleep-sets",
             "fallback": "champagne-sleep-set.jpg"
           }
         },

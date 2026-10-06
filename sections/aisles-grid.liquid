@@ -4,7 +4,15 @@
     <h2>{{ section.settings.title }}</h2>
     <div class="grid-aisles">
       {% for block in section.blocks %}
-        <a class="aisle group" href="{{ block.settings.link | default: collections[block.settings.collection].url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+      {% assign aisle_handle = block.settings.kicker | handle %}
+      {% assign known = '|bras|bralettes|seamless|sleep-sets|slips|leakproof|active|robes|bra-sets|panties|camisole|babydoll|short-nighty|long-nighty|gowns|teddies|bridal|corsetry|hosiery|body-stockings|shapewear|swim|loungewear|resort|thermal|accessories|' %}
+      {% assign mark = '|' | append: aisle_handle | append: '|' %}
+      {% if known contains mark %}
+        {% assign aisle_href = '/collections/' | append: aisle_handle %}
+      {% else %}
+        {% assign aisle_href = block.settings.link | default: collections[block.settings.collection].url | default: routes.all_products_collection_url %}
+      {% endif %}
+        <a class="aisle group" href="{{ aisle_href }}" {{ block.shopify_attributes }}>
           {% if block.settings.image %}
             {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'ken-hover' }}
           {% else %}
