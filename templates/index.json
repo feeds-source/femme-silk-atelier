@@ -158,14 +158,34 @@
         "a1": {
           "type": "aisle",
           "settings": {
-            "kicker": "Babydoll",
-            "title": "Short lace night",
+            "kicker": "Bralettes",
+            "title": "Wireless all day",
             "collection": "",
-            "link": "/collections/sleep",
-            "fallback": "ruby-babydoll.jpg"
+            "link": "/search?q=Bralettes",
+            "fallback": "cloud-bralette.jpg"
           }
         },
         "a2": {
+          "type": "aisle",
+          "settings": {
+            "kicker": "Seamless",
+            "title": "Nothing to show",
+            "collection": "",
+            "link": "/search?q=Seamless",
+            "fallback": "invisible-brief.jpg"
+          }
+        },
+        "a3": {
+          "type": "aisle",
+          "settings": {
+            "kicker": "Sleep Sets",
+            "title": "Matching sleep",
+            "collection": "",
+            "link": "/search?q=Sleep%20Sets",
+            "fallback": "champagne-sleep-set.jpg"
+          }
+        },
+        "a4": {
           "type": "aisle",
           "settings": {
             "kicker": "Bra Sets",
@@ -175,7 +195,7 @@
             "fallback": "lace-balconette-set.jpg"
           }
         },
-        "a3": {
+        "a5": {
           "type": "aisle",
           "settings": {
             "kicker": "Gowns",
@@ -185,7 +205,7 @@
             "fallback": "satin-gown.jpg"
           }
         },
-        "a4": {
+        "a6": {
           "type": "aisle",
           "settings": {
             "kicker": "Swim",
@@ -195,7 +215,7 @@
             "fallback": "silk-bikini.jpg"
           }
         },
-        "a5": {
+        "a7": {
           "type": "aisle",
           "settings": {
             "kicker": "Corsetry",
@@ -205,7 +225,7 @@
             "fallback": "emerald-bustier.jpg"
           }
         },
-        "a6": {
+        "a8": {
           "type": "aisle",
           "settings": {
             "kicker": "Body Stockings",
@@ -222,7 +242,9 @@
         "a3",
         "a4",
         "a5",
-        "a6"
+        "a6",
+        "a7",
+        "a8"
       ],
       "settings": {
         "kicker": "The House",

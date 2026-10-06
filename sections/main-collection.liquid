@@ -22,6 +22,20 @@
     {% assign hero_img = 'silk-bikini.jpg' %}{% assign hero_kick = 'After dusk' %}{% assign hero_body = 'Jewel bikini. Triangle top to the nearest cup, brief to the hip.' %}
   {% when 'body-stockings' %}
     {% assign hero_img = 'body-stocking.jpg' %}{% assign hero_kick = 'Body' %}{% assign hero_body = 'Sheer noir lace, one piece. Free size, made to drape.' %}
+  {% when 'bralettes' %}
+    {% assign hero_img = 'cloud-bralette.jpg' %}{% assign hero_kick = 'Body' %}{% assign hero_body = 'Wireless bralettes. The comfort bra US wardrobes wear all day.' %}
+  {% when 'seamless' %}
+    {% assign hero_img = 'invisible-brief.jpg' %}{% assign hero_kick = 'Body' %}{% assign hero_body = 'Bonded, no-show briefs and thongs. Nothing to read under clothes.' %}
+  {% when 'sleep-sets' %}
+    {% assign hero_img = 'champagne-sleep-set.jpg' %}{% assign hero_kick = 'Night' %}{% assign hero_body = 'Silk shirt and wide trouser. Sleep sets, the fastest lounge aisle.' %}
+  {% when 'slips' %}
+    {% assign hero_img = 'atelier-slip.jpg' %}{% assign hero_kick = 'Night' %}{% assign hero_body = 'Half slips for dresses, and slip dresses in their own right.' %}
+  {% when 'leakproof' %}
+    {% assign hero_img = 'silk-leakproof.jpg' %}{% assign hero_kick = 'Body' %}{% assign hero_body = 'Stay-dry gusset briefs for cycle days. Same fit as the house brief.' %}
+  {% when 'active' %}
+    {% assign hero_img = 'studio-bra.jpg' %}{% assign hero_kick = 'Body' %}{% assign hero_body = 'Wireless studio bras. Light support from the house to the street.' %}
+  {% when 'robes' %}
+    {% assign hero_img = 'noir-robe.jpg' %}{% assign hero_kick = 'After dusk' %}{% assign hero_body = 'Self-tie robes. Lounge that leaves the house.' %}
   {% when 'loungewear' %}
     {% assign hero_img = 'lounge.jpg' %}{% assign hero_kick = 'After dusk' %}{% assign hero_body = 'Knit robes and wide-leg ease. Emerald after dusk.' %}
 {% endcase %}
@@ -53,36 +67,18 @@
   <p class="kicker">Aisles</p>
   <h2 class="display" style="font-style:italic">Walk the house</h2>
   <div class="grid-aisles">
-    <a class="aisle group" href="{{ routes.search_url }}?q=Babydoll">
-      <img class="ken-hover" src="{{ 'ruby-babydoll.jpg' | asset_url }}" alt="Babydoll" width="800" height="600">
-      <div class="hero-veil"></div>
-      <div class="aisle__copy"><p class="kicker">Babydoll</p><h3>Short lace night</h3></div>
-    </a>
-    <a class="aisle group" href="{{ routes.search_url }}?q=Bra+Sets">
-      <img class="ken-hover" src="{{ 'lace-balconette-set.jpg' | asset_url }}" alt="Bra Sets" width="800" height="600">
-      <div class="hero-veil"></div>
-      <div class="aisle__copy"><p class="kicker">Bra Sets</p><h3>Balconette pairs</h3></div>
-    </a>
-    <a class="aisle group" href="{{ routes.search_url }}?q=Gowns">
-      <img class="ken-hover" src="{{ 'satin-gown.jpg' | asset_url }}" alt="Gowns" width="800" height="600">
-      <div class="hero-veil"></div>
-      <div class="aisle__copy"><p class="kicker">Gowns</p><h3>Satin after dusk</h3></div>
-    </a>
-    <a class="aisle group" href="{{ routes.search_url }}?q=Swim">
-      <img class="ken-hover" src="{{ 'silk-bikini.jpg' | asset_url }}" alt="Swim" width="800" height="600">
-      <div class="hero-veil"></div>
-      <div class="aisle__copy"><p class="kicker">Swim</p><h3>Jewel bikini</h3></div>
-    </a>
-    <a class="aisle group" href="{{ routes.search_url }}?q=Corsetry">
-      <img class="ken-hover" src="{{ 'emerald-bustier.jpg' | asset_url }}" alt="Corsetry" width="800" height="600">
-      <div class="hero-veil"></div>
-      <div class="aisle__copy"><p class="kicker">Corsetry</p><h3>Boning & gold</h3></div>
-    </a>
-    <a class="aisle group" href="{{ routes.search_url }}?q=Body+Stockings">
-      <img class="ken-hover" src="{{ 'body-stocking.jpg' | asset_url }}" alt="Body Stockings" width="800" height="600">
-      <div class="hero-veil"></div>
-      <div class="aisle__copy"><p class="kicker">Body Stockings</p><h3>Sheer noir</h3></div>
-    </a>
+    {% assign walk = "Bralettes|Wireless all day|cloud-bralette.jpg,Seamless|Nothing to show|invisible-brief.jpg,Sleep Sets|Matching sleep|champagne-sleep-set.jpg,Bra Sets|Balconette pairs|lace-balconette-set.jpg,Gowns|Satin after dusk|satin-gown.jpg,Swim|Jewel bikini|silk-bikini.jpg,Corsetry|Boning and gold|emerald-bustier.jpg,Body Stockings|Sheer noir|body-stocking.jpg" | split: "," %}
+    {% for row in walk %}
+      {% assign bit = row | split: "|" %}
+      <a class="aisle group" href="{{ routes.search_url }}?q={{ bit[0] | url_encode }}">
+        <img class="ken" src="{{ bit[2] | asset_url }}" alt="{{ bit[0] | escape }}" width="800" height="600">
+        <video class="motion-video" autoplay muted loop playsinline poster="{{ bit[2] | asset_url }}" aria-hidden="true">
+          <source src="{{ bit[2] | replace: '.jpg', '.mp4' | asset_url }}" type="video/mp4">
+        </video>
+        <div class="hero-veil"></div>
+        <div class="aisle__copy"><p class="kicker">{{ bit[0] }}</p><h3>{{ bit[1] }}</h3></div>
+      </a>
+    {% endfor %}
   </div>
 </section>
 {% endif %}
@@ -96,7 +92,7 @@
 <nav class="guide-nav">
   <div class="wrap filters">
     <a class="pill {% if handle == 'all' %}is-on{% endif %}" href="{{ routes.all_products_collection_url }}">All</a>
-    {% assign femme_cats = 'Bras,Bra Sets,Panties,Camisole,Babydoll,Short Nighty,Long Nighty,Gowns,Teddies,Bridal,Corsetry,Hosiery,Body Stockings,Shapewear,Swim,Loungewear,Resort,Thermal,Accessories' | split: ',' %}
+    {% assign femme_cats = 'Bras,Bralettes,Seamless,Sleep Sets,Slips,Leakproof,Active,Robes,Bra Sets,Panties,Camisole,Babydoll,Short Nighty,Long Nighty,Gowns,Teddies,Bridal,Corsetry,Hosiery,Body Stockings,Shapewear,Swim,Loungewear,Resort,Thermal,Accessories' | split: ',' %}
     {% for c in femme_cats %}
       <a class="pill {% if collection.title == c %}is-on{% endif %}" href="{{ routes.search_url }}?q={{ c | url_encode }}">{{ c }}</a>
     {% endfor %}
