@@ -409,9 +409,6 @@
     const host = document.getElementById("house-auth");
     if (!host) return;
     const user = authSession();
-    const shop = window.FEMME?.accountsEnabled
-      ? `<a class="gold" href="${esc(user ? window.FEMME.accountUrl : window.FEMME.accountLogin)}">Shopify account</a>`
-      : "";
     host.innerHTML = `
       <div class="house-veil" data-close-layer></div>
       <aside class="side-panel" role="dialog" aria-label="Sign in">
@@ -426,7 +423,6 @@
           <button type="button" class="btn" data-auth0="signup">Signup</button>
           <button type="button" class="btn btn--ghost" data-auth0="login">Login</button>
         `}
-        <p style="margin-top:1rem">${shop}</p>
       </aside>`;
     openLayer("house-auth");
   }
